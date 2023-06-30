@@ -1,0 +1,18 @@
+#mycard{
+  padding: 10px;
+  height: 170px;
+  background-color: #faebd73b;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.margin-top-base{
+  margin-top: 16px;
+}
+.margin-bottom-base{
+  margin-bottom: 16px;
+}
+.padding-base{
+  padding: 16px;
+}
+.border-1p{
+  border:1px solid #ffb9b9;
+}

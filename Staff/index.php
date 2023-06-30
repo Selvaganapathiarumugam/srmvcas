@@ -1,0 +1,113 @@
+<?php
+    ob_start();
+    session_start();
+    error_reporting(0); 
+    include("../links.php");
+    if(isset($_REQUEST["did"]))
+    {
+        $id=$_REQUEST['did'];
+        $SQL="delete from tblusers where Id='". $id."'";
+        try {
+            $result = mysqli_query($conn,$SQL);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff</title>
+</head>
+
+<body>
+    <div class="border-1p">
+        <div class="row">
+            <div class="col-md-3">
+                <h3 class="text-muted padding-base">Staff List</h3>
+            </div>
+            <div class="col-md-6">
+                <center><h3 class="text-muted">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="margin-top-base" >
+                            <a href="../index.php" class="btn btn-primary btn-sm" style="color: #fff;">
+                                <i class="fa-solid fa-backward"></i> 
+                                <b>BACK</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+    <div class="container">
+        <div class="margin-top-base">
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                <a href="./Staff.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+                    <i class="fa fa-plus" ></i>
+                    <b>Add New Staff</b>
+                </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="tblStaff" class="table table-responsive table-hover" cellspacing="0">
+                    <thead>
+                        <tr>
+                         <th scope="col">Staff Id</th>
+                         <th scope="col">Name</th>
+                         <th scope="col">Phone</th>
+                         <th scope="col">DOJ</th>
+                         <th scope="col">Role</th>
+                         <th scope="col">Department</th>
+                         <th scope="col">Edit</th>
+                         <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                </table> 
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#tblStaff').dataTable({
+                "processing": true,
+                "ajax": "./data/Staff.php",
+                "columns": [
+                    {data: 'EmpId'},
+                    {data: 'fullname'},
+                    {data: 'phone'},
+                    {data: 'doj'},
+                    {data: 'Description'},
+                    {data: 'dname'},
+                    { 
+                        data: '',
+                        render: (data,type,row) => {
+                         return `<a href='Staff.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
+                        }
+                    },
+                    { 
+                        data: '',
+                        render: (data,type,row) => {
+                         return `<a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash" style="color: #005eff;"></i></a>`;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
