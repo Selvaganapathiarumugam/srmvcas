@@ -134,7 +134,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <form method="POST" class="form-horizontal" id="frmStaff" >
+                <form method="POST" class="form-horizontal" id="frmTtable" >
                     <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">
@@ -398,19 +398,32 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        swal(response, {
-                            buttons: {
-                                OK: {
-                                text: "OK",
-                                value: "OK",
-                            },
-                        },
-                        }).then((value) => {
-                            switch (value) {
-                                case "OK":window.location.href='./index.php'; break;
-                                default:window.location.href='./index.php';
+                        if(response=='This User is already to another course at the same time!')
+                        {
+                            swal('This User is already to another course at the same time!');
+                        }
+                        else
+                        {
+                            if(response == 'Error inserting data')
+                            {
+                                swal("Error inserting data");
                             }
-                        });
+                            else{
+                                swal(response, {
+                                    buttons: {
+                                        OK: {
+                                            text: "OK",
+                                            value: "OK",
+                                        },
+                                    },
+                                }).then((value) => {
+                                    switch (value) {
+                                        case "OK":window.location.href='./index.php'; break;
+                                        default:window.location.href='./index.php';
+                                    }
+                                });
+                            }
+                        }
                     },
                     error: function(xhr, status, error) {
                         swal(xhr.responseText); 

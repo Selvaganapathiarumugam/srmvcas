@@ -162,20 +162,27 @@
                         id: id
                     },
                 success: function(response) {
-                    swal(response, {
-                      buttons: {
-                        OK: {
-                          text: "OK",
-                          value: "OK",
-                        },
-                      },
-                    })
-                    .then((value) => {
-                      switch (value) {
-                        case "OK":window.location.href='./index.php'; break;
-                        default:window.location.href='./index.php';
-                      }
-                    }); 
+                    if(response == 'Error inserting data')
+                    {
+                        swal('Error inserting data');
+                    }
+                    else
+                    {
+                        swal(response, {
+                            buttons: {
+                                OK: {
+                                    text: "OK",
+                                    value: "OK",
+                                },
+                            },
+                        })
+                        .then((value) => {
+                            switch (value) {
+                                case "OK":window.location.href='./index.php'; break;
+                                default:window.location.href='./index.php';
+                            }
+                        }); 
+                    }
                 },
                 error: function(xhr, status, error) {
                     swal(xhr.responseText); 
@@ -190,20 +197,27 @@
                         dname: dname
                     },
                 success: function(response) {
-                    swal(response, {
-                      buttons: {
-                        OK: {
-                          text: "OK",
-                          value: "OK",
-                        },
-                      },
-                    })
-                    .then((value) => {
-                      switch (value) {
-                        case "OK":window.location.href='./index.php'; break;
-                        default:window.location.href='./index.php';
-                      }
-                    });
+                    if(response == 'Error inserting data')
+                    {
+                        swal('Error inserting data');
+                    }
+                    else
+                    {
+                        swal(response, {
+                            buttons: {
+                                OK: {
+                                    text: "OK",
+                                    value: "OK",
+                                },
+                            },
+                        })
+                        .then((value) => {
+                            switch (value) {
+                                case "OK":window.location.href='./index.php'; break;
+                                default:window.location.href='./index.php';
+                            }
+                        }); 
+                    }
                 },
                 error: function(xhr, status, error) {
                     swal(xhr.responseText); 

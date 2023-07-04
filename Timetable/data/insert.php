@@ -17,14 +17,25 @@
     {
         die('Connection failed: '.mysqli_connect_error());
     }
-    $SQL="insert into tbltimetable (StaffName,Year,Semester,SubjectCore,SubjectHour,DayOrder,SubjectId,deptid) 
-    values('". $StaffName ."','". $Year ."','". $Semester ."','". $SubjectCore ."',
-                $SubjectHour,$DayOrder, $SubjectId , $deptid )";
-    if (mysqli_query($conn, $SQL)) {
-        $response="Data inserted successfully!";
-    } else {
-        $response='Error inserting data:'. mysqli_error($conn);
+    $checkSQL="SELECT count(*) as Total FROM tbltimetable where StaffName='".$StaffName."' and
+                DayOrder=". $DayOrder ." and SubjectHour=".$SubjectHour ."; ";
+    $result=mysqli_query($conn, $checkSQL);
+    $value = mysqli_fetch_array($result);
+    if($value['Total'] < 1)
+    {
+        $SQL="insert into tbltimetable (StaffName,Year,Semester,SubjectCore,SubjectHour,DayOrder,SubjectId,deptid) 
+        values('". $StaffName ."','". $Year ."','". $Semester ."','". $SubjectCore ."',$SubjectHour,$DayOrder, $SubjectId, $DeptId);";
+        if (mysqli_query($conn, $SQL)) {
+            $response="Data inserted successfully!";
+        } else {
+            $response='Error inserting data';
+        }
     }
+    else
+    {
+        $response="This User is already to another course at the same time!";
+    }
+   
     mysqli_close($conn);
     echo $response;
 ?>

@@ -348,6 +348,8 @@
                   method: 'POST',
                   data: formData,
                   success: function(response) {
+                    if(rresponse == "Data inserted successfully!")
+                    {
                         swal(response, {
                             buttons: {
                                 OK: {
@@ -361,6 +363,11 @@
                                 default:window.location.href='./index.php';
                             }
                         });
+                    }
+                    else
+                    {
+                        swal(response);
+                    }
                     },
                     error: function(xhr, status, error) {
                       swal(xhr.responseText); 
@@ -374,19 +381,26 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        swal(response, {
-                            buttons: {
-                                OK: {
-                                text: "OK",
-                                value: "OK",
+                        if(response == "Data inserted successfully!")
+                        {
+                            swal(response, {
+                                buttons: {
+                                    OK: {
+                                    text: "OK",
+                                    value: "OK",
+                                }, 
                             },
-                        },
-                        }).then((value) => {
-                            switch (value) {
-                                case "OK":window.location.href='./index.php'; break;
-                                default:window.location.href='./index.php';
-                            }
-                        });
+                            }).then((value) => {
+                                switch (value) {
+                                    case "OK":window.location.href='./index.php'; break;
+                                    default:window.location.href='./index.php';
+                                }
+                            });
+                        }
+                        else
+                        {
+                            swal(response);
+                        }
                     },
                     error: function(xhr, status, error) {
                         swal(xhr.responseText); 

@@ -1,3 +1,12 @@
+<?php
+    ob_start();
+    session_start();
+    error_reporting(0);
+
+    if(!isset($_SESSION['Username'])) {
+        header("Location:./login.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

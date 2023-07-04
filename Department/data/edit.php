@@ -10,7 +10,7 @@
     if (mysqli_query($conn, $SQL)) {
         $response="Data Updated successfully!";
     } else {
-        $response='Error inserting data:';
+        $response='Error inserting data';
     }
 
     mysqli_close($conn);
