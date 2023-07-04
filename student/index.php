@@ -1,4 +1,3 @@
-
 <?php
 include('../links.php');
 ?>
@@ -7,33 +6,36 @@ include('../links.php');
 <head>
   <title>Student</title>    
 </head>
-<body>
-  <div class="row" style="border:1px solid #ffb9b9;">
+<body class="ovflow-y">
+  <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
     <div class="col-md-3">
-      <h3>All Students</h3>
+      <h3 class=" padding-base">All Students</h3>
     </div>
     <div class="col-md-6">
-      <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+      <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
     </div>
     <div class="col-md-3">
       <div class="row">
         <div class="col-md-6"></div>
           <div class="col-md-6">
             <div class="margin-top-base">
-              <a href="../index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-backward " style="color: #fff;"></i> Back</a>
+              <a href="../index.php" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-backward " style="color: #fff;"></i>
+                <b>BACK</b>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container" style="background-color:rgb(255, 248, 240)">
     <div class="row">
       <div class="col-sm-6-12 col-md-6 col-lg-6"></div>
       <div class="col-sm-6-12 col-md-6 col-lg-6">
         <div class="margin-top-base">
-          <a href="./addStudent.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
-            <i class="fa fa-plus" ></i><b>Add New Staff</b>
+          <a href="./student.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+            <i class="fa fa-plus" ></i><b>Add New Student</b>
           </a>
         </div>
       </div>
@@ -73,13 +75,14 @@ include('../links.php');
             { 
                 data: '',
                 render: (data,type,row) => {
-                 return `<a href='addStudent.php?id=${row.id}'><i class="fa fa-pencil"></i></a>`;
+                 return `<a href='./Student.php?id=${row.id}'><i class="fa fa-pencil"></i></a>`;
                 }
             },
             { 
                 data: '',
                 render: (data,type,row) => {
-                 return `<a onClick=\"javascript: return confirm('Please confirm deletion');\" href='addStudent.php?did=${row.id}'><i class="fa fa-trash"></i></a>`;
+                  return `<?PHP if ($_SESSION['Role'] == "1") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
+                <?php } else{ ?><i class="fa fa-trash"></i><?php } ?>`;
                 }
             }
         ]

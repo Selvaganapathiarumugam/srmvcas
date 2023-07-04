@@ -23,14 +23,14 @@
     <title>Staff</title>
 </head>
 
-<body>
-    <div class="border-1p">
+<body class="ovflow-y">
+    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
         <div class="row">
             <div class="col-md-3">
-                <h3 class="text-muted padding-base">Staff List</h3>
+                <h3 class=" padding-base">Staff List</h3>
             </div>
             <div class="col-md-6">
-                <center><h3 class="text-muted">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-md-3">
                 <div class="row">
@@ -102,7 +102,8 @@
                     { 
                         data: '',
                         render: (data,type,row) => {
-                         return `<a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash" style="color: #005eff;"></i></a>`;
+                            return `<?PHP if ($_SESSION['Role'] == "1") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
+                            <?php } else{ ?><i class="fa fa-trash"></i><?php } ?>`;
                         }
                     }
                 ]

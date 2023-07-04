@@ -1,11 +1,11 @@
-<?php
-ob_start();
-session_start();
-error_reporting(0); 
-?>
 
 <?php
+    ob_start();
+    session_start();
+    error_reporting(0);
+
     include('../connect.php');
+    include("../links.php");
     if(isset($_REQUEST["id"]))
     {
         $id=$_REQUEST['id'];
@@ -52,26 +52,16 @@ error_reporting(0);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Department</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+    <title>Course</title>
 </head>
 
-<body>
-<div class="row" style="border:1px solid #ffb9b9;">
+<body class="ovflow-y">
+<div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
         <div class="col-md-3">
-            <h3>Course</h3>
+            <h3 class=" padding-base">Course</h3>
         </div>
         <div class="col-md-6">
-            <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
         </div>
         <div class="col-md-3">
             <div class="row">
@@ -80,7 +70,10 @@ error_reporting(0);
                 </div>
                 <div class="col-md-6">
                     <div class="margin-top-base">
-                        <a href="../index.php" class="btn btn-primary"><i class="fa-solid fa-backward fa-2xl" style="color: #fff;"></i> Back</a>
+                        <a href="../index.php" class="btn btn-primary btn-sm ">
+                            <i class="fa-solid fa-backward" style="color: #fff;"></i>
+                            Back
+                        </a>
                     </div>
                 </div>
             </div>
@@ -94,10 +87,12 @@ error_reporting(0);
                </h3>
             </div>
             <div class="col-md-6">
-                <a href="./course.php" class="btn btn-info">
-                    <i class="fa fa-plus"></i>
-                    Add New Course
-                </a>
+                <div class="margin-top-base">
+                    <a href="./course.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+                        <i class="fa fa-plus " ></i>
+                        <b>Add New Course</b>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -142,7 +137,8 @@ error_reporting(0);
             { 
                 data: '',
                 render: (data,type,row) => {
-                 return `<a onClick=\"javascript: return confirm('Please confirm deletion');\" href='addDepartment.php?did=${row.id}'><i class="fa fa-trash"></i></a>`;
+                    return `<?PHP if ($_SESSION['Role'] == "1") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
+                <?php } else{ ?><i class="fa fa-trash"></i><?php } ?>`;
                 }
             }
             

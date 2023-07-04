@@ -3,6 +3,7 @@
     session_start();
     error_reporting(0); 
     include('../connect.php');
+    include('../links.php');
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -121,19 +122,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
 </head>
-<body>
-<div class="row" style="border:1px solid #ffb9b9;">
+<body class="ovflow-y">
+<div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
         <div class="col-md-3">
             <h3>Course Details</h3>
         </div>
@@ -195,22 +186,21 @@
                 <div class="form-group">
                     <label for="input1" class="col-sm-6  col-md-4 col-lg-4 control-label">Semester </label>
                     <div class="col-sm-6 col-md-8 col-lg-8">
-                    <select class="form-control select2" name="cs_semester" id="cs_semester"
-                            placeholder="Select the Semester" required  autocomplete="off">
-                        <?php
-                            foreach ($lstSemester as $value => $label) {
-                            $selected = ($opSem == $value) ? "selected" : "";
-                            echo "<option value=\"$value\" $selected>$label</option>";
-                            }
-                        ?>
-                    </select>
-
-                    <script>
-                        $(document).ready(function() {
-                            var selectedValue = "<?php echo $opSem; ?>";
-                           $("#cs_semester").val(selectedValue);
-                        });
-                    </script>
+                        <select class="form-control select2" name="cs_semester" id="cs_semester"
+                                placeholder="Select the Semester" required  autocomplete="off">
+                            <?php
+                                foreach ($lstSemester as $value => $label) {
+                                $selected = ($opSem == $value) ? "selected" : "";
+                                echo "<option value=\"$value\" $selected>$label</option>";
+                                }
+                            ?>
+                        </select>
+                        <script>
+                            $(document).ready(function() {
+                                var selectedValue = "<?php echo $opSem; ?>";
+                               $("#cs_semester").val(selectedValue);
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="form-group">
@@ -226,11 +216,11 @@
                         ?>
                         </select>
                         <script>
-                        $(document).ready(function() {
-                            var selectedValue = "<?php echo $opYear; ?>";
-                           $("#cs_year").val(selectedValue);
-                        });
-                    </script>
+                            $(document).ready(function() {
+                                var selectedValue = "<?php echo $opYear; ?>";
+                               $("#cs_year").val(selectedValue);
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="form-group">

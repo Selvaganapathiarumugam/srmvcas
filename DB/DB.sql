@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2023 at 10:52 AM
+-- Generation Time: Jul 04, 2023 at 10:33 AM
 -- Server version: 5.1.36
 -- PHP Version: 5.3.0
 
@@ -29,16 +29,15 @@ CREATE TABLE IF NOT EXISTS `tblcourse` (
   `AcadamicYear` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `courseCode` (`courseCode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tblcourse`
 --
 
 INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `courseCode`, `AcadamicYear`) VALUES
-(5, 2, 'I', 'I', 'Programing in C', '20UIT1C01', '2023'),
-(6, 2, 'I', 'I', 'AmuthaTamil', '20UIT101', '2023'),
-(4, 1, 'I', 'I', 'Programing in C', '20UCA1C01', '2023');
+(1, 1, 'I', 'I', 'Programing In C', '20UIT1C01', '2023-2024'),
+(2, 4, 'I', 'I', 'OOPs with CPP', '20PCA1C01', '2023-2024');
 
 -- --------------------------------------------------------
 
@@ -50,22 +49,20 @@ CREATE TABLE IF NOT EXISTS `tbldepartment` (
   `id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `dname` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `tbldepartment`
 --
 
 INSERT INTO `tbldepartment` (`id`, `dname`) VALUES
-(1, 'B.C.A'),
-(2, 'B.Sc IT'),
-(3, 'B.Sc CS'),
-(4, 'B.COM'),
-(5, 'B.COM PA'),
-(6, 'B.COM CA'),
-(7, 'B.Sc Maths'),
-(8, 'M.C.A'),
-(10, 'B.Sc Math');
+(1, 'B.Sc IT'),
+(2, 'B.Sc CS'),
+(3, 'BCA'),
+(4, 'MCA'),
+(5, 'B.COM'),
+(6, 'B.COM PA'),
+(7, 'B.COM CA');
 
 -- --------------------------------------------------------
 
@@ -126,15 +123,36 @@ CREATE TABLE IF NOT EXISTS `tblstudent` (
   `state` varchar(255) NOT NULL,
   `nationality` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `tblstudent`
 --
 
-INSERT INTO `tblstudent` (`id`, `firstName`, `lastName`, `regNo`, `dob`, `age`, `email`, `gender`, `contactNumber`, `deptid`, `semester`, `year`, `batch`, `fatherName`, `fatherContact`, `motherName`, `motherContect`, `aadharNumber`, `community`, `religion`, `addressLine1`, `addressLine2`, `city`, `pincode`, `state`, `nationality`) VALUES
-(1, 'Selvaganapathi', 'A', '22PCA039', '2002-03-17', 22, '22pca039@rmv.ac.in', 'male', '9655120081', 8, 'III', 'II', '2022-2024', 'Arumugam', '9874563210', 'Muthulakshmi', '7894563210', '1212 2121 3213', 'BC', 'hindu', '31/4,North Street', 'KarisalPatty', 'Dindigul', '624705', 'Tamil Nadu', 'India'),
-(2, 'Bharathidhasan', 'R', '22PCA009', '2002-05-08', 22, '22pca009@rmv.ac.in', 'male', '9632587410', 8, 'III', 'II', '2022-2024', 'R', '12345678', 'M', '1234567890', '741085209630', 'nill', 'hindu', 'qqqq', 'qqqq', 'Sivaganga', '852741', 'Tamil Nadu	', 'India');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltimetable`
+--
+
+CREATE TABLE IF NOT EXISTS `tbltimetable` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+  `deptId` mediumint(3) NOT NULL,
+  `StaffName` varchar(255) NOT NULL,
+  `Year` varchar(5) NOT NULL,
+  `Semester` varchar(10) NOT NULL,
+  `SubjectId` mediumint(3) NOT NULL,
+  `SubjectCore` varchar(150) NOT NULL,
+  `DayOrder` mediumint(2) NOT NULL,
+  `SubjectHour` mediumint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `tbltimetable`
+--
+
 
 -- --------------------------------------------------------
 
@@ -159,15 +177,12 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `deptid` mediumint(3) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `EmpId` (`EmpId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tblusers`
 --
 
 INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullname`, `phone`, `gender`, `dob`, `age`, `doj`, `dor`, `roleId`, `deptid`) VALUES
-(2, 'PCA001', 'Chanran', 'MTIzNDU2Nzg=', 'chanran@gmail.com', 'Chanran', '9632587410', 'male', '1983-01-01', 40, '2023-06-06', '0000-00-00', 1, 8),
-(4, 'DEV001', 'dev_selva', 'MTIzNDU2Nzg=', 'selvaganapathi.am@gmail.com', 'Selvaganapathi.A', '9655120081', 'male', '2002-03-17', 26, '2023-06-30', '0000-00-00', 1, 8),
-(5, 'PCA002', 'dinesh', 'ODc2NTQzMjE=', 'dineshkumar@gmail.com', 'Dineshkumar', '9632587410', 'male', '1980-01-01', 44, '2023-06-30', '0000-00-00', 2, 8),
-(6, 'PCA003', 'sridhar', 'MTIzNDU2Nzg=', 'sridhar@gmail.com', 'sridhar', '9658741236', 'male', '1970-01-01', 54, '2000-01-01', '0000-00-00', 3, 8),
-(7, 'UCA001', 'Somu', 'U29tdQ==', 'somu@gmail.com', 'Somusundharam', '9632587410', 'male', '1990-01-01', 34, '2020-10-10', '0000-00-00', 2, 8);
+(1, 'DEV_01', 'dev_selva', 'MTIzNDU2Nzg=', 'selvaganapathi.am@gmail.com', 'Selvaganapathi', '9655120081', 'male', '2002-03-17', 23, '2023-06-16', '0000-00-00', 1, 4),
+(2, 'PCA_01', 'dinesh', 'MTIzNDU2Nzg=', 'dineshkumar@gmail.in', 'Dineshkumar', '9632587410', 'male', '1980-01-01', 43, '2021-01-01', '0000-00-00', 2, 4);

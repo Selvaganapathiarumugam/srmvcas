@@ -58,14 +58,14 @@
     <title>Staff</title>
     
 </head>
-<body>
-    <div class="border-1p">
+<body class="ovflow-y">
+    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
         <div class="row">
             <div class="col-md-3" >
-                <h3 class="text-muted padding-base">Staff Details</h3>
+                <h3 class=" padding-base">Staff Details</h3>
             </div>
             <div class="col-md-6">
-                <center><h3 class="text-muted ">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 class=" ">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-3">
                 <div class="row">
@@ -341,33 +341,57 @@
               var formData = $(this).serialize();
               var value = $("#sf_hid").val();
               console.log(formData);
-              if(value > 0){
-                  $.ajax({
-                      url: './data/edit.php', 
-                      method: 'POST',
-                      data: formData,
-                      success: function(response) {
-                          swal(response); 
-                          // window.location.href = "./index.php";
-                      },
-                      error: function(xhr, status, error) {
-                          swal(xhr.responseText); 
-                      }
-                  });
+              if(value > 0)
+              {
+                $.ajax({
+                  url: './data/edit.php', 
+                  method: 'POST',
+                  data: formData,
+                  success: function(response) {
+                        swal(response, {
+                            buttons: {
+                                OK: {
+                                text: "OK",
+                                value: "OK",
+                            },
+                        },
+                        }).then((value) => {
+                            switch (value) {
+                                case "OK":window.location.href='./index.php'; break;
+                                default:window.location.href='./index.php';
+                            }
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                      swal(xhr.responseText); 
+                    }
+                });
               }
-              else{
-                  $.ajax({
-                      url: './data/insert.php', 
-                      method: 'POST',
-                      data: formData,
-                      success: function(response) {
-                          swal(response); 
-                          // window.location.href = "./index.php";
-                      },
-                      error: function(xhr, status, error) {
-                          swal(xhr.responseText); 
-                      }
-                  });
+              else
+              {
+                $.ajax({
+                    url: './data/insert.php', 
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        swal(response, {
+                            buttons: {
+                                OK: {
+                                text: "OK",
+                                value: "OK",
+                            },
+                        },
+                        }).then((value) => {
+                            switch (value) {
+                                case "OK":window.location.href='./index.php'; break;
+                                default:window.location.href='./index.php';
+                            }
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        swal(xhr.responseText); 
+                    }
+                });
               }          
             });
         });
