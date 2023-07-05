@@ -348,7 +348,7 @@
                   method: 'POST',
                   data: formData,
                   success: function(response) {
-                    if(rresponse == "Data inserted successfully!")
+                    if(response == "Data Updated successfully!")
                     {
                         swal(response, {
                             buttons: {

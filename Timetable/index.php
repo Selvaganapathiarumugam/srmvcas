@@ -4,6 +4,7 @@
   error_reporting(0);
 
   include('../links.php');
+  include('../connect.php');
   if(isset($_REQUEST["did"]))
   {
     $response="";
@@ -11,7 +12,6 @@
     $SQL="delete from tbltimetable where Id='". $id."'";
     try {
         $result = mysqli_query($conn,$SQL);
-        $response="Successfully deleted";
         echo "<script> deletemsg(); </script>";
     } catch (\Throwable $th) {
         throw $th;

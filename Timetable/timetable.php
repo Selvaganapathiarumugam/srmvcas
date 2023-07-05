@@ -433,32 +433,25 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        if(response=='This User is already to another course at the same time!')
+                        if(response =='Data inserted successfully!')
                         {
-                            swal('This User is already to another course at the same time!',{ icon: "warning",});
-                        }
-                        else
-                        {
-                            if(response == 'Error Updated data')
-                            {
-                                swal(response,{ icon: "warning",});
-                            }
-                            else{
-                                swal(response, {
-                                    icon: "success",
-                                    buttons: {
-                                        OK: {
-                                            text: "OK",
-                                            value: "OK",
-                                        },
+                            swal(response, {
+                                icon: "success",
+                                buttons: {
+                                    OK: {
+                                        text: "OK",
+                                        value: "OK",
                                     },
-                                }).then((value) => {
-                                    switch (value) {
-                                        case "OK":window.location.href='./index.php'; break;
-                                        default:window.location.href='./index.php';
-                                    }
-                                });
-                            }
+                                },
+                            }).then((value) => {
+                                switch (value) {
+                                    case "OK":window.location.href='./index.php'; break;
+                                    default:window.location.href='./index.php';
+                                }
+                            });
+                        }
+                        else{
+                            swal(response,{ icon: "warning",});
                         }
                     },
                     error: function(xhr, status, error) {
