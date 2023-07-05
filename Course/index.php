@@ -6,30 +6,8 @@
 
     include('../connect.php');
     include("../links.php");
-    if(isset($_REQUEST["id"]))
-    {
-        $id=$_REQUEST['id'];
-        $SQL="SELECT id ,dname from tblcourse WHERE ID=".$_REQUEST["id"];
-        $result = mysqli_query($conn,$SQL);
-        while($row = mysqli_fetch_array($result)) 
-        {
-            $dname = $row['dname'];
-        }
-    }
-    if(isset($_POST['btnEdit']))
-    {
-        $SQL="";
-        $dname =  trim($_REQUEST['dname']);
-        $SQL="update tblcourse set dname ='". $dname ."' where Id='". $id."'";
-        try {
-            $result = mysqli_query($conn,$SQL);
-
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-        $dname="";
-        $id="";
-        $_REQUEST['id']="";
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
     }
     if(isset($_REQUEST["did"]))
     {
@@ -37,12 +15,10 @@
         $SQL="delete from tblcourse where Id='". $id."'";
         try {
             $result = mysqli_query($conn,$SQL);
-        
+            echo "<script> deletemsg(); </script>";
         } catch (\Throwable $th) {
             throw $th;
         }
-        $id="";
-        $_REQUEST['did']="";
     }
 ?>
 <!DOCTYPE html>

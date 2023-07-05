@@ -31,7 +31,7 @@
             if (mysqli_query($conn, $SQL)) {
                 $response="Data Updated successfully!";
             } else {
-                $response='Error inserting data:'. mysqli_error($conn);
+                $response='Error Updated data';
             }
         }
         else

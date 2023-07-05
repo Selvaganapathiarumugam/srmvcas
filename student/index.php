@@ -1,5 +1,23 @@
 <?php
-include('../links.php');
+  ob_start();
+  session_start();
+  error_reporting(0);
+  include('../links.php');
+  include('../connect.php'); 
+
+  if(isset($_REQUEST["did"]))
+    {
+       $id=$_REQUEST['did'];
+       $SQL="delete from  tblstudent where Id='". $id."'";
+       try 
+        {
+           $result = mysqli_query($conn,$SQL);
+        } 
+        catch (\Throwable $th) 
+        {
+           throw $th;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +82,7 @@ include('../links.php');
   $(document).ready(function() {
     $('#tblStudents').dataTable({
         "processing": true,
-        "ajax": "./data/student.php",
+        "ajax": "./data/list.php",
         "columns": [
             {data: 'regNo'},
             {data: 'firstName'},

@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/Bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../css/fontawesome.css">
-
+    <script src="../js/main.js"></script>
     <script src="../js/popper.js"></script>
     <script src="../js/Bootstrap.js"></script>
     <script src="../js/jquery.js"></script>

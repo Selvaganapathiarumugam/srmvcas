@@ -85,7 +85,7 @@
         $(document).ready(function() {
             $('#tblStaff').dataTable({
                 "processing": true,
-                "ajax": "./data/Staff.php",
+                "ajax": "./data/list.php",
                 "columns": [
                     {data: 'EmpId'},
                     {data: 'fullname'},

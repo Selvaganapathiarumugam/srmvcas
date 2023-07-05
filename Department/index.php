@@ -127,7 +127,7 @@
   $(document).ready(function() {
     $('#tblDepartments').dataTable({
         "processing": true,
-        "ajax": "./data/department.php",
+        "ajax": "./data/list.php",
         "columns": [
             {data: 'id'},
             {data: 'dname'},

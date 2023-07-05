@@ -10,6 +10,7 @@
     {
         $lstDepartment[] = $row;
     }
+
     if($_SESSION['Role']=="1")
     {
         $sql="SELECT id,courseName from tblcourse ORDER BY id asc";
@@ -17,11 +18,21 @@
     else{
         $sql = "SELECT id, courseName FROM tblcourse WHERE deptId='". $_SESSION['Dept'] . "' ORDER BY id ASC";
     }
+
     $all_query = mysqli_query($conn,$sql);
     $lstSubjects=array();
     while ($NewRow = mysqli_fetch_array($all_query)) 
     {
         $lstSubjects[] = $NewRow;
+    }
+
+    $sql = "SELECT id, fullname FROM tblusers ORDER BY id ASC";
+    $all_query = mysqli_query($conn,$sql);
+
+    $lststaff=array();
+    while ($NewRow = mysqli_fetch_array($all_query)) 
+    {
+        $lststaff[] = $NewRow;
     }
     $lstSemester = array(
         "I" => "I",
@@ -61,35 +72,30 @@
     //--------------------------------Update-------------------------------
     if(isset($_REQUEST["id"]))
     {
-        // $id=$_REQUEST['id'];
-        // $SQL="SELECT u.id,u.EmpId,u.username,u.password,u.email,u.fullname,
-        //         u.phone,u.dob,u.age,u.doj,u.dor,u.roleId,u.deptid  from  tblusers u 
-        //         WHERE u.ID=".$_REQUEST["id"];
-        // $result = mysqli_query($conn,$SQL);
-        // while($row = mysqli_fetch_array($result)) 
-        // {
-        //     $dept = $row['deptid'];
-        //     $uname = $row['username'];
-        //     $pass = base64_decode($row['password']);
-        //     $rpass = base64_decode($row['password']);
-        //     $role = $row['roleId'];
-        //     $name = $row['fullname'];
-        //     $code = $row['EmpId'];
-        //     $email = $row['email'];
-        //     $phone = $row['phone'];
-        //     $dob = $row['dob'];
-        //     $age = $row['age'];
-        //     $dor = $row['dor'];
-        //     $doj = $row['doj'];
-        //     $id=$row['id'];
-        // } 
-        $opDept=$dept;
-        $opSem = $semester;
+        $id=$_REQUEST['id'];
+        $SQL="SELECT *  from  tbltimetable 
+                 WHERE ID=".$_REQUEST["id"];
+        $result = mysqli_query($conn,$SQL);
+        while($row = mysqli_fetch_array($result)) 
+        {
+            $deptId = $row['deptId'];
+            $Staffid = $row['Staffid'];
+            $year = ($row['Year']);
+            $Semester = ($row['Semester']);
+            $SubjectId = $row['SubjectId'];
+            $SubjectCore = $row['SubjectCore'];
+            $DayOrder = $row['DayOrder'];
+            $SubjectHour = $row['SubjectHour'];
+            $id=$row['id'];
+        } 
+        $opDept=$deptId;
+        $opSem = $Semester;
         $opYear=$year;
-        $opsub=$subject;
-        $opsubcore=$subjectcore;
+        $opsub=$SubjectId;
+        $opsubcore=$SubjectCore;
         $opDayOrder=$DayOrder;
-        $opHours=$Hours;
+        $opHours=$SubjectHour;
+        $opstname=$Staffid;
     }
     
     mysqli_close($conn);
@@ -138,15 +144,26 @@
                     <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-4">
-                                        <label for="input1" class="form-label">Staff  Name</label>
-                                    </div>
-                                    <div class=" col-md-6 col-lg-8">
-                                        <input type="text" name="tt_name" class="form-control" id="tt_name"
-                                         placeholder="staff  Name" value="<?php ECHO $name; ?>" 
-                                         tabindex="1" required  autocomplete="off"  />
-                                    </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="input1" class="form-label">Staff  Name</label>
+                                </div>
+                                <div class=" col-md-6 col-lg-8">
+                                        <select class="form-select" name="tt_Name" id="tt_Name" 
+                                            tabindex="2" required  autocomplete="off">
+                                            <?php
+                                                foreach ($lststaff as $value => $label) 
+                                                {
+                                                    $selected = ($opstname == $label['id']) ? "selected" : "";
+                                                    echo "<option value=\"{$label['id']}\" $selected>{$label['fullname']}</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                        <script>
+                                            $(document).ready(function() {
+                                                var selectedValue = "<?php echo $opstname; ?>";
+                                                $("#tt_Name").val(selectedValue);
+                                            });
+                                        </script>
                                 </div>
                             </div>
                         </div>
@@ -235,8 +252,8 @@
                                     <div class="col-md-6 col-lg-4">
                                         <label for="input1" class="form-label">Subject</label>
                                     </div>
-                                    <div class=" col-md-6 col-lg-8">
-                                    <select class="form-select" name="tt_sub" id="tt_sub" 
+                                    <div class=" col-md-3 col-lg-5">
+                                        <select class="form-select" name="tt_sub" id="tt_sub" 
                                          tabindex="5" required  autocomplete="off">
                                             <?php
                                                 foreach ($lstSubjects as $value => $label) 
@@ -252,6 +269,9 @@
                                                 $("#tt_sub").val(selectedValue);
                                             });
                                         </script>
+                                    </div>
+                                    <div class="col-md-3 col-lg-3">
+                                        <input type="text" id="tt_code" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -360,11 +380,25 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#tt_sub').change(function() {
+                var cid = $(this).val();
+                if (cid != "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "data/list.php",
+                        data: {
+                            mode: 'cid',
+                            cid: cid,
+                        }
+                    }).done(function(msg) {
+                        $('#tt_code').val(msg);
+                    });
+                }
+            }).trigger('change');
             $('#frmTtable').submit(function(e) {
               e.preventDefault(); 
               var formData = $(this).serialize();
               var value = $("#tt_hid").val();
-              console.log(formData);
               if(value > 0)
               {
                 $.ajax({
@@ -373,6 +407,7 @@
                   data: formData,
                   success: function(response) {
                         swal(response, {
+                            icon: "success",
                             buttons: {
                                 OK: {
                                 text: "OK",
@@ -400,16 +435,17 @@
                     success: function(response) {
                         if(response=='This User is already to another course at the same time!')
                         {
-                            swal('This User is already to another course at the same time!');
+                            swal('This User is already to another course at the same time!',{ icon: "warning",});
                         }
                         else
                         {
-                            if(response == 'Error inserting data')
+                            if(response == 'Error Updated data')
                             {
-                                swal("Error inserting data");
+                                swal(response,{ icon: "warning",});
                             }
                             else{
                                 swal(response, {
+                                    icon: "success",
                                     buttons: {
                                         OK: {
                                             text: "OK",

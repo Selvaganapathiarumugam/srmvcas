@@ -6,7 +6,7 @@
 
     $firstName =  trim($_POST['st_name']);
     $lastName =  trim($_POST['st_lname']);
-    $regNo =  trim($_POST['st_regNo']);
+    $regNo =  strtoupper(trim($_POST['st_regNo']));
     $dob =  trim($_POST['st_dob']);
     $email =  trim($_POST['st_email']);
     $gender =  trim($_POST['st_gender']);
