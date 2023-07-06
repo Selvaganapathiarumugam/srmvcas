@@ -13,10 +13,10 @@
 
     if($_SESSION['Role']=="1")
     {
-        $sql="SELECT id,courseName from tblcourse ORDER BY id asc";
+        $sql="SELECT id,courseName from tblcourse ORDER BY courseName asc";
     }
     else{
-        $sql = "SELECT id, courseName FROM tblcourse WHERE deptId='". $_SESSION['Dept'] . "' ORDER BY id ASC";
+        $sql = "SELECT id, courseName FROM tblcourse WHERE deptId='". $_SESSION['Dept'] . "' ORDER BY courseName ASC";
     }
 
     $all_query = mysqli_query($conn,$sql);
@@ -68,7 +68,6 @@
         5 => "5",
         6 => "6"
     );
-    $name=$_SESSION['Username'];
     //--------------------------------Update-------------------------------
     if(isset($_REQUEST["id"]))
     {
@@ -133,7 +132,7 @@
     </div>
     <div class="container">
         <div class="row " >
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <marquee>Time Table Master</marquee>
             </div>
         </div>
@@ -202,7 +201,7 @@
                                     </div> 
                                     <div class="col-md-8 col-lg-8">
                                         <select class="form-select" tabindex="3" name="tt_year" id="tt_year"
-                                            placeholder="Select the Year" required  autocomplete="off" >
+                                            required  autocomplete="off" >
                                             <?php
                                                 foreach ($lstYear as $value => $label) {
                                                 $selected = ($opYear == $value) ? "selected" : "";
@@ -213,7 +212,7 @@
                                         <script>
                                             $(document).ready(function() {
                                                 var selectedValue = "<?php echo $opYear; ?>";
-                                               $("#tt_year").val(selectedValue);
+                                                $("#tt_year").val(selectedValue);
                                             });
                                         </script>
                                     </div>
@@ -284,7 +283,7 @@
                                     </div> 
                                     <div class="col-md-8 col-lg-8">
                                         <select class="form-select" tabindex="6" name="tt_score" id="tt_score"
-                                            placeholder="Select the Year" required  autocomplete="off" >
+                                           required  autocomplete="off" >
                                             <?php
                                                 foreach ($lstSubjectCore as $value => $label) {
                                                 $selected = ($opsubcore == $value) ? "selected" : "";
@@ -295,7 +294,7 @@
                                         <script>
                                             $(document).ready(function() {
                                                 var selectedValue = "<?php echo $opsubcore; ?>";
-                                               $("#tt_score").val(selectedValue);
+                                                $("#tt_score").val(selectedValue);
                                             });
                                         </script>
                                     </div>
@@ -310,7 +309,7 @@
                                     </div> 
                                     <div class="col-md-8 col-lg-8">
                                         <select class="form-select" tabindex="7" name="tt_DO" id="tt_DO"
-                                            placeholder="Select the Year" required  autocomplete="off" >
+                                           required  autocomplete="off" >
                                             <?php
                                                 foreach ($lstDayOrder as $value => $label) {
                                                 $selected = ($opDayOrder == $value) ? "selected" : "";
@@ -336,7 +335,7 @@
                                     </div> 
                                     <div class="col-md-8 col-lg-8">
                                         <select class="form-select" tabindex="8" name="tt_hours" id="tt_hours"
-                                            placeholder="Select the Year" required  autocomplete="off" >
+                                           required  autocomplete="off" >
                                             <?php
                                                 foreach ($lsthours as $value => $label) {
                                                 $selected = ($opHours == $value) ? "selected" : "";

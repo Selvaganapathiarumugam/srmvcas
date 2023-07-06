@@ -31,7 +31,6 @@
     {
         if($value1['Total'] < 1)
         {
-            echo "2";
             $SQL="insert into tbltimetable (Staffid,Year,Semester,SubjectCore,SubjectHour,DayOrder,SubjectId,deptid) 
             values($Staffid,'". $Year ."','". $Semester ."','". $SubjectCore ."',$SubjectHour,$DayOrder, $SubjectId, $DeptId);";
             if (mysqli_query($conn, $SQL)) {
@@ -48,7 +47,6 @@
     }
     else
     {
-        echo "4";
         $response="This User is already to another course at the same time!";
     }
     mysqli_close($conn);

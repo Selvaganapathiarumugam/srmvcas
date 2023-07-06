@@ -82,16 +82,10 @@
     </div>
     <div class="container">
         <div class="row " >
-            <div class="col-md-6">
-                <h3 class="box-title margin-top-base">
-                    <?php 
-                        if(isset($_REQUEST["id"])){
-                            echo "Edit Staff";
-                        }else{
-                            echo "Add Staff";
-                        }
-                        ?>
-                </h3>
+            <div class="col-md-12">
+                <marquee class="box-title margin-top-base">
+                    Staff Master
+                </marquee>
             </div>
         </div>
         <div class="row">

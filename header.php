@@ -14,8 +14,9 @@
             </div>
             <div class="col-md-6">
                 <div class="margin-top-base">
-                    <a href="./logout.php"><i class="fa-solid fa-power-off fa-2xl" style="color: #4287ff;"></i><br />
-                        <p>Logout</p>
+                    <a href="./logout.php" style="text-decoration:none">
+                        <i class="fa-solid fa-power-off fa-2xl" style="color: #4287ff;"></i><br />
+                        <b>Logout</b>
                     </a>
                 </div>
             </div>

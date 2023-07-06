@@ -89,15 +89,9 @@
     </div> 
 <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <marquee>
-                    <?php 
-                    if(isset($_REQUEST["id"])){
-                        echo "Edit Course";
-                    }else{
-                        echo "Add Course";
-                    }
-                    ?>
+                    Course Master
                 </marquee>
             </div>
         </div>

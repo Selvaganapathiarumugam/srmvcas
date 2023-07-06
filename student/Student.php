@@ -101,10 +101,10 @@ include("../links.php")
     <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
         <div class="row">
             <div class="col-md-3" >
-                <h3 class="text-muted padding-base">Student Details</h3>
+                <h3 class="padding-base">Student Details</h3>
             </div>
             <div class="col-md-6">
-                <center><h3 class="text-muted ">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-3">
                 <div class="row">
@@ -125,7 +125,7 @@ include("../links.php")
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h4 class="text-muted">Add Student's Information</h4>
+                <marquee>Student's Master</marquee>
             </div>
         </div>
         <form method="POST" id="frmStudent" class="form-horizontal">

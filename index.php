@@ -34,14 +34,14 @@
         </div>
     </div>
     <div class="container">
-        <div class="margin-top-base">
+        <div class="margin-top-base padding-base">
             <div class="row ">
                 <div class="col-md-3 col-sm-6">
                     <div class="card" id="mycard">
                         <div class="card-body">
                             <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
-                                <a href="./student/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Go Student</a>
+                                <a href="./Student/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STUDENTS</a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
-                                <a href="./Department/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff; margin-right:4px;"></i>Go Department</a>
+                                <a href="./Department/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff; margin-right:4px;"></i>DEPARTMENTS</a>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
-                                <a href="./Course/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Go Course</a>
+                                <a href="./Course/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>COURSES</a>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <div class="card-body">
                             <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
-                                <a href="./Staff/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Go Staff</a>
+                                <a href="./Staff/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STAFF</a>
                             </div>
                         </div>
                     </div>
@@ -79,16 +79,36 @@
             </div>
             <div class="margin-top-base">
                 <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="card" id="mycard">
-                        <div class="card-body">
-                            <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
-                            <div class="margin-top-base">
-                                <a href="./Timetable/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Time Table</a>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
+                                <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./Timetable/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>TIME TABLE</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
+                                <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./#/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>ATTENDANCE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
+                                <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./LackAttendance/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>LACK OF ATTENDANCE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> 

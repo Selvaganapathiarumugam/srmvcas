@@ -58,9 +58,6 @@
     <div class="container">
         <div class="row margin-top-base">
             <div class="col-md-6">
-                <h3 class="box-title">
-                    Course List
-               </h3>
             </div>
             <div class="col-md-6">
                 <div class="margin-top-base">
