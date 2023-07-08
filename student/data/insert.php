@@ -4,8 +4,8 @@
     error_reporting(0); 
     include('../../connect.php');
 
-    $firstName =  trim($_POST['st_name']);
-    $lastName =  trim($_POST['st_lname']);
+    $firstName =  ucfirst(trim($_POST['st_name']));
+    $lastName =  strtoupper(trim($_POST['st_lname']));
     $regNo =  strtoupper(trim($_POST['st_regNo']));
     $dob =  trim($_POST['st_dob']);
     $email =  trim($_POST['st_email']);

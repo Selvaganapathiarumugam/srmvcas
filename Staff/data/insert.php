@@ -5,7 +5,7 @@
     include('../../connect.php');
 
     $EmpId = strtoupper(trim($_POST['sf_id']));
-    $fullname = trim($_POST['sf_name']);
+    $fullname = ucfirst(trim($_POST['sf_name']));
     $email = trim($_POST['sf_email']);
     $phone = trim($_POST['sf_phone']);
     $deptid = trim($_POST['sf_dept']);
