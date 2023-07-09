@@ -4,7 +4,9 @@
     error_reporting(0); 
     include('../links.php');
     include('../connect.php'); 
-
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
+    }
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -157,18 +159,17 @@
         </div>
         <div class="margin-top-base">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <form id="frmadd">
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="input1" class="form-label">Date</label><br />
-                                <input type='date' id='at_date' name='at_date' class="form-control" required 
+                                <input type='date' id='at_date' name='at_date' class="form-control" 
                                     tabindex="1" value="<?php echo $at_date; ?>" autocomplete="off"
                                 />
                             </div>
-                            <div class="col-md-9">
-                                <table id="tblStudentList" class="table table-striped table-bordered">
+                            <div class="col-md-7">
+                                <table id="tblStudentList" class="table table-striped margin-top-base" border="1">
                                     <thead>
                                         <tr>
                                             <th>RegNo</th>
@@ -177,18 +178,15 @@
                                         </tr>   
                                     </thead>
                                     <tbody id=append_datas>
-
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="submit" value="save" />
+                            <div class="col-md-2">
+                                <input type="submit" value="save" class="btn btn-primary margin-top-base" />
                             </div>
                         </div>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-2"></div>
             </div>
         </div>
     </div>
@@ -219,42 +217,40 @@
                 }
             });
         });
-        $('#frmadd').submit(function(e) {
-            e.preventDefault(); 
-            var tableBody = document.getElementById('tblStudentList').getElementsByTagName('tbody')[0];
-                    for (var i = 0; i < data.length; i++) {
-                        var row = tableBody.insertRow();
-                        var regnoCell = row.value();
-                        
-                    }
-            });
     });
-
-    // $('.check_stu').change(function() {
-    //     var val= $(this).val();
-    //     alert(val);
-    // });
-
     $(document).on('click', '.check_stu', function() {
         $(this).val("0");
-
-        // var value 
-
-        // if()
-        // {
-
-        // }
-       
-
-
-
     });
+    $('#frmadd').submit(function(e) {
+            e.preventDefault(); 
+            $("#tblStudentList td").each(function() {
+                var check_stu = $('.check_stu').val();
+                if (check_stu == '0') {
+                  var cellData = $(this).find('.regNo').val();
+                  console.log(cellData);
+                  // Perform operations on cellData
+                }
+            });
 
-    
+            // var at_semester = $('#at_semester').val();
+            // var at_year = $('#at_year').val();
+            // $.ajax({
+            // url: './data/search.php', 
+            // datatype:'json',
+            // method: 'POST',
+            // data: {
+            //     at_dept: at_dept,
+            //     at_semester: at_semester,
+            //     at_year: at_year
+            //     },
+            //     success: function(data) {
+            //             $("#append_datas").append(data);
+            //     },
+            //     error: function(xhr, status, error) 
+            //     {
+            //         swal(xhr.responseText); 
+            //     }
+            // });
+        });
 </script>
-
-
-
-
-   
 </html>

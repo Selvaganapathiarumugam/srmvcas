@@ -21,12 +21,18 @@
         $data = array();
         foreach ($response as $size_row) {
             $data[] = "<tr class='col-md-4'>
-                          <td><input type='text' class='regNo' name='regNo[]' value='{$size_row['regNo']}'><input type='hidden' class='p_size' name='id[]' value='{$size_row['id']}'>
-                          </td>
-                          <td><input type='text' class='firstName' name='firstName[]' value='{$size_row['firstName']}'>
-                          </td>
-                          <td><input type='checkbox' class='check_stu' name='chIspresent' value='1' checked>
-                          </td>
+                            <td>
+                                <input type='hidden' class='regNo' name='regNo[]' id='regNo' value='{$size_row['regNo']}'>
+                                <input type='hidden' class='p_size' name='id[]' value='{$size_row['id']}'>
+                                {$size_row['regNo']}
+                            </td>
+                            <td>
+                                <input type='hidden' class='firstName' id='firstName' name='firstName[]' value='{$size_row['firstName']}'>
+                                {$size_row['firstName']}
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check_stu' name='chIspresent' value='1' checked>
+                            </td>
                         </tr>";
         }
         echo json_encode($data);

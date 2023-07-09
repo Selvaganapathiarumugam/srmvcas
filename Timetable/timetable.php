@@ -3,7 +3,9 @@
     session_start();
     error_reporting(0); 
     include('../connect.php');
-
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
+    }
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 

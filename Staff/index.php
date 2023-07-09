@@ -3,6 +3,9 @@
     session_start();
     error_reporting(0); 
     include("../links.php");
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
+    }
     if(isset($_REQUEST["did"]))
     {
         $id=$_REQUEST['did'];

@@ -1,11 +1,11 @@
 <?php
-
-ob_start();
-session_start();
-error_reporting(0); 
-include("../links.php")
-?>
-<?php
+    ob_start();
+    session_start();
+    error_reporting(0); 
+    include("../links.php");
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
+    }
     include('../connect.php'); 
 
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
@@ -128,7 +128,7 @@ include("../links.php")
                 <marquee>Student's Master</marquee>
             </div>
         </div>
-        <form method="POST" id="frmStudent" class="form-horizontal">
+        <form method="POST" id="frmStudent" class="form-horizontal padding-base">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">

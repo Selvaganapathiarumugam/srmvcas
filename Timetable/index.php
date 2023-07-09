@@ -5,6 +5,9 @@
 
   include('../links.php');
   include('../connect.php');
+  if(!isset($_SESSION['Username'])) {
+    header("Location:../login.php");
+  }
   if(isset($_REQUEST["did"]))
   {
     $response="";

@@ -2,7 +2,9 @@
     ob_start();
     session_start();
     error_reporting(0); 
-
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
+    }
     include('../connect.php');
     include('../links.php');
 
