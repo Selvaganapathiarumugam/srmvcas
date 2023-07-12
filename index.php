@@ -104,7 +104,7 @@
                             <div class="card-body">
                                 <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
-                                    <a href="./LackAttendance/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>LACK OF ATTENDANCE</a>
+                                    <a href="./lateAttendance/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>LATE OF ATTENDANCE</a>
                                 </div>
                             </div>
                         </div>

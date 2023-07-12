@@ -71,8 +71,8 @@
                 {
                     $k=1;
                 }
-                $qry="insert into  tblattendance (Staffid, date, DayOrder, SubjectHour,  regno, IsAbsent) values
-                ('".$_SESSION["EmpId"]."','".$_REQUEST["at_date"]."',".$_REQUEST["at_DO"].",".$_REQUEST["at_hours"].",'$tarr[$i]',$k)";
+                $qry="insert into  tblattendance (Staffid, date, DayOrder, SubjectHour,  regno, IsAbsent,CourseTaught) values
+                ('".$_SESSION["EmpId"]."','".$_REQUEST["at_date"]."',".$_REQUEST["at_DO"].",".$_REQUEST["at_hours"].",'$tarr[$i]',$k,'".$_REQUEST["CourseTaught"]."')";
                 //echo $qry."<br>";
                 mysqli_query($conn,$qry);
                 $_SESSION["msg"]="Data Entry Saved";
@@ -213,7 +213,7 @@
         <form id="frmadd" action="attendance.php" mode="POST">
             <div class="margin-top-base">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row">
@@ -278,8 +278,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="margin-top-base">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="input1" class="form-label">Course Taught</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea class="form-control" name="CourseTaught" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
             </div>
             <div class="margin-top-base">

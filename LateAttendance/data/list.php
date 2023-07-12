@@ -4,7 +4,7 @@
 
     //fetch records
     $SQL=" SELECT la.id,la.regNo,s.firstName,la.year,la.Semester,d.dname,la.date
-                from  tbllackattendance la
+                from  tblLateattendance la
                 inner join tbldepartment d on la.deptid = d.id
                 inner join  tblstudent s on la.regno= s.regNo
                 ORDER BY la.regNo asc ";

@@ -10,7 +10,7 @@
     $la_sem =  trim($_POST['la_sem']);
     $la_deptid =  trim($_POST['la_deptid']);
 
-    $SQL="insert into tbllackattendance (regno,Year,Semester,date,deptid) 
+    $SQL="insert into tblLateattendance (regno,Year,Semester,date,deptid) 
     values('".$la_reg."','". $la_year ."','". $la_sem ."','". $la_date ."',$la_deptid);";
     if (mysqli_query($conn, $SQL)) {
         $response="Data inserted successfully!";
