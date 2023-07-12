@@ -50,6 +50,42 @@
     $opsub=$SubjectId;
     $opDayOrder=$DayOrder;
     $opHours=$SubjectHour;
+    $_SESSION["msg"]="";
+    if(isset($_REQUEST["btnAtte"]))
+    {
+        $tarr=$_REQUEST["std"];
+        $attd=$_REQUEST["att"];
+        $testsql="select * from tblattendance where date='".$_REQUEST["at_date"]."'
+         and DayOrder=".$_REQUEST["at_DO"]." and SubjectHour=".$_REQUEST["at_hours"]."
+          and Staffid='".$_SESSION["EmpId"]."' ;";
+		$chk=mysqli_num_rows(mysqli_query($conn,$testsql));
+        if($chk==0)
+        {
+            for($i=0;$i<sizeof($tarr);$i++)
+            {
+                if(in_array($tarr[$i],$attd))
+                {
+                    $k=0;
+                } 
+                else
+                {
+                    $k=1;
+                }
+                $qry="insert into  tblattendance (Staffid, date, DayOrder, SubjectHour,  regno, IsAbsent) values
+                ('".$_SESSION["EmpId"]."','".$_REQUEST["at_date"]."',".$_REQUEST["at_DO"].",".$_REQUEST["at_hours"].",'$tarr[$i]',$k)";
+                //echo $qry."<br>";
+                mysqli_query($conn,$qry);
+                $_SESSION["msg"]="Data Entry Saved";
+            }
+            header("location:./index.php");    
+            
+        }
+        else
+        {
+            $_SESSION["msg"]="Already Saved";
+        }
+       
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +94,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance</title>
+    <STYLE>
+        #tblStudentList{
+            background-color:#fff;
+            color:#000;
+        }
+    </STYLE>
 </head>
 <body class="ovflow-y">
     <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
@@ -157,41 +199,120 @@
                 </div>
             </form>
         </div>
-        <div class="margin-top-base">
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3 ">
+                <?php
+                    if(isset($_SESSION["msg"]))
+                    {
+                        echo "<h3 STYLE='COLOR:RED;'>".$_SESSION["msg"]."</h3>";
+                    }
+                ?>
+            </div>
+        </div>
+        <form id="frmadd" action="attendance.php" mode="POST">
+            <div class="margin-top-base">
             <div class="row">
                 <div class="col-md-10">
-                    <form id="frmadd">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="input1" class="form-label">Date</label><br />
-                                <input type='date' id='at_date' name='at_date' class="form-control" 
-                                    tabindex="1" value="<?php echo $at_date; ?>" autocomplete="off"
-                                />
-                            </div>
-                            <div class="col-md-7">
-                                <table id="tblStudentList" class="table table-striped margin-top-base" border="1">
-                                    <thead>
-                                        <tr>
-                                            <th>RegNo</th>
-                                            <th>Name</th>
-                                            <th>Present</th>
-                                        </tr>   
-                                    </thead>
-                                    <tbody id=append_datas>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="submit" value="save" class="btn btn-primary margin-top-base" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="input1" class="form-label">Date</label>
+                                </div>
+                                <div class="col-md-8 col-lg-8">
+                                    <input type='date' id='at_date' name='at_date' class="form-control" 
+                                        tabindex="1" value="<?php echo $at_date; ?>" autocomplete="off"
+                                    />
+                                </div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4">
+                                        <label for="input1" class=" form-label">Subject Hour</label>
+                                    </div> 
+                                    <div class="col-md-8 col-lg-8">
+                                        <select class="form-select" tabindex="2"  name="at_hours" id="at_hours"
+                                           required  autocomplete="off" >
+                                            <?php
+                                                foreach ($lsthours as $value => $label) {
+                                                $selected = ($opHours == $value) ? "selected" : "";
+                                                echo "<option value=\"$value\" $selected>$label</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                        <script>
+                                            $(document).ready(function() {
+                                                var selectedValue = "<?php echo $opHours; ?>";
+                                               $("#at_hours").val(selectedValue);
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4">
+                                    <label for="input1" class=" form-label">Day Order</label>
+                                </div> 
+                                <div class="col-md-8 col-lg-8">
+                                    <select class="form-select" tabindex="3" name="at_DO" id="at_DO"
+                                       required  autocomplete="off" >
+                                        <?php
+                                            foreach ($lstDayOrder as $value => $label) {
+                                            $selected = ($opDayOrder == $value) ? "selected" : "";
+                                            echo "<option value=\"$value\" $selected>$label</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    <script>
+                                        $(document).ready(function() {
+                                            var selectedValue = "<?php echo $opDayOrder; ?>";
+                                           $("#at_DO").val(selectedValue);
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-2"></div>
             </div>
-        </div>
+            </div>
+            <div class="margin-top-base">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <table id="tblStudentList" class="table table-striped margin-top-base" border="1">
+                        <thead>
+                            <tr>
+                                <th>RegNo</th>
+                                <th>Name</th>
+                                <th>Present</th>
+                            </tr>   
+                        </thead>
+                        <tbody id=append_datas>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            </div>
+            <div class="margin-top-base">
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <input type="submit" value="save" name="btnAtte" class="btn btn-primary margin-top-base" />
+                </div>
+            </div>
+            </div>
+        </form>
     </div>
 </body>
-
 <script>
     $(document).ready(function() {
         $('#frmAtt').submit(function(e) {
@@ -218,39 +339,5 @@
             });
         });
     });
-    $(document).on('click', '.check_stu', function() {
-        $(this).val("0");
-    });
-    $('#frmadd').submit(function(e) {
-            e.preventDefault(); 
-            $("#tblStudentList td").each(function() {
-                var check_stu = $('.check_stu').val();
-                if (check_stu == '0') {
-                  var cellData = $(this).find('.regNo').val();
-                  console.log(cellData);
-                  // Perform operations on cellData
-                }
-            });
-
-            // var at_semester = $('#at_semester').val();
-            // var at_year = $('#at_year').val();
-            // $.ajax({
-            // url: './data/search.php', 
-            // datatype:'json',
-            // method: 'POST',
-            // data: {
-            //     at_dept: at_dept,
-            //     at_semester: at_semester,
-            //     at_year: at_year
-            //     },
-            //     success: function(data) {
-            //             $("#append_datas").append(data);
-            //     },
-            //     error: function(xhr, status, error) 
-            //     {
-            //         swal(xhr.responseText); 
-            //     }
-            // });
-        });
 </script>
 </html>

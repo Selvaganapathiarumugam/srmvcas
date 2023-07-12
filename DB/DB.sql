@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 06, 2023 at 10:51 AM
+-- Generation Time: Jul 12, 2023 at 09:15 AM
 -- Server version: 5.1.36
 -- PHP Version: 5.3.0
 
@@ -12,6 +12,28 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `attendance`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblattendance`
+--
+
+CREATE TABLE IF NOT EXISTS `tblattendance` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+  `regno` varchar(20) NOT NULL,
+  `date` date NOT NULL,
+  `DayOrder` mediumint(2) NOT NULL,
+  `subjectHour` mediumint(2) NOT NULL,
+  `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
+  `Staffid` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `tblattendance`
+--
+
 
 -- --------------------------------------------------------
 
@@ -80,14 +102,16 @@ CREATE TABLE IF NOT EXISTS `tbllackattendance` (
   `year` varchar(5) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `tbllackattendance`
 --
 
 INSERT INTO `tbllackattendance` (`id`, `regno`, `deptid`, `semester`, `year`, `date`) VALUES
-(1, '22PCA009', 4, 'III', 'II', '2023-07-06');
+(1, '22PCA009', 4, 'III', 'II', '2023-07-06'),
+(2, '22PCA039', 4, 'III', 'II', '2023-07-09'),
+(3, '22PCA006', 4, 'III', 'II', '2023-07-09');
 
 -- --------------------------------------------------------
 
@@ -148,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `tblstudent` (
   `state` varchar(255) NOT NULL,
   `nationality` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tblstudent`
@@ -156,7 +180,9 @@ CREATE TABLE IF NOT EXISTS `tblstudent` (
 
 INSERT INTO `tblstudent` (`id`, `firstName`, `lastName`, `regNo`, `dob`, `age`, `email`, `gender`, `contactNumber`, `deptid`, `semester`, `year`, `batch`, `fatherName`, `fatherContact`, `motherName`, `motherContect`, `aadharNumber`, `community`, `religion`, `addressLine1`, `addressLine2`, `city`, `pincode`, `state`, `nationality`) VALUES
 (2, 'Selvaganapthi', 'A', '22PCA039', '2002-03-17', 22, '22pca039@rmv.ac.in', 'male', '9655120081', 4, 'III', 'II', '2023-2025', 'A', '9784563201', 'M', '9655820084', '123498768521', 'nill', 'nill', 'abc', 'xyz', 'CBE', '641001', 'TN', 'India'),
-(3, 'Bharathidhasan', 'R', '22PCA009', '2002-05-05', 22, '22pca009@rmv.ac.in', 'male', '9632587410', 4, 'III', 'II', '2022-2024', 'R', '9632587410', 'M', '8978456512', '789456321023', 'nill', 'nill', 'mmm', 'yyy', 'Sivaganga', '641005', 'TN', 'India');
+(3, 'Bharathidhasan', 'R', '22PCA009', '2002-05-05', 22, '22pca009@rmv.ac.in', 'male', '9632587410', 4, 'III', 'II', '2022-2024', 'R', '9632587410', 'M', '8978456512', '789456321023', 'nill', 'nill', 'mmm', 'yyy', 'Sivaganga', '641005', 'TN', 'India'),
+(4, 'Arunagiri', 'M', '22PCA006', '2001-12-28', 21, '22pca006@rmv.ac.in', 'male', '9345582334', 4, 'III', 'II', '2022-2024', 'A.Manickavelu', '9095748976', 'K.Victroiya', '9360154497', '395628702750', 'MBC', 'hindu', '102,Mariyamnan Kovil  Street', 'Killkangeyam Kuppam', 'Panruti', '607805', 'Tamilnadu', 'India'),
+(5, 'Jawaharsrinath', 'G', '22PCA017', '1998-05-05', 25, '22pca017@rmv.ac.in', 'male', '9345993004', 4, 'III', 'II', '2022-2024', 'N.Govindarajan', '9632587410', 'G.Nenuga', '9632587451', '852207419630', 'nill', 'hindu', '12,north street', 'kangai konda cholapuram', 'Thanjavoor', '685214', 'Tamil nadu', 'India');
 
 -- --------------------------------------------------------
 
@@ -217,5 +243,4 @@ INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullnam
 (1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'admin', '9655120081', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4),
 (2, 'PCA_01', 'dinesh', 'MTIzNDU2Nzg=', 'dineshkumar@gmail.in', 'Dineshkumar', '9632587410', 'male', '1980-01-01', 43, '2021-01-01', '0000-00-00', 2, 4),
 (3, 'UCA_02', 'chandhiran', 'MTIzNDU2Nzg=', 'chandhiran@rmv.ac.in', 'Chandhiran', '9894316150', 'male', '1980-01-01', 43, '2007-01-10', '0000-00-00', 2, 3),
-(4, 'UIT_01', 'kamaraj', 'MTIzNDU2Nzg=', 'kamaraj@rmv.ac.in', 'Kamaraj', '9942080458', 'male', '1980-01-01', 43, '2007-01-01', '0000-00-00', 3, 1),
-(5, 'UIT_02', 'sk', 'MTIzNDU2Nzg=', 'santhaanakrishnan@rmv.ac.in', 'Santhanakrishnan', '9080742935', 'male', '1990-01-01', 33, '2022-04-10', '0000-00-00', 2, 1);
+(4, 'UIT_01', 'kamaraj', 'MTIzNDU2Nzg=', 'kamaraj@rmv.ac.in', 'Kamaraj', '9942080458', 'male', '1980-01-01', 43, '2007-01-01', '0000-00-00', 3, 1);

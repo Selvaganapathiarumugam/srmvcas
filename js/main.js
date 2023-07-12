@@ -33,3 +33,19 @@ function confirmbox()
     });
     return result;
 }
+function AttMsg() {
+    swal("Attendance Saved Success", {
+        icon: "success",
+        buttons: {
+            OK: {
+            text: "OK",
+            value: "OK",
+        },
+    },
+    }).then((value) => {
+        switch (value) {
+            case "OK":window.location.href='./index.php'; break;
+            default:window.location.href='./index.php';
+        }
+    });
+}

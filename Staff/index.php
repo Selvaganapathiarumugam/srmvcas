@@ -3,6 +3,7 @@
     session_start();
     error_reporting(0); 
     include("../links.php");
+    include("../connect.php");
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
@@ -12,6 +13,7 @@
         $SQL="delete from tblusers where Id='". $id."'";
         try {
             $result = mysqli_query($conn,$SQL);
+            echo "<script> deletemsg(); </script>";
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -25,13 +25,13 @@
        try 
         {
            $result = mysqli_query($conn,$SQL);
+           echo "<script> deletemsg(); </script>";
+
         } 
         catch (\Throwable $th) 
         {
            throw $th;
         }
-       $id="";
-       $_REQUEST['did']="";
     }
 ?>
 <!DOCTYPE html>

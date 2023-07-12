@@ -22,16 +22,16 @@
         foreach ($response as $size_row) {
             $data[] = "<tr class='col-md-4'>
                             <td>
-                                <input type='hidden' class='regNo' name='regNo[]' id='regNo' value='{$size_row['regNo']}'>
-                                <input type='hidden' class='p_size' name='id[]' value='{$size_row['id']}'>
+                                <input type='hidden'  name='std[]'  value='{$size_row['regNo']}'>
+                                <input type='hidden' class='p_size' name='id' value='{$size_row['id']}'>
                                 {$size_row['regNo']}
                             </td>
                             <td>
-                                <input type='hidden' class='firstName' id='firstName' name='firstName[]' value='{$size_row['firstName']}'>
+                                <input type='hidden' class='firstName' id='firstName' name='firstName' value='{$size_row['firstName']}'>
                                 {$size_row['firstName']}
                             </td>
                             <td>
-                                <input type='checkbox' class='check_stu' name='chIspresent' value='1' checked>
+                                <input type='checkbox' name='att[]' value='{$size_row['regNo']}'  checked>
                             </td>
                         </tr>";
         }
