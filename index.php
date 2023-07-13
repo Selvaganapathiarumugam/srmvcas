@@ -39,7 +39,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="card" id="mycard">
                         <div class="card-body">
-                            <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                            <center><img src="./images/student.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
                                 <a href="./Student/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STUDENTS</a>
                             </div>
@@ -49,7 +49,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="card" id="mycard">
                         <div class="card-body">
-                            <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                            <center><img src="./images/depart.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
                                 <a href="./Department/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff; margin-right:4px;"></i>DEPARTMENTS</a>
                             </div>
@@ -59,7 +59,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="card" id="mycard">
                         <div class="card-body">
-                            <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                            <center><img src="./images/course.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
                                 <a href="./Course/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>COURSES</a>
                             </div>
@@ -69,7 +69,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="card" id="mycard">
                         <div class="card-body">
-                            <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                            <center><img src="./images/staff.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
                                 <a href="./Staff/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STAFF</a>
                             </div>
@@ -82,7 +82,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card" id="mycard">
                             <div class="card-body">
-                                <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                                <center><img src="./images/timetable.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
                                     <a href="./Timetable/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>TIME TABLE</a>
                                 </div>
@@ -92,7 +92,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card" id="mycard">
                             <div class="card-body">
-                                <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                                <center><img src="./images/atten_2.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
                                     <a href="./Attendance/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>ATTENDANCE</a>
                                 </div>
@@ -102,9 +102,9 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card" id="mycard">
                             <div class="card-body">
-                                <center><img src="./images/tcrl.png" width="100px" height="70px"/><center>
+                                <center><img src="./images/atten_1.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
-                                    <a href="./lateAttendance/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>LATE OF ATTENDANCE</a>
+                                    <a href="./lateAttendance/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>LATE ATTENDANCE</a>
                                 </div>
                             </div>
                         </div>

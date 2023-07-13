@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 12, 2023 at 11:40 AM
+-- Generation Time: Jul 13, 2023 at 10:11 AM
 -- Server version: 5.1.36
 -- PHP Version: 5.3.0
 
@@ -12,6 +12,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `attendance`
 --
+CREATE DATABASE `attendance` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `attendance`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `tblattendance` (
   `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
   `Staffid` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `tblattendance`
@@ -37,9 +39,25 @@ CREATE TABLE IF NOT EXISTS `tblattendance` (
 
 INSERT INTO `tblattendance` (`id`, `regno`, `date`, `DayOrder`, `subjectHour`, `CourseTaught`, `IsAbsent`, `Staffid`) VALUES
 (1, '22PCA006', '2023-07-11', 1, 1, '', 0, 'DEV_01'),
-(2, '22PCA009', '2023-07-11', 1, 1, '', 1, 'DEV_01'),
-(3, '22PCA017', '2023-07-11', 1, 1, '', 0, 'DEV_01'),
-(4, '22PCA039', '2023-07-11', 1, 1, '', 1, 'DEV_01');
+(2, '22PCA009', '2023-07-11', 1, 1, '', 0, 'DEV_01'),
+(3, '22PCA017', '2023-07-11', 1, 1, '', 1, 'DEV_01'),
+(4, '22PCA039', '2023-07-11', 1, 1, '', 1, 'DEV_01'),
+(5, '22PCA006', '2023-07-11', 1, 2, 'PHP', 0, 'DEV_01'),
+(6, '22PCA009', '2023-07-11', 1, 2, 'PHP', 0, 'DEV_01'),
+(7, '22PCA017', '2023-07-11', 1, 2, 'PHP', 1, 'DEV_01'),
+(8, '22PCA039', '2023-07-11', 1, 2, 'PHP', 0, 'DEV_01'),
+(9, '22PCA006', '2023-07-11', 1, 3, 'PHP', 0, 'DEV_01'),
+(10, '22PCA009', '2023-07-11', 1, 3, 'PHP', 0, 'DEV_01'),
+(11, '22PCA017', '2023-07-11', 1, 3, 'PHP', 1, 'DEV_01'),
+(12, '22PCA039', '2023-07-11', 1, 3, 'PHP', 0, 'DEV_01'),
+(13, '22PCA006', '2023-07-11', 1, 4, '', 0, 'DEV_01'),
+(14, '22PCA009', '2023-07-11', 1, 4, '', 1, 'DEV_01'),
+(15, '22PCA017', '2023-07-11', 1, 4, '', 1, 'DEV_01'),
+(16, '22PCA039', '2023-07-11', 1, 4, '', 0, 'DEV_01'),
+(17, '22PCA006', '2023-07-11', 1, 5, 'Android', 0, 'DEV_01'),
+(18, '22PCA009', '2023-07-11', 1, 5, 'Android', 1, 'DEV_01'),
+(19, '22PCA017', '2023-07-11', 1, 5, 'Android', 1, 'DEV_01'),
+(20, '22PCA039', '2023-07-11', 1, 5, 'Android', 0, 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -68,6 +86,28 @@ INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `cour
 (2, 1, 'II', 'II', 'Java Programming', '20UIT3C03', '2023'),
 (3, 1, 'III', 'V', 'Fundamentals of Cyber Security', '20UIT5EL01', '2023'),
 (4, 1, 'III', 'V', 'Python Programming', '20UIT5C09', '2023');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldayattendance`
+--
+
+CREATE TABLE IF NOT EXISTS `tbldayattendance` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+  `deptId` mediumint(3) NOT NULL,
+  `semester` varchar(3) NOT NULL,
+  `year` varchar(3) NOT NULL,
+  `regno` varchar(20) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `satffId` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `tbldayattendance`
+--
+
 
 -- --------------------------------------------------------
 
@@ -240,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `deptid` mediumint(3) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `EmpId` (`EmpId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tblusers`
