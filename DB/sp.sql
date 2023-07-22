@@ -1,4 +1,5 @@
 DELIMITER //
+
 CREATE PROCEDURE sp_Absent(
   IN dateParam DATE,
   IN deptIdParam INT,
@@ -10,17 +11,19 @@ BEGIN
   FROM (
     SELECT *
     FROM tblattendance
+    WHERE date = dateParam
     GROUP BY regno
     HAVING SUM(CASE WHEN IsAbsent = 1 THEN 1 ELSE 0 END) = 5
   ) AS A
   INNER JOIN tblstudent S ON A.regno = S.regNo
-  WHERE A.date = dateParam
-    AND S.deptid = deptIdParam
+  WHERE S.deptid = deptIdParam
     AND S.semester = semIdParam
     AND S.year = yearParam
   GROUP BY A.regno;
 END //
+
 DELIMITER ;
+
 
 
 
@@ -81,6 +84,21 @@ FROM (
 ) AS AP
 GROUP BY AP.regno;
 
+SELECT AP.*
+FROM (
+  SELECT *
+  FROM tblattendance
+  WHERE subjectHour IN (4, 5)
+    AND isAbsent = 1
+    and DATe ='2023-07-22'
+    AND regno NOT IN (
+      SELECT regno
+      FROM tblattendance
+      GROUP BY regno
+      HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
+    )
+) AS AP
+GROUP BY AP.regno;
 
 
 
