@@ -21,17 +21,16 @@ USE `attendance`;
 -- Table structure for table `tblattendance`
 --
 
-CREATE TABLE IF NOT EXISTS `tblattendance` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblattendance` (
+  `id` mediumint(3) NOT NULL,
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `subjectHour` mediumint(2) NOT NULL,
   `CourseTaught` varchar(500) NOT NULL,
-  `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
-  `Staffid` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+  `IsAbsent` tinyint(3) NOT NULL DEFAULT 0,
+  `Staffid` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblattendance`
@@ -57,7 +56,47 @@ INSERT INTO `tblattendance` (`id`, `regno`, `date`, `DayOrder`, `subjectHour`, `
 (17, '22PCA006', '2023-07-11', 1, 5, 'Android', 0, 'DEV_01'),
 (18, '22PCA009', '2023-07-11', 1, 5, 'Android', 1, 'DEV_01'),
 (19, '22PCA017', '2023-07-11', 1, 5, 'Android', 1, 'DEV_01'),
-(20, '22PCA039', '2023-07-11', 1, 5, 'Android', 0, 'DEV_01');
+(20, '22PCA039', '2023-07-11', 1, 5, 'Android', 0, 'DEV_01'),
+(21, '22PCA006', '2023-07-24', 1, 1, 'php', 0, 'DEV_01'),
+(22, '22PCA009', '2023-07-24', 1, 1, 'php', 1, 'DEV_01'),
+(23, '22PCA017', '2023-07-24', 1, 1, 'php', 0, 'DEV_01'),
+(24, '22PCA039', '2023-07-24', 1, 1, 'php', 1, 'DEV_01'),
+(25, '22PCA006', '2023-07-24', 1, 2, 'php', 0, 'DEV_01'),
+(26, '22PCA009', '2023-07-24', 1, 2, 'php', 1, 'DEV_01'),
+(27, '22PCA017', '2023-07-24', 1, 2, 'php', 0, 'DEV_01'),
+(28, '22PCA039', '2023-07-24', 1, 2, 'php', 1, 'DEV_01'),
+(29, '22PCA006', '2023-07-24', 1, 3, 'php', 1, 'DEV_01'),
+(30, '22PCA009', '2023-07-24', 1, 3, 'php', 1, 'DEV_01'),
+(31, '22PCA017', '2023-07-24', 1, 3, 'php', 0, 'DEV_01'),
+(32, '22PCA039', '2023-07-24', 1, 3, 'php', 1, 'DEV_01'),
+(33, '22PCA006', '2023-07-24', 1, 4, 'php', 0, 'DEV_01'),
+(34, '22PCA009', '2023-07-24', 1, 4, 'php', 1, 'DEV_01'),
+(35, '22PCA017', '2023-07-24', 1, 4, 'php', 0, 'DEV_01'),
+(36, '22PCA039', '2023-07-24', 1, 4, 'php', 1, 'DEV_01'),
+(37, '22PCA006', '2023-07-24', 1, 5, 'java', 0, 'DEV_01'),
+(38, '22PCA009', '2023-07-24', 1, 5, 'java', 1, 'DEV_01'),
+(39, '22PCA017', '2023-07-24', 1, 5, 'java', 0, 'DEV_01'),
+(40, '22PCA039', '2023-07-24', 1, 5, 'java', 1, 'DEV_01'),
+(41, '22PCA006', '2023-07-25', 2, 1, '', 1, 'DEV_01'),
+(42, '22PCA009', '2023-07-25', 2, 1, '', 0, 'DEV_01'),
+(43, '22PCA017', '2023-07-25', 2, 1, '', 0, 'DEV_01'),
+(44, '22PCA039', '2023-07-25', 2, 1, '', 0, 'DEV_01'),
+(45, '22PCA006', '2023-07-25', 2, 2, '', 0, 'DEV_01'),
+(46, '22PCA009', '2023-07-25', 2, 2, '', 1, 'DEV_01'),
+(47, '22PCA017', '2023-07-25', 2, 2, '', 0, 'DEV_01'),
+(48, '22PCA039', '2023-07-25', 2, 2, '', 0, 'DEV_01'),
+(49, '22PCA006', '2023-07-25', 2, 3, '', 0, 'DEV_01'),
+(50, '22PCA009', '2023-07-25', 2, 3, '', 0, 'DEV_01'),
+(51, '22PCA017', '2023-07-25', 2, 3, '', 1, 'DEV_01'),
+(52, '22PCA039', '2023-07-25', 2, 3, '', 0, 'DEV_01'),
+(53, '22PCA006', '2023-07-25', 2, 4, '', 0, 'DEV_01'),
+(54, '22PCA009', '2023-07-25', 2, 4, '', 0, 'DEV_01'),
+(55, '22PCA017', '2023-07-25', 2, 4, '', 0, 'DEV_01'),
+(56, '22PCA039', '2023-07-25', 2, 4, '', 1, 'DEV_01'),
+(57, '22PCA006', '2023-07-25', 2, 5, '', 0, 'DEV_01'),
+(58, '22PCA009', '2023-07-25', 2, 5, '', 0, 'DEV_01'),
+(59, '22PCA017', '2023-07-25', 2, 5, '', 0, 'DEV_01'),
+(60, '22PCA039', '2023-07-25', 2, 5, '', 1, 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -65,17 +104,15 @@ INSERT INTO `tblattendance` (`id`, `regno`, `date`, `DayOrder`, `subjectHour`, `
 -- Table structure for table `tblcourse`
 --
 
-CREATE TABLE IF NOT EXISTS `tblcourse` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblcourse` (
+  `id` mediumint(3) NOT NULL,
   `deptId` mediumint(3) NOT NULL,
   `year` varchar(3) DEFAULT NULL,
   `semester` varchar(3) DEFAULT NULL,
   `courseName` varchar(150) DEFAULT NULL,
   `courseCode` varchar(20) DEFAULT NULL,
-  `AcadamicYear` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `courseCode` (`courseCode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `AcadamicYear` varchar(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblcourse`
@@ -93,21 +130,26 @@ INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `cour
 -- Table structure for table `tbldayattendance`
 --
 
-CREATE TABLE IF NOT EXISTS `tbldayattendance` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbldayattendance` (
+  `id` mediumint(3) NOT NULL,
   `deptId` mediumint(3) NOT NULL,
   `semester` varchar(3) NOT NULL,
   `year` varchar(3) NOT NULL,
   `regno` varchar(20) NOT NULL,
+  `date` date NOT NULL,
   `status` varchar(10) NOT NULL,
-  `satffId` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `staffId` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbldayattendance`
 --
 
+INSERT INTO `tbldayattendance` (`id`, `deptId`, `semester`, `year`, `regno`, `date`, `status`, `staffId`) VALUES
+(1, 4, 'III', 'II', '22PCA006', '2023-07-25', 'AP', 'DEV_01'),
+(2, 4, 'III', 'II', '22PCA009', '2023-07-25', 'AP', 'DEV_01'),
+(3, 4, 'III', 'II', '22PCA017', '2023-07-25', 'AP', 'DEV_01'),
+(4, 4, 'III', 'II', '22PCA039', '2023-07-25', 'PA', 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -115,11 +157,10 @@ CREATE TABLE IF NOT EXISTS `tbldayattendance` (
 -- Table structure for table `tbldepartment`
 --
 
-CREATE TABLE IF NOT EXISTS `tbldepartment` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
-  `dname` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+CREATE TABLE `tbldepartment` (
+  `id` mediumint(3) NOT NULL,
+  `dname` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbldepartment`
@@ -140,15 +181,14 @@ INSERT INTO `tbldepartment` (`id`, `dname`) VALUES
 -- Table structure for table `tbllateattendance`
 --
 
-CREATE TABLE IF NOT EXISTS `tbllateattendance` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbllateattendance` (
+  `id` mediumint(3) NOT NULL,
   `regno` varchar(20) NOT NULL,
   `deptid` mediumint(3) NOT NULL,
   `semester` varchar(5) NOT NULL,
   `year` varchar(5) NOT NULL,
-  `date` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `date` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbllateattendance`
@@ -166,13 +206,11 @@ INSERT INTO `tbllateattendance` (`id`, `regno`, `deptid`, `semester`, `year`, `d
 -- Table structure for table `tblroles`
 --
 
-CREATE TABLE IF NOT EXISTS `tblroles` (
-  `Id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblroles` (
+  `Id` mediumint(3) NOT NULL,
   `Description` varchar(250) NOT NULL,
-  `is_Active` bit(1) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `Description` (`Description`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `is_Active` bit(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblroles`
@@ -191,8 +229,8 @@ INSERT INTO `tblroles` (`Id`, `Description`, `is_Active`) VALUES
 -- Table structure for table `tblstudent`
 --
 
-CREATE TABLE IF NOT EXISTS `tblstudent` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblstudent` (
+  `id` mediumint(3) NOT NULL,
   `firstName` varchar(250) NOT NULL,
   `lastName` varchar(250) NOT NULL,
   `regNo` varchar(10) NOT NULL,
@@ -217,9 +255,8 @@ CREATE TABLE IF NOT EXISTS `tblstudent` (
   `city` varchar(255) NOT NULL,
   `pincode` varchar(10) NOT NULL,
   `state` varchar(255) NOT NULL,
-  `nationality` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `nationality` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblstudent`
@@ -237,8 +274,8 @@ INSERT INTO `tblstudent` (`id`, `firstName`, `lastName`, `regNo`, `dob`, `age`, 
 -- Table structure for table `tbltimetable`
 --
 
-CREATE TABLE IF NOT EXISTS `tbltimetable` (
-  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbltimetable` (
+  `id` mediumint(3) NOT NULL,
   `deptId` mediumint(3) NOT NULL,
   `Staffid` mediumint(3) NOT NULL,
   `Year` varchar(5) NOT NULL,
@@ -246,9 +283,8 @@ CREATE TABLE IF NOT EXISTS `tbltimetable` (
   `SubjectId` mediumint(3) NOT NULL,
   `SubjectCore` varchar(150) NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
-  `SubjectHour` mediumint(2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `SubjectHour` mediumint(2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbltimetable`
@@ -263,8 +299,8 @@ INSERT INTO `tbltimetable` (`id`, `deptId`, `Staffid`, `Year`, `Semester`, `Subj
 -- Table structure for table `tblusers`
 --
 
-CREATE TABLE IF NOT EXISTS `tblusers` (
-  `Id` mediumint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblusers` (
+  `Id` mediumint(3) NOT NULL,
   `EmpId` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -277,10 +313,8 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `doj` date NOT NULL,
   `dor` date NOT NULL,
   `roleId` mediumint(3) NOT NULL,
-  `deptid` mediumint(3) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `EmpId` (`EmpId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `deptid` mediumint(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblusers`
@@ -291,3 +325,123 @@ INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullnam
 (2, 'PCA_01', 'dinesh', 'MTIzNDU2Nzg=', 'dineshkumar@gmail.in', 'Dineshkumar', '9632587410', 'male', '1980-01-01', 43, '2021-01-01', '0000-00-00', 2, 4),
 (3, 'UCA_02', 'chandhiran', 'MTIzNDU2Nzg=', 'chandhiran@rmv.ac.in', 'Chandhiran', '9894316150', 'male', '1980-01-01', 43, '2007-01-10', '0000-00-00', 2, 3),
 (4, 'UIT_01', 'kamaraj', 'MTIzNDU2Nzg=', 'kamaraj@rmv.ac.in', 'Kamaraj', '9942080458', 'male', '1980-01-01', 43, '2007-01-01', '0000-00-00', 3, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tblattendance`
+--
+ALTER TABLE `tblattendance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblcourse`
+--
+ALTER TABLE `tblcourse`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `courseCode` (`courseCode`);
+
+--
+-- Indexes for table `tbldayattendance`
+--
+ALTER TABLE `tbldayattendance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbldepartment`
+--
+ALTER TABLE `tbldepartment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbllateattendance`
+--
+ALTER TABLE `tbllateattendance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblroles`
+--
+ALTER TABLE `tblroles`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Description` (`Description`);
+
+--
+-- Indexes for table `tblstudent`
+--
+ALTER TABLE `tblstudent`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbltimetable`
+--
+ALTER TABLE `tbltimetable`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblusers`
+--
+ALTER TABLE `tblusers`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `EmpId` (`EmpId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tblattendance`
+--
+ALTER TABLE `tblattendance`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT for table `tblcourse`
+--
+ALTER TABLE `tblcourse`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbldayattendance`
+--
+ALTER TABLE `tbldayattendance`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbldepartment`
+--
+ALTER TABLE `tbldepartment`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbllateattendance`
+--
+ALTER TABLE `tbllateattendance`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tblroles`
+--
+ALTER TABLE `tblroles`
+  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tblstudent`
+--
+ALTER TABLE `tblstudent`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbltimetable`
+--
+ALTER TABLE `tbltimetable`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tblusers`
+--
+ALTER TABLE `tblusers`
+  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;

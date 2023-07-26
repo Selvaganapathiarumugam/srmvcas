@@ -88,7 +88,7 @@
     <div class="margin-top-base">
         <div class="container">
             <div class="row">
-                <form id="frmAtt">
+                <form id="frmAtt" action="./data/bulk_import.php" method="post">
                     <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">

@@ -57,7 +57,7 @@
         $attd=$_REQUEST["att"];
         $testsql="select * from tblattendance where date='".$_REQUEST["at_date"]."'
          and DayOrder=".$_REQUEST["at_DO"]." and SubjectHour=".$_REQUEST["at_hours"]."
-          and Staffid='".$_SESSION["EmpId"]."' ;";
+          and staffId='".$_SESSION["EmpId"]."' ;";
 		$chk=mysqli_num_rows(mysqli_query($conn,$testsql));
         if($chk==0)
         {

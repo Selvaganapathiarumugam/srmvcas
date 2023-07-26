@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <center><img src="./images/student.png" width="100px" height="70px"/><center>
                             <div class="margin-top-base">
-                                <a href="./Student/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STUDENTS</a>
+                                <a href="./student/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STUDENTS</a>
                             </div>
                         </div>
                     </div>
