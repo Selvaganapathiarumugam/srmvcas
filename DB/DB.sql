@@ -16,7 +16,6 @@ CREATE DATABASE `attendance` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish
 USE `attendance`;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `tblattendance`
 --
@@ -122,7 +121,14 @@ INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `cour
 (1, 1, 'I', 'I', 'Programming In C', '20UIT1C01', '2023'),
 (2, 1, 'II', 'II', 'Java Programming', '20UIT3C03', '2023'),
 (3, 1, 'III', 'V', 'Fundamentals of Cyber Security', '20UIT5EL01', '2023'),
-(4, 1, 'III', 'V', 'Python Programming', '20UIT5C09', '2023');
+(4, 1, 'III', 'V', 'Python Programming', '20UIT5C09', '2023'),
+(5, 4, 'I', 'I', 'OOPs With CPP', '22PCA1C01', '2023'),
+(6, 4, 'I', 'I', 'Relational Database Management System', '22PCA1C02', '2023'),
+(7, 4, 'I', 'I', 'Data Structures & Algorithms With CPP', '22PCA1C03', '2023'),
+(8, 4, 'I', 'I', 'Fundamentals of Accounts', '22PCA1C04', '2023'),
+(9, 1, 'I', 'I', 'Amutha Tamil -1', '20UIT1TA01', '2023'),
+(10, 1, 'I', 'I', 'Mathematics -1', '20UIT1AL01', '2023'),
+(11, 1, 'I', 'I', 'English - 1', '20UIT1EN01', '2023');
 
 -- --------------------------------------------------------
 
@@ -266,7 +272,13 @@ INSERT INTO `tblstudent` (`id`, `firstName`, `lastName`, `regNo`, `dob`, `age`, 
 (2, 'Selvaganapthi', 'A', '22PCA039', '2002-03-17', 22, '22pca039@rmv.ac.in', 'male', '9655120081', 4, 'III', 'II', '2023-2025', 'A', '9784563201', 'M', '9655820084', '123498768521', 'nill', 'nill', 'abc', 'xyz', 'CBE', '641001', 'TN', 'India'),
 (3, 'Bharathidhasan', 'R', '22PCA009', '2002-05-05', 22, '22pca009@rmv.ac.in', 'male', '9632587410', 4, 'III', 'II', '2022-2024', 'R', '9632587410', 'M', '8978456512', '789456321023', 'nill', 'nill', 'mmm', 'yyy', 'Sivaganga', '641005', 'TN', 'India'),
 (4, 'Arunagiri', 'M', '22PCA006', '2001-12-28', 21, '22pca006@rmv.ac.in', 'male', '9345582334', 4, 'III', 'II', '2022-2024', 'A.Manickavelu', '9095748976', 'K.Victroiya', '9360154497', '395628702750', 'MBC', 'hindu', '102,Mariyamnan Kovil Street', 'Killkangeyam Kuppam', 'Panruti', '607805', 'Tamilnadu', 'India'),
-(5, 'Jawaharsrinath', 'G', '22PCA017', '1998-05-05', 25, '22pca017@rmv.ac.in', 'male', '9345993004', 4, 'III', 'II', '2022-2024', 'N.Govindarajan', '9632587410', 'G.Nenuga', '9632587451', '852207419630', 'nill', 'hindu', '12,north street', 'kangai konda cholapuram', 'Thanjavoor', '685214', 'Tamil nadu', 'India');
+(5, 'Jawaharsrinath', 'G', '22PCA017', '1998-05-05', 25, '22pca017@rmv.ac.in', 'male', '9345993004', 4, 'III', 'II', '2022-2024', 'N.Govindarajan', '9632587410', 'G.Nenuga', '9632587451', '852207419630', 'nill', 'hindu', '12,north street', 'kangai konda cholapuram', 'Thanjavoor', '685214', 'Tamil nadu', 'India'),
+(6, 'Balaji', 'A', '19UIT001', '2002-01-01', 17, 'onbalaji@gmail.com', 'male', '9876543210', 1, 'I', 'I', '2019-2022', 'Appa', '9876543210', 'Amma', '9876543210', '123456789012', 'nill', 'nill', '01/04, North street', 'Aruppukottai', 'Viruthunagar', '626001', 'Tamil Nadu', 'India'),
+(7, 'Balamurugan', 'A', '19UIT002', '2002-01-01', 17, 'balamuruganit@gmail.com', 'male', '9876543210', 1, 'I', 'I', '2019-2022', 'Appa', '9876543210', 'Amma', '9876543210', '1234567890098', 'nill', 'nill', '01/03, midile  street', 'Rasipuram', 'Namakkal', '637001', 'Tamil Nadu', 'India'),
+(8, 'Balamurugan', 'M', '19UIT003', '2002-01-01', 17, 'balamuruganitm@gmail.com', 'male', '9876543210', 1, 'I', 'I', '2019-2022', 'Appa', '9876543210', 'Amma', '9876543210', '6781234590098', 'nill', 'nill', '01/04,North street', 'GNMills', 'Coimbatore', '641001', 'Tamil Nadu', 'India'),
+(9, 'Bharathidhasan', 'R', '19UIT004', '2002-01-01', 17, 'kannabharathi2244@gmail.com', 'male', '9876543210', 1, 'I', 'I', '2019-2022', 'Appa', '9876543210', 'Amma', '9876543210', '9009812345678', 'nill', 'nill', '01/03, kadani', 'Thayamankalam', 'Sivagangai', '630561', 'Tamil Nadu', 'India'),
+(10, 'Chinnakannu', 'N', '19UIT005', '2002-01-01', 19, 'smalleye@gmail.com', 'male', '9876543210', 1, 'I', 'I', '2019-2022', 'Appa', '9876543210', 'Amma', '9876543210', '341256789012', 'nill', 'nill', '09/08 North street', 'Ganapathi', 'Coimbatore', '641001', 'Tamil Nadu', 'India'),
+(11, 'Dayananthan', 'A', '19UIT006', '2000-01-17', 19, 'dhaya@gmail.com', 'male', '9876543210', 1, 'I', 'I', '2019-2022', 'Appa', '9876543210', 'Amma', '9876543210', '987654321034', 'nill', 'nill', '23,part street,', 'cummbum', 'Theni', '625900', 'Tamil Nadu', 'India');
 
 -- --------------------------------------------------------
 
@@ -401,7 +413,7 @@ ALTER TABLE `tblattendance`
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbldayattendance`
@@ -431,7 +443,7 @@ ALTER TABLE `tblroles`
 -- AUTO_INCREMENT for table `tblstudent`
 --
 ALTER TABLE `tblstudent`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbltimetable`
@@ -445,3 +457,7 @@ ALTER TABLE `tbltimetable`
 ALTER TABLE `tblusers`
   MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

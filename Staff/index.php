@@ -60,7 +60,7 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                <a href="./Staff.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+                <a href="./staff.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
                     <i class="fa fa-plus" ></i>
                     <b>Add New Staff</b>
                 </a>
@@ -101,7 +101,7 @@
                     { 
                         data: '',
                         render: (data,type,row) => {
-                         return `<a href='Staff.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
+                         return `<a href='staff.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
                         }
                     },
                     { 

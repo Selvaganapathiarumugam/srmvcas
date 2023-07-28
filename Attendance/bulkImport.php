@@ -89,7 +89,7 @@
         <div class="container">
             <div class="row">
                 <form id="frmAtt" action="./data/bulk_import.php" method="post">
-                    <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
+                    <div class="mb-4 bg-light rounded-3" style="margin-left:15px;padding-top:20px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
@@ -162,44 +162,52 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</body>
-</html>
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <table id="tblAttendance" class="table table-responsive table-hover" cellspacing="0">
-                    <thead>
-                        <tr>
-                         <th scope="col">RegNo</th>
-                         <th scope="col">Date</th>
-                         <th scope="col">Day Order</th>
-                         <th scope="col">Subject Hour</th>-->
-                         <!-- <th scope="col">Edit</th> -->
-                          <!-- <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                </table> 
+            <div class="margin-top-base">
+            <div class="row">
+                <h3 style="color:#6d00b2;">Final Absentees List</h3></br></br></br>
+                        <div class="col-md-12">
+                            <table id="tblDayAttendance" class="table table-responsive table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>                                    
+                                    <th scope="col">Reg No</th>
+                                    <th scope="col">Department</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">Year</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                            </table> 
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
+
+
+</body>
+</html>
+
     <script type="text/javascript"> 
         $(document).ready(function() {
-            $('#tblAttendance').dataTable({
+            $('#tblDayAttendance').dataTable({
                 "processing": true,
-                "ajax": "./data/list.php",
+                "ajax": "./data/dayAttendanceList.php",
                 "columns": [
                     {data: 'regno'},
+                    {data: 'department'},
+                    {data: 'semester'},
+                    {data: 'year'},
                     {data: 'date'},
-                    {data: 'DayOrder'},
-                    {data: 'subjectHour'},
-                    // { 
-                    //     data: '',
-                    //     render: (data,type,row) => {
-                    //      return `<a href='#.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
-                    //     }
-                    // },
+                    {data: 'status'},
+                    { 
+                        data: '',
+                        render: (data,type,row) => {
+                         return `<a href='#.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
+                        }
+                    },
                     { 
                         data: '',
                         render: (data,type,row) => {
@@ -210,4 +218,4 @@
                 ]
             });
         });
-    </script>-->
+    </script>

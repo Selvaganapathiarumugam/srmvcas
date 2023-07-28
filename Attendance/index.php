@@ -70,6 +70,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="padding-base">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
+                                <center><img src="../images/report.png" width="100px" height="70px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./dayReport.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Day Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="co-md-1"></div>
             </div>
         </div>
