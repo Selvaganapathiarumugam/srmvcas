@@ -10,7 +10,7 @@
     $endDate = $_GET['at_ldate'];
 
     $sql = "SELECT regno,date, status FROM tbldayattendance 
-            WHERE date BETWEEN '". $startDate ." ' AND ' ".$endDate ."' order by date asc;";
+            WHERE date BETWEEN '". $startDate ." ' AND ' ".$endDate ."' order by regno asc;";
     //echo $sql;die();
     $result = mysqli_query($conn, $sql);
    // print_r($result); die();

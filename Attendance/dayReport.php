@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type='button' id='btnprint' name='btnsprint' class="btn btn-success"
+                                <input type='button' id='printButton' name='btnsprint' class="btn btn-success"
                                     tabindex="4"  autocomplete="off" value="Print"  style="margin-top:30px;"
                                 />
                             </div>
@@ -95,8 +95,8 @@
             </form>
         </div>
         <div class="margin-top-base">
-            <div id="tableContainer" > <!-- style="display: none;" -->
-                <table id="dynamicTable">
+            <div id="tableContainer" style="display: none;" > <!-- -->
+                <table id="dynamicTable" class="table table-striped table table-responsive">
                 </table>
             </div>
         </div>
@@ -140,20 +140,25 @@
             }
 
             table.append(headerRow);
-            data.forEach(function(row) {
+            for (let index = 0; index < data.data.length; index++) {
                 var dataRow = $("<tr>");
-                dataRow.append("<td>" + row.Regno + "</td>");
+                dataRow.append("<td>" + data.data[index].Regno + "</td>");
 
                 var currentDate = new Date(data.startDate);
                 while (currentDate <= at_ldate) {
                     var dateString = formatDate(currentDate);
-                    var status = row.Status[dateString] || "N/A";
-                    dataRow.append("<td>" + dateString + " = " + status + "</td>");
+                    var status= "--";
+                    if (dateString == data.data[index].date) {
+                        status = data.data[index].Status ;
+                    }
+                    
+                    dataRow.append("<td>" +  status + "</td>");
                     currentDate.setDate(currentDate.getDate() + 1);
                 }
 
                 table.append(dataRow);
-            });
+                
+            }
         }
 
         function formatDate(date) {
@@ -163,5 +168,22 @@
             return year + "-" + month + "-" + day;
         }
     });
+    $("#printButton").click(function() {
+        printTable();
+    });
+    function printTable() {
+        var table = document.getElementById("dynamicTable");
+        var tableWindow = window.open("", "Table Print");
+        var link="<html lang='en'><head><link rel='stylesheet' type='text/css' href='../css/main.css'><link rel='stylesheet' type='text/css' href='../css/Bootstrap.css'><title>Absent List Report</title></head><body>";
+        tableWindow.document.write(link);
+        tableWindow.document.write(table.outerHTML);
+        tableWindow.document.write("</body></html>");
+        tableWindow.document.close();
+        tableWindow.print();
+        tableWindow.close();
+
+    }
+
 </script>
 </html>
+
