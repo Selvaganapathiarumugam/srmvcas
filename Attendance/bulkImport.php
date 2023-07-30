@@ -27,29 +27,29 @@
         "II" => "II",
         "III" => "III"
     );
-    $lstDayOrder = array(
-        1 => "1",
-        2 => "2",
-        3 => "3",
-        4 => "4",
-        5 => "5",
-        6 => "6"
-    );
-    $lsthours = array(
-        1 => "1",
-        2 => "2",
-        3 => "3",
-        4 => "4",
-        5 => "5",
-        6 => "6"
-    );
+    // $lstDayOrder = array(
+    //     1 => "1",
+    //     2 => "2",
+    //     3 => "3",
+    //     4 => "4",
+    //     5 => "5",
+    //     6 => "6"
+    // );
+    // $lsthours = array(
+    //     1 => "1",
+    //     2 => "2",
+    //     3 => "3",
+    //     4 => "4",
+    //     5 => "5",
+    //     6 => "6"
+    // );
 
     $opDept=$deptId;
     $opSem = $Semester;
     $opYear=$year;
-    $opsub=$SubjectId;
-    $opDayOrder=$DayOrder;
-    $opHours=$SubjectHour;
+    // $opsub=$SubjectId;
+    // $opDayOrder=$DayOrder;
+    // $opHours=$SubjectHour;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +95,7 @@
                                 <div class="col-md-3">
                                     <label for="input1" class="form-label">Date</label>
                                     <input type='date' id='at_date' name='at_date' class="form-control" 
-                                        tabindex="1" value="<?php echo $at_date; ?>" autocomplete="off"
+                                        tabindex="1" value="<?php echo $at_date; ?>" required autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-3">
@@ -175,8 +175,8 @@
                                     <th scope="col">Year</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
+                                    <!-- <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th> -->
                                     </tr>
                                 </thead>
                             </table> 
@@ -201,20 +201,20 @@
                     {data: 'semester'},
                     {data: 'year'},
                     {data: 'date'},
-                    {data: 'status'},
-                    { 
-                        data: '',
-                        render: (data,type,row) => {
-                         return `<a href='#.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
-                        }
-                    },
-                    { 
-                        data: '',
-                        render: (data,type,row) => {
-                            return `<?PHP if ($_SESSION['Role'] == "1") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
-                            <?php } else{ ?><i class="fa fa-trash"></i><?php } ?>`;
-                        }
-                    }
+                    {data: 'status'}
+                    // { 
+                    //     data: '',
+                    //     render: (data,type,row) => {
+                    //      return `<a href='#.php?id=${row.id}'><i class="fa fa-pencil" style="color: #005eff;"></i></a>`;
+                    //     }
+                    // },
+                    // { 
+                    //     data: '',
+                    //     render: (data,type,row) => {
+                    //         return `<?PHP if ($_SESSION['Role'] == "1") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
+                    //         <?php } else{ ?><i class="fa fa-trash"></i><?php } ?>`;
+                    //     }
+                    // }
                 ]
             });
         });

@@ -139,8 +139,6 @@
         {
             echo "Already Inserted";
         }
-
- 
     }   
 
 ?>

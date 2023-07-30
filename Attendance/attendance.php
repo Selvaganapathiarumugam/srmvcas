@@ -77,7 +77,7 @@
                 mysqli_query($conn,$qry);
                 $_SESSION["msg"]="Data Entry Saved";
             }
-            header("location:./index.php");    
+            header("location:./absentindex.php");    
             
         }
         else

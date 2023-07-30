@@ -8,17 +8,6 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
-    // if(isset($_REQUEST["did"]))
-    // {
-    //     $id=$_REQUEST['did'];
-    //     $SQL="delete from  tblattendance where Id='". $id."'";
-    //     try {
-    //         $result = mysqli_query($conn,$SQL);
-    //         echo "<script> deletemsg(); </script>";
-    //     } catch (\Throwable $th) {
-    //         throw $th;
-    //     }
-    // }
 ?> 
 
 <!DOCTYPE html>
@@ -35,7 +24,7 @@
                 <h3 class=" padding-base">Absent List</h3>
             </div>
             <div class="col-md-6">
-                <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-md-3">
                 <div class="row">
@@ -75,7 +64,7 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <input type='submit' id='btnsubmit' name='btnsubmit' class="btn btn-primary"
                                         tabindex="3"  autocomplete="off" value="Get Record"
@@ -83,7 +72,7 @@
                                 />    
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <input type='button' id='printButton' name='btnsprint' class="btn btn-success"
                                     tabindex="4"  autocomplete="off" value="Print"  style="margin-top:30px;"
@@ -95,7 +84,7 @@
             </form>
         </div>
         <div class="margin-top-base">
-            <div id="tableContainer" style="display: none;" > <!-- -->
+            <div id="tableContainer" style="display: none;" >
                 <table id="dynamicTable" class="table table-striped table table-responsive">
                 </table>
             </div>
@@ -174,13 +163,13 @@
     function printTable() {
         var table = document.getElementById("dynamicTable");
         var tableWindow = window.open("", "Table Print");
-        var link="<html lang='en'><head><link rel='stylesheet' type='text/css' href='../css/main.css'><link rel='stylesheet' type='text/css' href='../css/Bootstrap.css'><title>Absent List Report</title></head><body>";
+        var link="<html lang='en'><head><link rel='stylesheet' type='text/css' href='../css/main.css'><link rel='stylesheet' type='text/css' href='../css/Bootstrap.css'><title>Absent List Report</title><style type='text/css' media='print'> @page  { size: auto;   margin: 0mm;  }</style><style> table { margin:10px; width:90%; }</style> </head><body onload=' window.print();'>";
         tableWindow.document.write(link);
         tableWindow.document.write(table.outerHTML);
         tableWindow.document.write("</body></html>");
         tableWindow.document.close();
-        tableWindow.print();
-        tableWindow.close();
+        //tableWindow.print();
+        //tableWindow.close();
 
     }
 
