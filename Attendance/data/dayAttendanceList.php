@@ -6,7 +6,7 @@
     ORDER BY da.date";
     
     $result = mysqli_query($conn,$SQL);
-    
+    $array=array();
     while($row = mysqli_fetch_array($result)) 
     {
         $array[] = $row;

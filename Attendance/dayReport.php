@@ -123,7 +123,7 @@
             var at_ldate = new Date(data.endDate);
 
             while (at_sdate <= at_ldate) {
-                var dateString = formatDate(at_sdate);
+                var dateString = DateOnly(at_sdate);
                 headerRow.append("<th>" + dateString + "</th>");
                 at_sdate.setDate(at_sdate.getDate() + 1);
             }
@@ -149,7 +149,10 @@
                 
             }
         }
-
+        function DateOnly(date) {
+            var day = date.getDate().toString().padStart(2, "0");
+            return day;
+        }
         function formatDate(date) {
             var year = date.getFullYear();
             var month = (date.getMonth() + 1).toString().padStart(2, "0");

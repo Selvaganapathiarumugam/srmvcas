@@ -30,7 +30,7 @@ CREATE TABLE `tblattendance` (
   `CourseTaught` varchar(500) NOT NULL,
   `IsAbsent` tinyint(3) NOT NULL DEFAULT 0,
   `Staffid` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblattendance`
@@ -147,7 +147,7 @@ CREATE TABLE `tblcourse` (
   `courseName` varchar(150) DEFAULT NULL,
   `courseCode` varchar(20) DEFAULT NULL,
   `AcadamicYear` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblcourse`
@@ -181,20 +181,23 @@ CREATE TABLE `tbldayattendance` (
   `date` date NOT NULL,
   `status` varchar(10) NOT NULL,
   `staffId` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbldayattendance`
 --
 
 INSERT INTO `tbldayattendance` (`id`, `deptId`, `semester`, `year`, `regno`, `date`, `status`, `staffId`) VALUES
-(0, 1, 'I', 'I', '19UIT001', '2023-07-29', 'A', 'DEV_01'),
-(0, 1, 'I', 'I', '19UIT005', '2023-07-29', 'A', 'DEV_01'),
-(0, 1, 'I', 'I', '19UIT002', '2023-07-29', 'P', 'DEV_01'),
-(0, 1, 'I', 'I', '19UIT003', '2023-07-29', 'P', 'DEV_01'),
-(0, 1, 'I', 'I', '19UIT007', '2023-07-29', 'P', 'DEV_01'),
-(0, 1, 'I', 'I', '19UIT004', '2023-07-29', 'AP', 'DEV_01'),
-(0, 1, 'I', 'I', '19UIT006', '2023-07-29', 'PA', 'DEV_01');
+(1, 1, 'I', 'I', '19UIT001', '2023-07-29', 'A', 'DEV_01'),
+(2, 1, 'I', 'I', '19UIT005', '2023-07-29', 'A', 'DEV_01'),
+(3, 1, 'I', 'I', '19UIT002', '2023-07-29', 'P', 'DEV_01'),
+(4, 1, 'I', 'I', '19UIT003', '2023-07-29', 'P', 'DEV_01'),
+(5, 1, 'I', 'I', '19UIT007', '2023-07-29', 'P', 'DEV_01'),
+(6, 1, 'I', 'I', '19UIT004', '2023-07-29', 'AP', 'DEV_01'),
+(7, 1, 'I', 'I', '19UIT006', '2023-07-29', 'PA', 'DEV_01'),
+(8, 4, 'III', 'II', '22PCA017', '2023-07-21', 'A', 'DEV_01'),
+(9, 4, 'III', 'II', '22PCA006', '2023-07-21', 'P', 'DEV_01'),
+(10, 4, 'III', 'II', '22PCA039', '2023-07-21', 'AP', 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -205,7 +208,7 @@ INSERT INTO `tbldayattendance` (`id`, `deptId`, `semester`, `year`, `regno`, `da
 CREATE TABLE `tbldepartment` (
   `id` mediumint(3) NOT NULL,
   `dname` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbldepartment`
@@ -233,7 +236,7 @@ CREATE TABLE `tbllateattendance` (
   `semester` varchar(5) NOT NULL,
   `year` varchar(5) NOT NULL,
   `date` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbllateattendance`
@@ -255,7 +258,7 @@ CREATE TABLE `tblroles` (
   `Id` mediumint(3) NOT NULL,
   `Description` varchar(250) NOT NULL,
   `is_Active` bit(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblroles`
@@ -301,7 +304,7 @@ CREATE TABLE `tblstudent` (
   `pincode` varchar(10) NOT NULL,
   `state` varchar(255) NOT NULL,
   `nationality` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblstudent`
@@ -336,7 +339,7 @@ CREATE TABLE `tbltimetable` (
   `SubjectCore` varchar(150) NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `SubjectHour` mediumint(2) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbltimetable`
@@ -366,7 +369,7 @@ CREATE TABLE `tblusers` (
   `dor` date NOT NULL,
   `roleId` mediumint(3) NOT NULL,
   `deptid` mediumint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblusers`
@@ -394,6 +397,12 @@ ALTER TABLE `tblattendance`
 ALTER TABLE `tblcourse`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `courseCode` (`courseCode`);
+
+--
+-- Indexes for table `tbldayattendance`
+--
+ALTER TABLE `tbldayattendance`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbldepartment`
@@ -450,6 +459,12 @@ ALTER TABLE `tblcourse`
   MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `tbldayattendance`
+--
+ALTER TABLE `tbldayattendance`
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `tbldepartment`
 --
 ALTER TABLE `tbldepartment`
@@ -485,7 +500,3 @@ ALTER TABLE `tbltimetable`
 ALTER TABLE `tblusers`
   MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

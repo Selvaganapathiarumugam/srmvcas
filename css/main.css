@@ -46,4 +46,13 @@
 }
 body{
   background-color:rgb(255, 248, 240) !important;
+  font-family: 'Poppins', sans-serif;
+}
+#timedash
+{
+  padding: 20px;
+  border: 1px solid #faec66; 
+  margin-top:10px;
+  background-color:#fff;
+  border-radius: 10%;
 }

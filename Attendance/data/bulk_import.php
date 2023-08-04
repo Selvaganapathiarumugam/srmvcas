@@ -18,9 +18,8 @@
 
        $total= mysqli_fetch_array($check_result);
 
-        if($total['total']==0)
+        if($total['total'] == 0)
         {
-
             $aSQL="SELECT A.* FROM ( SELECT regno FROM tblattendance WHERE date = '". $current_date ."' 
                                     AND regno IN 
                                     (
@@ -49,7 +48,11 @@
             }
             //-------------Present---------------
             $pSQL="SELECT A.* FROM ( SELECT regno FROM tblattendance 
-                                    WHERE date = '". $current_date ."' GROUP BY regno HAVING SUM(CASE WHEN IsAbsent = 0 THEN 1 ELSE 0 END) = 5 ) AS A INNER JOIN tblstudent S ON A.regno = S.regNo WHERE S.deptid = '". $department ."' AND S.semester = '". $semester ."' AND S.year = '". $year ."' GROUP BY A.regno;";
+                                    WHERE date = '". $current_date ."' 
+                                    GROUP BY regno HAVING SUM(CASE WHEN IsAbsent = 0 THEN 1 ELSE 0 END) = 5 ) AS A 
+                                INNER JOIN tblstudent S ON A.regno = S.regNo 
+                                WHERE S.deptid = '". $department ."' AND S.semester = '". $semester ."'
+                                AND S.year = '". $year ."' GROUP BY A.regno;";
             $presult = mysqli_query($conn,$pSQL);
             while($prow = mysqli_fetch_array($presult)) 
             {
@@ -61,29 +64,29 @@
             }           
 #--------------------------- Absent present ------------------------------------------
             $apSQL="SELECT A.* FROM 
-            (
-                SELECT * FROM tblattendance
-                WHERE subjectHour IN (1,2,3) AND isAbsent = 1
-                AND date ='". $current_date ."' 
-                AND regno NOT IN 
                     (
-                        SELECT regno FROM tblattendance GROUP BY regno
-                        HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 5
-                    )
-                AND regno NOT IN 
-                    (
-                        SELECT regno FROM tblattendance GROUP BY regno
-                        HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
-                    )
-                AND regno IN 
-                    (
-                        SELECT regno FROM tblattendance WHERE subjectHour IN (4,5) GROUP BY regno
-                        HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 2
-                     )
-            ) AS A 
-            INNER JOIN tblstudent S ON A.regno = S.regNo 
-            WHERE S.deptid =". $department ."  AND S.semester = '". $semester ."' AND S.year = '". $year ."' 
-            GROUP BY A.regno ";
+                        SELECT * FROM tblattendance
+                        WHERE subjectHour IN (1,2,3) AND isAbsent = 1
+                        AND date ='". $current_date ."' 
+                        AND regno NOT IN 
+                            (
+                                SELECT regno FROM tblattendance GROUP BY regno
+                                HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 5
+                            )
+                        AND regno NOT IN 
+                            (
+                                SELECT regno FROM tblattendance GROUP BY regno
+                                HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
+                            )
+                        AND regno IN 
+                            (
+                                SELECT regno FROM tblattendance WHERE subjectHour IN (4,5) GROUP BY regno
+                                HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 2
+                             )
+                    ) AS A 
+                    INNER JOIN tblstudent S ON A.regno = S.regNo 
+                    WHERE S.deptid =". $department ."  AND S.semester = '". $semester ."' AND S.year = '". $year ."' 
+                    GROUP BY A.regno ";
             $apresult = mysqli_query($conn,$apSQL);
                     
             while($aprow = mysqli_fetch_array($apresult)) 
@@ -98,29 +101,29 @@
             }
 #---------------------------present Absent ------------------------------------------
             $paSQL="SELECT A.* FROM 
-            (
-                SELECT * FROM tblattendance
-                WHERE subjectHour IN (4, 5) AND isAbsent = 1
-                AND date ='". $current_date ."' 
-                AND regno NOT IN 
                     (
-                        SELECT regno FROM tblattendance GROUP BY regno
-                        HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 5
-                    )
-                AND regno NOT IN 
-                    (
-                        SELECT regno FROM tblattendance GROUP BY regno
-                        HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
-                    )
-                AND regno IN 
-                    (
-                        SELECT regno FROM tblattendance WHERE subjectHour IN (1,2,3) GROUP BY regno
-                        HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 3
-                     )
-            ) AS A 
-            INNER JOIN tblstudent S ON A.regno = S.regNo 
-            WHERE S.deptid =". $department ."  AND S.semester = '". $semester ."' AND S.year = '". $year ."' 
-            GROUP BY A.regno ";
+                        SELECT * FROM tblattendance
+                        WHERE subjectHour IN (4, 5) AND isAbsent = 1
+                        AND date ='". $current_date ."' 
+                        AND regno NOT IN 
+                            (
+                                SELECT regno FROM tblattendance GROUP BY regno
+                                HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 5
+                            )
+                        AND regno NOT IN 
+                            (
+                                SELECT regno FROM tblattendance GROUP BY regno
+                                HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
+                            )
+                        AND regno IN 
+                            (
+                                SELECT regno FROM tblattendance WHERE subjectHour IN (1,2,3) GROUP BY regno
+                                HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 3
+                             )
+                    ) AS A 
+                    INNER JOIN tblstudent S ON A.regno = S.regNo 
+                    WHERE S.deptid =". $department ."  AND S.semester = '". $semester ."' AND S.year = '". $year ."' 
+                    GROUP BY A.regno ";
             $paresult = mysqli_query($conn,$paSQL);
                 
             while($parow = mysqli_fetch_array($paresult)) 
