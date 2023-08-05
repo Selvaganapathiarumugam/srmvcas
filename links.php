@@ -19,9 +19,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
 </head>
 </html>
 <?php
-$tz='Asia/Kolkata';
-date_default_timezone_set($tz);
+    $tz='Asia/Kolkata';
+    date_default_timezone_set($tz);
 ?>

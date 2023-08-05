@@ -18,6 +18,10 @@
     <link rel="stylesheet" type="text/css" href="./css/Bootstrap.css">
     <link rel="stylesheet" type="text/css" href="./css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="./css/fontawesome.css">
+    <link rel="shortcut icon" href="./images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     <script src="./js/popper.js"></script>
     <script src="./js/Bootstrap.js"></script>
     <script src="./js/jquery.js"></script>

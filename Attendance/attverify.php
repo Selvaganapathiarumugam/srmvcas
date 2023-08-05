@@ -95,7 +95,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>verify </title>
 </head>
 <body class="ovflow-y">
     <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
@@ -155,10 +155,10 @@
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <div class="card" >
+                    <div class="card" style=" background: cornsilk; " >
                         <div class="row">
                             <div class="col-md-12">
-                               <p class="padding-base">Please Enter 1 and 0 . If 1 is Absent &<br /> 0 is present</p>
+                               <p class="padding-base"><b>Please Enter 1 and 0 . If 1 is Absent &<br /> 0 is present</b></p>
                             </div>
                         </div>
                     </div>
