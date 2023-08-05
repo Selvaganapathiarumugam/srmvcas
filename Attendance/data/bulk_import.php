@@ -1,7 +1,7 @@
 <?php
     ob_start();
     session_start();
-    // error_reporting(0);
+    error_reporting(0);
     include('../../connect.php');
 
 
@@ -23,12 +23,12 @@
             $aSQL="SELECT A.* FROM ( SELECT regno FROM tblattendance WHERE date = '". $current_date ."' 
                                     AND regno IN 
                                     (
-                                        SELECT regno FROM tblattendance WHERE subjectHour IN (4,5) GROUP BY regno
+                                        SELECT regno FROM tblattendance WHERE subjectHour IN (4,5) and date ='". $current_date ."' GROUP BY regno
                                         HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) >= 1
                                     )
                                     AND regno IN 
                                     (
-                                        SELECT regno FROM tblattendance WHERE subjectHour IN (1,2,3) GROUP BY regno
+                                        SELECT regno FROM tblattendance WHERE subjectHour IN (1,2,3) and date ='". $current_date ."' GROUP BY regno
                                         HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) >= 1
                                     )
                                     GROUP BY regno 
@@ -70,17 +70,17 @@
                         AND date ='". $current_date ."' 
                         AND regno NOT IN 
                             (
-                                SELECT regno FROM tblattendance GROUP BY regno
+                                SELECT regno FROM tblattendance WHERE date ='". $current_date ."' GROUP BY regno
                                 HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 5
                             )
                         AND regno NOT IN 
                             (
-                                SELECT regno FROM tblattendance GROUP BY regno
+                                SELECT regno FROM tblattendance WHERE date ='". $current_date ."' GROUP BY regno
                                 HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
                             )
                         AND regno IN 
                             (
-                                SELECT regno FROM tblattendance WHERE subjectHour IN (4,5) GROUP BY regno
+                                SELECT regno FROM tblattendance WHERE subjectHour IN (4,5) and date ='". $current_date ."' GROUP BY regno
                                 HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 2
                              )
                     ) AS A 
@@ -107,17 +107,17 @@
                         AND date ='". $current_date ."' 
                         AND regno NOT IN 
                             (
-                                SELECT regno FROM tblattendance GROUP BY regno
+                                SELECT regno FROM tblattendance WHERE date ='". $current_date ."' GROUP BY regno
                                 HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 5
                             )
                         AND regno NOT IN 
                             (
-                                SELECT regno FROM tblattendance GROUP BY regno
+                                SELECT regno FROM tblattendance WHERE date ='". $current_date ."' GROUP BY regno
                                 HAVING SUM(CASE WHEN isAbsent = 1 THEN 1 ELSE 0 END) = 5
                             )
                         AND regno IN 
                             (
-                                SELECT regno FROM tblattendance WHERE subjectHour IN (1,2,3) GROUP BY regno
+                                SELECT regno FROM tblattendance WHERE subjectHour IN (1,2,3) and date ='". $current_date ."' GROUP BY regno
                                 HAVING SUM(CASE WHEN isAbsent = 0 THEN 1 ELSE 0 END) = 3
                              )
                     ) AS A 
