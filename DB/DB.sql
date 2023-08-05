@@ -51,7 +51,7 @@ INSERT INTO `tblattendance` (`id`, `regno`, `date`, `DayOrder`, `subjectHour`, `
 (10, '22PCA009', '2023-07-21', 1, 3, 'PHP', 0, 'DEV_01'),
 (11, '22PCA017', '2023-07-21', 1, 3, 'PHP', 1, 'DEV_01'),
 (12, '22PCA039', '2023-07-21', 1, 3, 'PHP', 0, 'DEV_01'),
-(13, '22PCA006', '2023-07-21', 1, 4, '', 0, 'DEV_01'),
+(13, '22PCA006', '2023-07-21', 1, 4, '', 1, 'DEV_01'),
 (14, '22PCA009', '2023-07-21', 1, 4, '', 1, 'DEV_01'),
 (15, '22PCA017', '2023-07-21', 1, 4, '', 1, 'DEV_01'),
 (16, '22PCA039', '2023-07-21', 1, 4, '', 0, 'DEV_01'),
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `tbldayattendance` (
   `status` varchar(10) NOT NULL,
   `staffId` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tbldayattendance`
@@ -196,14 +196,7 @@ INSERT INTO `tbldayattendance` (`id`, `deptId`, `semester`, `year`, `regno`, `da
 (1, 4, 'III', 'II', '22PCA017', '2023-07-21', 'A', 'DEV_01'),
 (2, 4, 'III', 'II', '22PCA006', '2023-07-21', 'P', 'DEV_01'),
 (3, 4, 'III', 'II', '22PCA039', '2023-07-21', 'AP', 'DEV_01'),
-(4, 4, 'III', 'II', '22PCA009', '2023-07-21', 'PA', 'DEV_01'),
-(5, 1, 'I', 'I', '19UIT001', '2023-07-29', 'A', 'DEV_01'),
-(6, 1, 'I', 'I', '19UIT005', '2023-07-29', 'A', 'DEV_01'),
-(7, 1, 'I', 'I', '19UIT002', '2023-07-29', 'P', 'DEV_01'),
-(8, 1, 'I', 'I', '19UIT003', '2023-07-29', 'P', 'DEV_01'),
-(9, 1, 'I', 'I', '19UIT007', '2023-07-29', 'P', 'DEV_01'),
-(10, 1, 'I', 'I', '19UIT004', '2023-07-29', 'AP', 'DEV_01'),
-(11, 1, 'I', 'I', '19UIT006', '2023-07-29', 'PA', 'DEV_01');
+(4, 4, 'III', 'II', '22PCA009', '2023-07-21', 'PA', 'DEV_01');
 
 -- --------------------------------------------------------
 
