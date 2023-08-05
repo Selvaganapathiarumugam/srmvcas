@@ -2,8 +2,7 @@
 <?php    
     ob_start();
     session_start();
-    //error_reporting(0);
-    // Your MySQLi procedural method database connection
+    error_reporting(0);
     include('../../connect.php');
 
     $startDate = $_GET['at_sdate'];
@@ -14,19 +13,7 @@
     //echo $sql;die();
     $result = mysqli_query($conn, $sql);
    // print_r($result); die();
-    //while ($row = mysqli_fetch_array($result)) {
-      //  $data[] = $row;
-    //}
-    //$dataset = array(
-        //"startDate" => $startDate,
-      //  "endDate" =>  $endDate,
-    //    "data" => $data
-   //);
-    //print_r($data);die();
-    //mysqli_close($conn);
-    //header('Content-Type: application/json');
-    // Send the JSON response back to the client
-    //echo json_encode($dataset); 
+
     $data = array();
     while ($row = mysqli_fetch_array($result)) {
         $regno = $row['regno'];
@@ -38,6 +25,5 @@
     
     mysqli_close($conn);
     
-    // Send the JSON response back to the client
     echo json_encode(array('startDate' => $startDate, 'endDate' => $endDate, 'data' => $data));
     ?>

@@ -6,7 +6,7 @@ $SQL="SELECT c.id ,d.dname,c.semester,c.year,c.courseName,c.courseCode,c.Acadami
       inner join tbldepartment d on c.deptId = d.id 
       ORDER BY c.id asc ";
 $result = mysqli_query($conn,$SQL);
-
+$array = array();
 while($row = mysqli_fetch_array($result)) 
 {
     $array[] = $row;

@@ -103,7 +103,7 @@
             $paSQL="SELECT A.* FROM 
                     (
                         SELECT * FROM tblattendance
-                        WHERE subjectHour IN (4, 5) AND isAbsent = 1
+                        WHERE subjectHour IN (4,5) AND isAbsent = 1
                         AND date ='". $current_date ."' 
                         AND regno NOT IN 
                             (

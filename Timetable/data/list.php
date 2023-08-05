@@ -11,7 +11,7 @@
           inner join  tblusers U on tt.Staffid= U.id
           ORDER BY tt.id asc ";
     $result = mysqli_query($conn,$SQL);
-
+    $array = array();
     while($row = mysqli_fetch_array($result)) 
     {
         $array[] = $row;

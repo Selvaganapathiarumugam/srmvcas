@@ -9,7 +9,7 @@
                 inner join  tblstudent s on la.regno= s.regNo
                 ORDER BY la.regNo asc ";
     $result = mysqli_query($conn,$SQL);
-
+    $array = array();
     while($row = mysqli_fetch_array($result)) 
     {
         $array[] = $row;

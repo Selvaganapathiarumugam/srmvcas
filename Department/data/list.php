@@ -1,8 +1,9 @@
 <?php
     include('../../connect.php');
     $SQL="SELECT id ,dname from tbldepartment ORDER BY id asc ";
-    $result = mysqli_query($conn,$SQL) or die($SQL."<br/><br/>".mysql_error());
-    
+    $result = mysqli_query($conn,$SQL);
+
+    $array = array();
     while($row = mysqli_fetch_array($result)) 
     {
         $array[] = $row;

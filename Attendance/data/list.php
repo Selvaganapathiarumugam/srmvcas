@@ -3,7 +3,8 @@
     
     $SQL="SELECT *  from tblattendance where IsAbsent=1  ORDER BY id asc ";
     $result = mysqli_query($conn,$SQL);
-    
+
+    $array = array();
     while($row = mysqli_fetch_array($result)) 
     {
         $array[] = $row;

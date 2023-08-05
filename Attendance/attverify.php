@@ -23,7 +23,7 @@
     // print_r($result);die();
     $rowii = mysqli_fetch_assoc($resultii);
     $txthourii=$rowii["isAbsent"];
-    $txtidii=$row["id"];
+    $txtidii=$rowii["id"];
 
     $queryiii = "SELECT id, isAbsent FROM tblAttendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=3";
@@ -31,7 +31,7 @@
     // print_r($result);die();
     $rowiii = mysqli_fetch_assoc($resultiii);
     $txthouriii=$rowiii["isAbsent"];
-    $txtidiii=$row["id"];
+    $txtidiii=$rowiii["id"];
 
     $queryiv = "SELECT id, isAbsent FROM tblAttendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=4";
@@ -39,7 +39,7 @@
     // print_r($result);die();
     $rowiv = mysqli_fetch_assoc($resultiv);
     $txthouriv=$rowiv["isAbsent"];
-    $txtidiv=$row["id"];
+    $txtidiv=$rowiv["id"];
 
     $queryv = "SELECT id, isAbsent FROM tblAttendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=5";
@@ -47,8 +47,47 @@
     // print_r($result);die();
     $rowv = mysqli_fetch_assoc($resultv);
     $txthourv=$rowv["isAbsent"];
-    $txtidv=$row["id"];
+    $txtidv=$rowv["id"];
+    if (isset($_POST['btnsave'])) 
+    {
+        try {       
+            $SQL1="update tblAttendance set isAbsent =". $_POST['txthouri'] ." where Id=". $txtidi ;
+            mysqli_query($conn, $SQL1);
+            
+            $SQL2="update tblAttendance set isAbsent =". $_POST['txthourii'] ." where Id=". $txtidii ;
+            mysqli_query($conn, $SQL2);
 
+            $SQL3="update tblAttendance set isAbsent =". $_POST['txthouriii'] ." where Id=". $txtidiii ;
+            mysqli_query($conn, $SQL3);
+
+            $SQL4="update tblAttendance set isAbsent =". $_POST['txthouriv'] ." where Id=". $txtidiv ;
+            mysqli_query($conn, $SQL4);
+
+            $SQL5="update tblAttendance set isAbsent =". $_POST['txthourv'] ." where Id=". $txtidv ;
+            mysqli_query($conn, $SQL5);
+            echo "<script> 
+            swal('Successfully Updated', {
+                icon: 'success',
+                buttons: {
+                    OK: {
+                    text: 'OK',
+                    value: 'OK',
+                },
+            },
+            }).then((value) => {
+                switch (value) {
+                    case 'OK':window.location.href='./absentindex.php'; break;
+                    default:window.location.href='./absentindex.php';
+                }
+            });
+            </script>";
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        
+    }
    
 ?>
 <!DOCTYPE html>
@@ -225,4 +264,10 @@
         </div>
     </div>
 </body>
+<script>
+    function Updatemsg()
+    {
+        alert("Updated");
+    }
+</script>
 </html>

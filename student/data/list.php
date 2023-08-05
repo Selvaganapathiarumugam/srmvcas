@@ -9,6 +9,7 @@
     {
         $array[] = $row;
     }
+    $array = array();
     $dataset = array(
         "totalrecords" => count($array),
         "totaldisplayrecords" => count($array),

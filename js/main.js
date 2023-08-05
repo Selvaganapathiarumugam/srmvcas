@@ -14,6 +14,22 @@ function deletemsg() {
         }
     });
 }
+function updatemsg() {
+    swal("Successfully Updated", {
+        icon: "success",
+        buttons: {
+            OK: {
+            text: "OK",
+            value: "OK",
+        },
+    },
+    }).then((value) => {
+        switch (value) {
+            case "OK":window.location.reload();; break;
+            default:window.location.reload();
+        }
+    });
+}
 function confirmbox()
 {
     var result;
