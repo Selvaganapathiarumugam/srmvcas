@@ -6,12 +6,12 @@
           inner join tblroles r on u.roleId = r.id 
           ORDER BY u.id asc ";
     $result = mysqli_query($conn,$SQL);
-    
+    $array = array();
     while($row = mysqli_fetch_array($result)) 
     {
         $array[] = $row;
     }
-    $array = array();
+   
     $dataset = array(
         "totalrecords" => count($array),
         "totaldisplayrecords" => count($array),
