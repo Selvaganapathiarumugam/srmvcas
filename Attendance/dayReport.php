@@ -46,7 +46,7 @@
     <div class="container">
         <div class="margin-top-base">
             <form id="frmAtt"  method="post">
-                <div class="mb-4 bg-light rounded-3" style="margin-left:15px;padding-top:20px;height: 100% !important;">
+                <div class="mb-4 bg-light rounded-3 padding-base" style="margin-left:15px;height: 100% !important;">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -104,7 +104,23 @@
                 data: formData,
                 success: function(response) {
                     var data = JSON.parse(response);
-                    generateTable(data);
+                    if(data.data.length>0)
+                    {
+                        generateTable(data);
+                    }
+                    else
+                    {
+                        swal("Data Not Fount", {
+                            icon: "error",
+                            buttons: {
+                                OK: {
+                                text: "OK",
+                                value: "OK",
+                            },
+                           },
+                       });
+                    }                  
+
                     $("#tableContainer").show();
                 },
                 error: function(error) {
@@ -119,12 +135,29 @@
             var headerRow = $("<tr>");
             headerRow.append("<th>Regno</th>");
 
+
             var at_sdate = new Date(data.startDate);
             var at_ldate = new Date(data.endDate);
-
+            var temp_date;
+           
             while (at_sdate <= at_ldate) {
-                var dateString = DateOnly(at_sdate);
-                headerRow.append("<th>" + dateString + "</th>");
+                var isGenerator=false;
+                var dateString = formatDate(at_sdate);
+                //var dateString = DateOnly(at_sdate);
+                for (let index = 0; index < data.data.length; index++) 
+                {
+                    temp_date=data.data[index].date;
+                    //if(dateString==strDateOnly(temp_date))
+                    if(dateString==temp_date)
+                    {
+                        isGenerator=true;
+                    }
+                }
+                if(isGenerator)
+                {
+                    headerRow.append("<th>" + dateString.substring(8,10) + "</th>");
+                }
+                
                 at_sdate.setDate(at_sdate.getDate() + 1);
             }
 
@@ -136,12 +169,13 @@
                 var currentDate = new Date(data.startDate);
                 while (currentDate <= at_ldate) {
                     var dateString = formatDate(currentDate);
-                    var status= "--";
+                    // var status= "--";
                     if (dateString == data.data[index].date) {
                         status = data.data[index].Status ;
+                        dataRow.append("<td>" +  status + "</td>");
+
                     }
                     
-                    dataRow.append("<td>" +  status + "</td>");
                     currentDate.setDate(currentDate.getDate() + 1);
                 }
 
@@ -150,8 +184,13 @@
             }
         }
         function DateOnly(date) {
-            var day = date.getDate().toString().padStart(2, "0");
+            var day = date.getDate();
+            //return day.toString().padStart(2, "0");
+            //return day.toString();
             return day;
+        }
+        function strDateOnly(date) {       
+            return date.substr(8,2).padStart(2, "0");
         }
         function formatDate(date) {
             var year = date.getFullYear();
