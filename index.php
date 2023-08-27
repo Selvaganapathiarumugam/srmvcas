@@ -86,6 +86,16 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card" id="mycard">
                             <div class="card-body">
+                                <center><img src="./images/setting.png" width="100px" height="70px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./permission/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Users Rights</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
                                 <center><img src="./images/timetable.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
                                     <a href="./Timetable/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Time Table</a>
