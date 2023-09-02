@@ -5,6 +5,9 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    if($_SESSION['Role'] != 1 && $_SESSION['Role'] != 3 && $_SESSION['Role'] != 5) {
+        header("Location:../403.php");
+    }
     include('../connect.php');
     include('../links.php');
 

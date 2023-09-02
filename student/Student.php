@@ -7,7 +7,18 @@
         header("Location:../login.php");
     }
     include('../connect.php'); 
-
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT addstudent,updatestudent from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isAddRight = $row['addstudent'];
+        $isUpRight = $row['updatestudent'];
+    }
+    if($isAddRight == 0) {
+        header("Location:../403.php");
+    }
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -49,6 +60,9 @@
     //--------------------------------Update-------------------------------
     if(isset($_REQUEST["id"]))
     {
+        if($isUpRight == 0) {
+            header("Location:../403.php");
+        }
         $id=$_REQUEST['id'];
         $SQL="SELECT s.* from  tblstudent s
                 WHERE s.ID=".$_REQUEST["id"];

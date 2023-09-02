@@ -74,16 +74,17 @@
                 <table id="tblRights" class="table table-striped table-responsive" width="80%">
                     <thead>
                         <tr>
-                            <th>username</th>
-                            <th>addstudent</th>
-                            <th>updatestudent</th>
-                            <th>addcourse</th>
-                            <th>updatecourse</th>
-                            <th>addtimetable</th>
-                            <th>updatetimetable</th>
-                            <th>bulkattendance</th>
-                            <th>attendancereport</th>
+                            <th>Username</th>
+                            <th>Add Student</th>
+                            <th>Update Student</th>
+                            <th>Add Course</th>
+                            <th>Update Course</th>
+                            <th>Add Timetable</th>
+                            <th>Update Timetable</th>
+                            <th>Bulk Attendance</th>
+                            <th>Attendance Report</th>
                             <th>Permission</th>
+                            <th>Late Attendance</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>   
@@ -152,6 +153,12 @@
                 {data: '',
                     render: (data,type,row) => {
                         var ic1=row.permission == 1 ?  '<i class="fa-regular fa-square-check"></i>' :'<i class="fa-regular fa-square">'
+                        return `<center>${ic1}</center>`;
+                    }
+                },
+                {data: '',
+                    render: (data,type,row) => {
+                        var ic1=row.lateAttendance == 1 ?  '<i class="fa-regular fa-square-check"></i>' :'<i class="fa-regular fa-square">'
                         return `<center>${ic1}</center>`;
                     }
                 },

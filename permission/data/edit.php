@@ -14,12 +14,13 @@
     $updatetimetable = trim($_POST['up_updatetimetable']);
     $bulkattendance = trim($_POST['up_bulkattendance']);
     $attendancereport = trim($_POST['up_attendancereport']);
+    $lateAttendance=trim($_POST['up_lateAttendance']);
     $ModifyBy=trim($_SESSION["EmpId"]);
     $id=trim($_POST['up_hid']);
 
     $SQL = "UPDATE tblUsersRights SET EmpId='$EmpId', permission=$permission, addstudent=$addstudent, updatestudent=$updatestudent, addcourse=$addcourse, 
         updatecourse=$updatecourse,addtimetable=$addtimetable, updatetimetable=$updatetimetable, bulkattendance=$bulkattendance, attendancereport=$attendancereport
-        ,ModifyBy='$ModifyBy' WHERE Id=$id ; ";
+        ,ModifyBy='$ModifyBy',lateAttendance=$lateAttendance WHERE Id=$id ; ";
     //echo $SQL;Die();
     if (mysqli_query($conn, $SQL)) {
         $response="Data Updated successfully!";

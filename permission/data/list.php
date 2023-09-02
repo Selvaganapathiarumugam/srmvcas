@@ -5,7 +5,8 @@
     error_reporting(0); 
     include('../../connect.php');
     header('Content-Type: application/json');
-    $SQL="SELECT p.id,u.EmpId,u.username,p.addstudent,p.updatestudent,p.addcourse,p.updatecourse,p.addtimetable,p.updatetimetable,p.bulkattendance,p.attendancereport,p.permission 
+    $SQL="SELECT p.id,u.EmpId,u.username,p.addstudent,p.updatestudent,p.addcourse,p.updatecourse,p.addtimetable,p.updatetimetable,p.bulkattendance,p.attendancereport,p.permission
+    ,p.lateAttendance 
     FROM tblusersrights p inner join tblusers u on p.EmpId=u.EmpId order by u.username ASC; ";
     
     $result = mysqli_query($conn,$SQL);

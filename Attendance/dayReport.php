@@ -8,6 +8,17 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT attendancereport from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isAddRight = $row['attendancereport'];
+    }
+    if($isAddRight == 0) {
+        header("Location:../403.php");
+    }
 ?> 
 
 <!DOCTYPE html>

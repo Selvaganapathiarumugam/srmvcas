@@ -69,6 +69,7 @@
                 <table id="tbllateatt" class="display" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th scope="col">Batch</th>
                             <th scope="col">Reg.NO</th>
                             <th scope="col">Name</th>
                             <th scope="col">Year</th>
@@ -90,6 +91,7 @@
             "processing": true,
             "ajax": "./data/list.php",
             "columns": [
+                {data: 'batch'},
                 {data: 'regNo'},
                 {data: 'firstName'},
                 {data: 'year'},
@@ -105,7 +107,7 @@
                 { 
                     data: '',
                     render: (data,type,row) => {
-                        return `<?PHP if ($_SESSION['Role'] == "1") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
+                        return `<?PHP if ($_SESSION['Role'] == "1" || $_SESSION['Role'] == "3") {?><a onClick=\"javascript: return confirm('Please confirm deletion');\" href='index.php?did=${row.id}'><i class="fa fa-trash"></i></a>
                     <?php } else{ ?><i class="fa fa-trash"></i><?php } ?>`;
                     }
                 }

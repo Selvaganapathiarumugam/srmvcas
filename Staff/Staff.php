@@ -6,6 +6,9 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    if($_SESSION['Role'] != 1 && $_SESSION['Role'] != 3 && $_SESSION['Role'] != 5) {
+        header("Location:../403.php");
+    }
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 

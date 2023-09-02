@@ -15,7 +15,7 @@
     }
     if(isset($_REQUEST["id"]))
     {
-        $listUser="disabled";
+        //$listUser="disabled";
         $id=$_REQUEST['id'];
         $SQL="SELECT * from  tblusersrights
                 WHERE ID=".$_REQUEST["id"];
@@ -33,6 +33,7 @@
             $updatetimetable = $row['updatetimetable'];
             $bulkattendance = $row['bulkattendance'];
             $attendancereport = $row['attendancereport'];
+            $lateAttendance=$row['lateAttendance'];
             $id=$row['Id'];
         }
     }
@@ -55,6 +56,8 @@
     $bulkattendancen = $bulkattendance == 0 ? 'checked' : " ";
     $attendancereporty = $attendancereport == 1 ? 'checked' : " ";
     $attendancereportn = $attendancereport == 0 ? 'checked' : " ";
+    $lateAttendancey = $lateAttendance == 1 ? 'checked' : " ";
+    $lateAttendancen = $lateAttendance == 0 ? 'checked' : " ";
     
 ?>   
 
@@ -304,8 +307,22 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-2 col-lg-2">
+                                            <label for="input1" class=" form-label">Late Attendance</label>
                                         </div> 
                                         <div class="col-md-4 col-lg-4">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="radio" name="up_lateAttendance" tabindex="20" value="1" <?php echo $lateAttendancey; ?>/>
+                                                    <label>Yes</label><br>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="radio" name="up_lateAttendance" tabindex="21" value="0" <?php echo $lateAttendancen; ?>/>
+                                                    <label>No</label><br>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6">
                                             <div class="row">
                                                 <div class="col-md-3">
                                                 </div>
@@ -321,13 +338,10 @@
                                                                 $btnName="Add";
                                                             }
                                                         ?>
-                                                        <input type="submit" tabindex="20" class="btn btn-primary " id="btnsave" name="btnsave" value="<?php echo $btnName; ?>" />
+                                                        <input type="submit" tabindex="22" class="btn btn-primary btn-sm " id="btnsave" name="btnsave" value="<?php echo $btnName; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            
                                         </div>
                                     </div>
                                 </div>

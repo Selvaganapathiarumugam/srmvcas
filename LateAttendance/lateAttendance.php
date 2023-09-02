@@ -5,7 +5,20 @@
     include('../connect.php');
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
+    
     }
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT lateAttendance from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isRight = $row['lateAttendance'];
+    }
+    if($isRight == 0) {
+        header("Location:../403.php");
+    }
+
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -26,35 +39,6 @@
         "III" => "III"
     );
     $la_date= date('Y-m-d');
-    //--------------------------------Update-------------------------------
-    // if(isset($_REQUEST["id"]))
-    // {
-    //     $id=$_REQUEST['id'];
-    //     $SQL="SELECT *  from  tbltimetable 
-    //              WHERE ID=".$_REQUEST["id"];
-    //     $result = mysqli_query($conn,$SQL);
-    //     while($row = mysqli_fetch_array($result)) 
-    //     {
-    //         $deptId = $row['deptId'];
-    //         $Staffid = $row['Staffid'];
-    //         $year = ($row['Year']);
-    //         $Semester = ($row['Semester']);
-    //         $SubjectId = $row['SubjectId'];
-    //         $SubjectCore = $row['SubjectCore'];
-    //         $DayOrder = $row['DayOrder'];
-    //         $SubjectHour = $row['SubjectHour'];
-    //         $id=$row['id'];
-    //     } 
-    //     $opDept=$deptId;
-    //     $opSem = $Semester;
-    //     $opYear=$year;
-    //     $opsub=$SubjectId;
-    //     $opsubcore=$SubjectCore;
-    //     $opDayOrder=$DayOrder;
-    //     $opHours=$SubjectHour;
-    //     $opstname=$Staffid;
-    // }
-    
     mysqli_close($conn);
     include("../links.php")
 ?>

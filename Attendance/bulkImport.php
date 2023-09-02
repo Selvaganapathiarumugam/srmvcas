@@ -7,6 +7,17 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     } 
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT bulkattendance from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isAddRight = $row['bulkattendance'];
+    }
+    if($isAddRight == 0) {
+        header("Location:../403.php");
+    }
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 

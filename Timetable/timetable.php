@@ -6,6 +6,19 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT addtimetable,updatetimetable from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isAddRight = $row['addtimetable'];
+        $isUpRight = $row['updatetimetable'];
+    }
+    if($isAddRight == 0) {
+        header("Location:../403.php");
+    }
+
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -74,6 +87,9 @@
     if(isset($_REQUEST["id"]))
     {
         $id=$_REQUEST['id'];
+        if($isUpRight == 0) {
+            header("Location:../403.php");
+        }
         $SQL="SELECT *  from  tbltimetable 
                  WHERE ID=".$_REQUEST["id"];
         $result = mysqli_query($conn,$SQL);
