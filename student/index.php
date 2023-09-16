@@ -70,6 +70,7 @@
               <th scope="col">Registration No.</th>
               <th scope="col">Name</th>
               <th scope="col">Department</th>
+              <th scope="col">Year</th>
               <th scope="col">Semester</th>
               <th scope="col">Batch</th>
               <th scope="col">Email</th>
@@ -91,6 +92,7 @@
             {data: 'regNo'},
             {data: 'firstName'},
             {data: 'dname'},
+            {data: 'year'},
             {data: 'semester'},
             {data: 'batch'},
             {data: 'email'},
