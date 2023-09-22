@@ -129,6 +129,20 @@
                     </div>
                 </div>
             </div>
+            <div class="margin-top-base">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
+                                <center><img src="./images/exam.png" width="100px" height="70px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./internal/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Internal Portal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div> 
     </div>
 </body>

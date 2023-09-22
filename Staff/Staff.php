@@ -340,7 +340,7 @@
               e.preventDefault(); 
               var formData = $(this).serialize();
               var value = $("#sf_hid").val();
-              console.log(formData);
+              //console.log(formData);
               if(value > 0)
               {
                 $.ajax({
