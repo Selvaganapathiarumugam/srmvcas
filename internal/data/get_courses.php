@@ -11,14 +11,18 @@
          WHERE deptId = '$departmentId' and year='$year' and semester='$semester'
          order by id asc";
         $result = mysqli_query($conn, $sql);
-
-        $courses = array(); 
-
+        $rows = "";
         while ($row = mysqli_fetch_assoc($result)) {
-            $courses[] = $row;
+            $rows .= "<tr>";
+            $rows .= "<td><input type='text' class='form-control' autocomplete='off' name='courseCode[]' value = {$row['courseCode']} /></td>";
+            $rows .= "<td>{$row['courseName']}</td>";
+            $rows .= "<td><input type='number' class='form-control' autocomplete='off' name='mark[]'></td>";
+            $rows .= "<td><input type='number' class='form-control' name='final_mark[]' disabled></td>";
+            $rows .= "</tr>";
+            
         }
 
-        echo json_encode($courses);
+        echo $rows;
     }
 
     mysqli_close($conn);

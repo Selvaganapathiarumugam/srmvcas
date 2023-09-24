@@ -81,7 +81,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="margin-top-base">
-                            <a href="./index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-backward" style="color: #fff;"></i> Back</a>
+                            <a href="./mark.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-backward" style="color: #fff;"></i> Back</a>
                         </div>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
             </div>
             <div class="col-md-8 col-lg-8 col-sm-12">
                 <form id='frmIMark' method="POST" class="form-horizontal">
-                    <div class="grpStudent" style ="display:none">
+                    <div class="grpStudent">
                         <div class="row">
                             <div class="col-md-3">
                                 <label class="form-label">Reg No</label>
@@ -231,9 +231,21 @@
                     <div class="margin-top-base">
                         <div class="row">
                             <div class="form-group">
-                                <div id="courseTable">
-                                    <!-- The dynamic table will be generated here -->
-                                </div>
+                                <table id="markTable" class="table table-striped table-bordered">
+                                    <thead style="background-color: #007bff;" class="text-white">
+                                        <tr>
+                                            <th>Course Code</th>
+                                            <th>Course Name</th>
+                                            <th>Mark</th>
+                                            <th>Final Mark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- The dynamic table will be generated here -->
+                                    </tbody>
+                                </table>
+                                <input type='submit' id='savenamark' class='btn btn-success btn-sm' 
+                                    style='float:right;'/>
                             </div>
                         </div>
                     </div>
@@ -302,55 +314,77 @@
                         year:year
                     },
                     success: function(data) {
-                        //const element = document.getElementById('grpStudent'); 
-                        //element.style.display = 'inline';
-                        // Generate the dynamic table based on course data
-                        var courses = JSON.parse(data);
-                        var tableHTML = '<table class="table table-striped table-bordered">';
-                        tableHTML += '<thead style="background-color: #007bff;" class="text-white"><tr><th>Course Code</th><th>Course Name</th><th>Student Mark</th></tr></thead>';//<th>Final Mark</th>
-                        tableHTML += '<tbody>';
-
-                        for (var i = 0; i < courses.length; i++) {
-                            tableHTML += '<tr>';
-                            tableHTML += '<td>' + courses[i].courseCode + '</td>';
-                            tableHTML += '<td>' + courses[i].courseName + '</td>';
-                            tableHTML += '<td><input class="form-control" type="text" name="studentMarks[]" id="Mark" value=""></td>';
-                            //tableHTML += '<td><input class="form-control" type="text" name="studentMarksF[]" id="FMark" value=""></td>';
-                            tableHTML += '</tr>';
-                        }
-
-                        tableHTML += '</tbody></table>';
-                        $('#courseTable').html(tableHTML);
+                       // $('#grpStudent').css('display', 'inline');
+                        $('#markTable tbody').html(data);
                     }
                 });
             });
-            // $('#Mark').blur(function() {
-            //     var Mark = $(this).val();
-            //     var MMark = $('#ExMmark').val();
-            //     var CMark = $('#ExCmark').val();
-            //     var OutPut=(Mark/MMark)*CMark
-            //     $('#FMark').val(OutPut);     
-            // });
+            $('#markTable').on('blur', 'input[name="mark[]"]', function() {
+                var $row = $(this).closest('tr');
+                var mark = ($(this).val());
+                var total = ($('#ExMmark').val());
+                var convertedMark = ($('#ExCmark').val());
+                var finalMark = (mark / total) * convertedMark;
+
+                $row.find('input[name="final_mark[]"]').val( Math.round(finalMark.toFixed(2))); 
+            });
             
         });
         // Save student marks
-        $('#saveButton').on('click', function() {
-            var courseId = $('#courseId').val();
-            var studentMarks = $('input[name="studentMarks[]"]').map(function() {
+        $('#frmIMark').submit(function(e) {
+            e.preventDefault(); 
+            var departmentId = $('#ie_dept').val();
+            var semester = $('#ie_semester').val();
+            var year = $('#ie_year').val();
+            var StudentNo = $('#ie_SReg').val();
+            var ExCode=$('#Excode').val();
+            var courseCode = $('input[name="courseCode[]"]').map(function() {
                 return this.value;
             }).get();
-
+            var studentMarks = $('input[name="mark[]"]').map(function() {
+                return this.value;
+            }).get();
+            var finalmark = $('input[name="final_mark[]"]').map(function() {
+                return this.value;
+            }).get();
             $.ajax({
                 url: './data/saveMark.php',
                 method: 'POST',
                 data: {
-                    courseId: courseId,
-                    studentMarks: studentMarks
+                    courseCode: courseCode,
+                    studentMarks: studentMarks,
+                    departmentId:departmentId,
+                    semester:semester,
+                    year:year,
+                    StudentNo:StudentNo,
+                    ExCode:ExCode,
+                    finalmark:finalmark
                 },
                 success: function(response) {
-                    alert(response);
+                    if(response === "Marks saved successfully!")
+                    {
+                        swal(response, {
+                            buttons: {
+                                OK: {
+                                text: "OK",
+                                value: "OK",
+                                icon:"success" 
+                            },
+                        },
+                        }).then((value) => {
+                            switch (value) {
+                                case "OK":window.location.href='./index.php'; break;
+                                default:window.location.href='./index.php';
+                            }
+                        });
+                    }
+                    else
+                    {
+                        swal(response,{ icon: "warning",});
+                    }
                 }
             });
+            
         });
         
     </script>

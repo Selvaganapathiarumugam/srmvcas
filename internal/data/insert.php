@@ -1,7 +1,7 @@
 <?php
     ob_start();
     session_start();
-    //error_reporting(0); 
+    error_reporting(0); 
     include('../../connect.php');
 
     $ie_code =  strtoupper(trim($_POST['ie_code']));
@@ -14,6 +14,7 @@
     $SQL="insert into tblinternalexam (code,Name,Type,Maxmark,Convertmark,year,CreatedBy) 
     values('".$ie_code."','". $ie_name ."','". $ie_type ."',$ie_mmark ,$ie_cmark,'".$ie_year."','".$Author."');";
    // echo $SQL;Die();
+ 
     if (mysqli_query($conn, $SQL)) {
         $response="Data inserted successfully!";
     } else {

@@ -419,7 +419,7 @@
                     }
                     else
                     {
-                        swal(response);
+                        swal("Error :-" + response);
                     }
                 },
                 error: function(xhr, status, error) {
