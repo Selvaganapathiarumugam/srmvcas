@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2023 at 10:49 AM
+-- Generation Time: Sep 24, 2023 at 09:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tblattendance` (
-  `id` mediumint(3) NOT NULL,
+  `id` int(10) NOT NULL,
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
@@ -171,7 +171,10 @@ INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `cour
 (9, 1, 'I', 'I', 'Amutha Tamil -1', '20UIT1TA01', '2023'),
 (10, 1, 'I', 'I', 'Mathematics -1', '20UIT1AL01', '2023'),
 (11, 1, 'I', 'I', 'English - 1', '20UIT1EN01', '2023'),
-(12, 1, 'I', 'I', 'PC Software', '20UIT1C02', '2023');
+(12, 1, 'I', 'I', 'PC Software', '20UIT1C02', '2023'),
+(13, 4, 'II', 'III', 'Windows Application Development', '22PCA3C08', '2023'),
+(14, 4, 'II', 'III', 'Data Science using R', '22PCA3C09', '2023'),
+(15, 4, 'II', 'III', 'Open Source Application Development with Android', '22PCA3EB2', '2023');
 
 -- --------------------------------------------------------
 
@@ -180,7 +183,7 @@ INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `cour
 --
 
 CREATE TABLE `tbldayattendance` (
-  `id` mediumint(3) NOT NULL,
+  `id` int(10) NOT NULL,
   `deptId` mediumint(3) NOT NULL,
   `semester` varchar(3) NOT NULL,
   `year` varchar(3) NOT NULL,
@@ -237,7 +240,88 @@ CREATE TABLE `tblinternalexam` (
 --
 
 INSERT INTO `tblinternalexam` (`Code`, `Name`, `Type`, `Maxmark`, `Convertmark`, `Year`, `CreatedBy`) VALUES
-('EX01', 'CIA01', 'UG', 45, 15, 'I', 'DEV_01');
+('EX01', 'CIA01', 'UG', 45, 15, 'I', 'DEV_01'),
+('EX02', 'CIA-01', 'PG', 45, 15, 'II', 'DEV_01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblinternalmarks`
+--
+
+CREATE TABLE `tblinternalmarks` (
+  `Id` int(10) NOT NULL,
+  `ExamCode` varchar(30) NOT NULL,
+  `RegNo` varchar(10) NOT NULL,
+  `DeptId` mediumint(3) NOT NULL,
+  `Semester` varchar(4) NOT NULL,
+  `Year` varchar(4) NOT NULL,
+  `CourseCode` varchar(20) NOT NULL,
+  `CurrentMark` mediumint(3) NOT NULL,
+  `FinalMark` varchar(3) NOT NULL,
+  `CreatedBy` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tblinternalmarks`
+--
+
+INSERT INTO `tblinternalmarks` (`Id`, `ExamCode`, `RegNo`, `DeptId`, `Semester`, `Year`, `CourseCode`, `CurrentMark`, `FinalMark`, `CreatedBy`) VALUES
+(1, 'EX01', '23UIT001', 1, 'I', 'I', '20UIT1C01', 34, '11', 'DEV_01'),
+(2, 'EX01', '23UIT001', 1, 'I', 'I', '20UIT1TA01', 34, '11', 'DEV_01'),
+(3, 'EX01', '23UIT001', 1, 'I', 'I', '20UIT1AL01', 34, '11', 'DEV_01'),
+(4, 'EX01', '23UIT001', 1, 'I', 'I', '20UIT1EN01', 34, '11', 'DEV_01'),
+(5, 'EX01', '23UIT001', 1, 'I', 'I', '20UIT1C02', 34, '11', 'DEV_01'),
+(6, 'EX01', '23UIT002', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(7, 'EX01', '23UIT002', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(8, 'EX01', '23UIT002', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(9, 'EX01', '23UIT002', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(10, 'EX01', '23UIT002', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(11, 'EX01', '23UIT003', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(12, 'EX01', '23UIT003', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(13, 'EX01', '23UIT003', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(14, 'EX01', '23UIT003', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(15, 'EX01', '23UIT003', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(16, 'EX01', '23UIT004', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(17, 'EX01', '23UIT004', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(18, 'EX01', '23UIT004', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(19, 'EX01', '23UIT004', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(20, 'EX01', '23UIT004', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(21, 'EX01', '23UIT005', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(22, 'EX01', '23UIT005', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(23, 'EX01', '23UIT005', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(24, 'EX01', '23UIT005', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(25, 'EX01', '23UIT005', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(26, 'EX01', '23UIT006', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(27, 'EX01', '23UIT006', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(28, 'EX01', '23UIT006', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(29, 'EX01', '23UIT006', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(30, 'EX01', '23UIT006', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(31, 'EX01', '23UIT007', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(32, 'EX01', '23UIT007', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(33, 'EX01', '23UIT007', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(34, 'EX01', '23UIT007', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(35, 'EX01', '23UIT007', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(36, 'EX01', '23UIT008', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(37, 'EX01', '23UIT008', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(38, 'EX01', '23UIT008', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(39, 'EX01', '23UIT008', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(40, 'EX01', '23UIT008', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(41, 'EX01', '23UIT009', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(42, 'EX01', '23UIT009', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(43, 'EX01', '23UIT009', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(44, 'EX01', '23UIT009', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(45, 'EX01', '23UIT009', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(46, 'EX01', '23UIT010', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(47, 'EX01', '23UIT010', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(48, 'EX01', '23UIT010', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(49, 'EX01', '23UIT010', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(50, 'EX01', '23UIT010', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01'),
+(51, 'EX01', '22UIT011', 1, 'I', 'I', '20UIT1C01', 45, '15', 'DEV_01'),
+(52, 'EX01', '22UIT011', 1, 'I', 'I', '20UIT1TA01', 45, '15', 'DEV_01'),
+(53, 'EX01', '22UIT011', 1, 'I', 'I', '20UIT1AL01', 45, '15', 'DEV_01'),
+(54, 'EX01', '22UIT011', 1, 'I', 'I', '20UIT1EN01', 45, '15', 'DEV_01'),
+(55, 'EX01', '22UIT011', 1, 'I', 'I', '20UIT1C02', 45, '15', 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -1509,13 +1593,6 @@ CREATE TABLE `tbltimetable` (
   `SubjectHour` mediumint(2) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `tbltimetable`
---
-
-INSERT INTO `tbltimetable` (`id`, `deptId`, `Staffid`, `Year`, `Semester`, `SubjectId`, `SubjectCore`, `DayOrder`, `SubjectHour`) VALUES
-(1, 1, 4, 'I', 'I', 1, 'Theory', 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -1618,6 +1695,12 @@ ALTER TABLE `tblinternalexam`
   ADD KEY `CreatedBy` (`CreatedBy`);
 
 --
+-- Indexes for table `tblinternalmarks`
+--
+ALTER TABLE `tblinternalmarks`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `tbllateattendance`
 --
 ALTER TABLE `tbllateattendance`
@@ -1663,25 +1746,31 @@ ALTER TABLE `tblusersrights`
 -- AUTO_INCREMENT for table `tblattendance`
 --
 ALTER TABLE `tblattendance`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbldayattendance`
 --
 ALTER TABLE `tbldayattendance`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbldepartment`
 --
 ALTER TABLE `tbldepartment`
   MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tblinternalmarks`
+--
+ALTER TABLE `tblinternalmarks`
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `tbllateattendance`
@@ -1705,7 +1794,7 @@ ALTER TABLE `tblstudent`
 -- AUTO_INCREMENT for table `tbltimetable`
 --
 ALTER TABLE `tbltimetable`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
