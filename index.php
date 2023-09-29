@@ -42,16 +42,17 @@
             <div class="row ">
                 <div class="col-md-3 col-sm-6">
                     <div class="card" id="mycard">
-                        <a href="./student/index.php">
-                            <div class="card-body">
+                        <div class="card-body">
+                            <a href="./student/index.php">
                                 <center>
                                     <img src="./images/student.png" width="100px" height="70px"/>
                                 <center>
-                                <div class="margin-top-base">
-                                    <a class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STUDENTS</a>
-                                </div>
+                            </a>
+                            <div class="margin-top-base">
+                                <a class="btn btn-primary btn-sm"  href="./student/index.php"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>STUDENTS</a>
                             </div>
-                        </a>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -92,7 +93,7 @@
                             <div class="card-body">
                                 <center><img src="./images/setting.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
-                                    <a href="./permission/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Users Rights</a>
+                                    <a href="./permission/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>USER RIGHTS</a>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +103,7 @@
                             <div class="card-body">
                                 <center><img src="./images/timetable.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
-                                    <a href="./Timetable/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Time Table</a>
+                                    <a href="./Timetable/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>TIME TABLE</a>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +137,7 @@
                             <div class="card-body">
                                 <center><img src="./images/exam.png" width="100px" height="70px"/><center>
                                 <div class="margin-top-base">
-                                    <a href="./internal/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Internal Portal</a>
+                                    <a href="./internal/index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>INTERNAL PORTAL</a>
                                 </div>
                             </div>
                         </div>
