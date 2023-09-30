@@ -29,35 +29,34 @@
   <title>Internal Marks</title>    
 </head>
 <body class="ovflow-y">
-  <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
-    <div class="col-md-3">
-      <h3 class=" padding-base">Internal Marks </h3>
-    </div>
-    <div class="col-md-6">
-      <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
-    </div>
-    <div class="col-md-3">
-      <div class="row">
-        <div class="col-md-6"></div>
-          <div class="col-md-6">
-            <div class="margin-top-base">
-              <a href="./index.php" class="btn btn-primary btn-sm">
-                <i class="fa-solid fa-backward " style="color: #fff;"></i>
-                <b>BACK</b>
-              </a>
-            </div>
-          </div>
+  <div id="header">
+    <div class="row">
+        <div class="col-md-3" >
+            <p id="headerUser">Internal Mark</p>
         </div>
-      </div>
-    </div>
+        <div class="col-md-6">
+            <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="margin-top-base">
+                        <a href="./index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-backward" style="color: #fff;"></i> Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
   </div>
-  <div class="container" style="background-color:rgb(255, 248, 240)">
+  <div class="container" style="background-color:#EFEFEE">
     <div class="row">
       <div class="col-sm-6-12 col-md-6 col-lg-6">
       </div>
       <div class="col-sm-6-12 col-md-6 col-lg-6">
         <div class="margin-top-base">
-          <a href="./internalMark.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+          <a href="./internalMark.php" class="btn btn-primary btn-sm margin-bottom-base" style="color: #fff;float:right;">
             <i class="fa fa-plus" ></i><b>Add Exam Mark</b>
           </a>
         </div>
@@ -66,7 +65,7 @@
     <div class="row">
       <div class="col-md-12 margin-top-base">  
         <div style="overflow:auto">
-            <table id="tblInternal" class="display" width="100%" cellspacing="0">
+            <table id="tblInternal" class="table table-hover" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th scope="col">Exam Name</th>

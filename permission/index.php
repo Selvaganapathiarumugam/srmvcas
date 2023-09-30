@@ -30,69 +30,67 @@
     <title>User Permission</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
-            <div class="col-md-9">
-                <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science <br /> Coimbatore 641020</h3></center>
+            <div class="col-md-3" >
+                <p id="headerUser">User Rights </p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            </div>
+            <div class="col-3">
                 <div class="row">
                     <div class="col-md-6">
-
                     </div>
                     <div class="col-md-6">
-                        <div class="margin-top-base" >
-                            <a href="../index.php" class="btn btn-primary btn-sm" style="color: #fff;">
-                                <i class="fa-solid fa-backward"></i> 
-                                <b>BACK</b>
-                            </a>
+                        <div class="margin-top-base">
+                            <a href="../index.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-backward" style="color: #fff;"></i> Back</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div> 
     </div>
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row">
             <div class="col-md-10">
 
             </div>
             <div class="col-md-2">
                 <div class="margin-top-base">
-                  <a href="./permission.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+                  <a href="./permission.php" class="btn btn-primary btn-sm margin-bottom-base" style="color: #fff;float:right;">
                     <i class="fa fa-plus" ></i><b>Add New Rights</b>
                   </a>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 overflow-auto">
-            <div class="margin-top-base">
-                <table id="tblRights" class="table table-striped table-responsive" width="80%">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Add Student</th>
-                            <th>Update Student</th>
-                            <th>Add Course</th>
-                            <th>Update Course</th>
-                            <th>Add Timetable</th>
-                            <th>Update Timetable</th>
-                            <th>Bulk Attendance</th>
-                            <th>Attendance Report</th>
-                            <th>Permission</th>
-                            <th>Late Attendance</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>   
-                    </thead>
-                </table>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 overflow-auto">
+                <div class="margin-top-base">
+                    <table id="tblRights" class="table table-hover table-responsive" width="80%">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Add Student</th>
+                                <th>Update Student</th>
+                                <th>Add Course</th>
+                                <th>Update Course</th>
+                                <th>Add Timetable</th>
+                                <th>Update Timetable</th>
+                                <th>Bulk Attendance</th>
+                                <th>Attendance Report</th>
+                                <th>Permission</th>
+                                <th>Late Attendance</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>   
+                        </thead>
+                    </table>
+                </div>
             </div>
+            <div class="col-md-1"></div>
         </div>
-        <div class="col-md-1"></div>
     </div>
 </body>
 <script type="text/javascript">

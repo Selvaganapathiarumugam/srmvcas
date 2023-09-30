@@ -14,7 +14,7 @@
         $rows = "";
         while ($row = mysqli_fetch_assoc($result)) {
             $rows .= "<tr>";
-            $rows .= "<td><input type='text' class='form-control' autocomplete='off' name='courseCode[]' value = {$row['courseCode']} /></td>";
+            $rows .= "<td><input type='text' class='form-control'disabled name='courseCode[]' value = {$row['courseCode']} /></td>";
             $rows .= "<td>{$row['courseName']}</td>";
             $rows .= "<td><input type='number' class='form-control' autocomplete='off' name='mark[]'></td>";
             $rows .= "<td><input type='number' class='form-control' name='final_mark[]' disabled></td>";

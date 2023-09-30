@@ -1,21 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+-- version 3.2.0.1
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 24, 2023 at 09:07 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost
+-- Generation Time: Sep 30, 2023 at 11:31 AM
+-- Server version: 5.1.36
+-- PHP Version: 5.3.0
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
 -- Database: `attendance`
@@ -27,16 +19,17 @@ SET time_zone = "+00:00";
 -- Table structure for table `tblattendance`
 --
 
-CREATE TABLE `tblattendance` (
-  `id` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblattendance` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `subjectHour` mediumint(2) NOT NULL,
   `CourseTaught` varchar(500) NOT NULL,
-  `IsAbsent` tinyint(3) NOT NULL DEFAULT 0,
-  `Staffid` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
+  `Staffid` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=291 ;
 
 --
 -- Dumping data for table `tblattendance`
@@ -137,7 +130,202 @@ INSERT INTO `tblattendance` (`id`, `regno`, `date`, `DayOrder`, `subjectHour`, `
 (92, '19UIT004', '2023-07-29', 1, 5, 'C', 0, 'DEV_01'),
 (93, '19UIT005', '2023-07-29', 1, 5, 'C', 1, 'DEV_01'),
 (94, '19UIT006', '2023-07-29', 1, 5, 'C', 1, 'DEV_01'),
-(95, '19UIT007', '2023-07-29', 1, 5, 'C', 0, 'DEV_01');
+(95, '19UIT007', '2023-07-29', 1, 5, 'C', 0, 'DEV_01'),
+(96, '23UIT001', '2023-09-30', 1, 1, 'C', 1, 'DEV_01'),
+(97, '23UIT002', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(98, '23UIT003', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(99, '23UIT004', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(100, '23UIT005', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(101, '23UIT006', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(102, '23UIT007', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(103, '23UIT008', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(104, '23UIT009', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(105, '23UIT010', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(106, '23UIT011', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(107, '23UIT012', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(108, '23UIT013', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(109, '23UIT014', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(110, '23UIT015', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(111, '23UIT016', '2023-09-30', 1, 1, 'C', 1, 'DEV_01'),
+(112, '23UIT017', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(113, '23UIT018', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(114, '23UIT019', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(115, '23UIT020', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(116, '23UIT021', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(117, '23UIT022', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(118, '23UIT023', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(119, '23UIT024', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(120, '23UIT025', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(121, '23UIT026', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(122, '23UIT027', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(123, '23UIT028', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(124, '23UIT029', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(125, '23UIT030', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(126, '23UIT031', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(127, '23UIT032', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(128, '23UIT033', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(129, '23UIT034', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(130, '23UIT035', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(131, '23UIT036', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(132, '23UIT037', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(133, '23UIT038', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(134, '23UIT039', '2023-09-30', 1, 1, 'C', 0, 'DEV_01'),
+(135, '23UIT001', '2023-09-30', 1, 2, 'C', 1, 'DEV_01'),
+(136, '23UIT002', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(137, '23UIT003', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(138, '23UIT004', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(139, '23UIT005', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(140, '23UIT006', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(141, '23UIT007', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(142, '23UIT008', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(143, '23UIT009', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(144, '23UIT010', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(145, '23UIT011', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(146, '23UIT012', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(147, '23UIT013', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(148, '23UIT014', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(149, '23UIT015', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(150, '23UIT016', '2023-09-30', 1, 2, 'C', 1, 'DEV_01'),
+(151, '23UIT017', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(152, '23UIT018', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(153, '23UIT019', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(154, '23UIT020', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(155, '23UIT021', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(156, '23UIT022', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(157, '23UIT023', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(158, '23UIT024', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(159, '23UIT025', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(160, '23UIT026', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(161, '23UIT027', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(162, '23UIT028', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(163, '23UIT029', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(164, '23UIT030', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(165, '23UIT031', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(166, '23UIT032', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(167, '23UIT033', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(168, '23UIT034', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(169, '23UIT035', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(170, '23UIT036', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(171, '23UIT037', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(172, '23UIT038', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(173, '23UIT039', '2023-09-30', 1, 2, 'C', 0, 'DEV_01'),
+(174, '23UIT001', '2023-09-30', 1, 3, 'Math', 1, 'DEV_01'),
+(175, '23UIT002', '2023-09-30', 1, 3, 'Math', 1, 'DEV_01'),
+(176, '23UIT003', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(177, '23UIT004', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(178, '23UIT005', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(179, '23UIT006', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(180, '23UIT007', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(181, '23UIT008', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(182, '23UIT009', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(183, '23UIT010', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(184, '23UIT011', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(185, '23UIT012', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(186, '23UIT013', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(187, '23UIT014', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(188, '23UIT015', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(189, '23UIT016', '2023-09-30', 1, 3, 'Math', 1, 'DEV_01'),
+(190, '23UIT017', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(191, '23UIT018', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(192, '23UIT019', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(193, '23UIT020', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(194, '23UIT021', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(195, '23UIT022', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(196, '23UIT023', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(197, '23UIT024', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(198, '23UIT025', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(199, '23UIT026', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(200, '23UIT027', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(201, '23UIT028', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(202, '23UIT029', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(203, '23UIT030', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(204, '23UIT031', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(205, '23UIT032', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(206, '23UIT033', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(207, '23UIT034', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(208, '23UIT035', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(209, '23UIT036', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(210, '23UIT037', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(211, '23UIT038', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(212, '23UIT039', '2023-09-30', 1, 3, 'Math', 0, 'DEV_01'),
+(213, '23UIT001', '2023-09-30', 1, 4, 'Tamil', 1, 'DEV_01'),
+(214, '23UIT002', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(215, '23UIT003', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(216, '23UIT004', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(217, '23UIT005', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(218, '23UIT006', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(219, '23UIT007', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(220, '23UIT008', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(221, '23UIT009', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(222, '23UIT010', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(223, '23UIT011', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(224, '23UIT012', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(225, '23UIT013', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(226, '23UIT014', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(227, '23UIT015', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(228, '23UIT016', '2023-09-30', 1, 4, 'Tamil', 1, 'DEV_01'),
+(229, '23UIT017', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(230, '23UIT018', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(231, '23UIT019', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(232, '23UIT020', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(233, '23UIT021', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(234, '23UIT022', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(235, '23UIT023', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(236, '23UIT024', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(237, '23UIT025', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(238, '23UIT026', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(239, '23UIT027', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(240, '23UIT028', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(241, '23UIT029', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(242, '23UIT030', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(243, '23UIT031', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(244, '23UIT032', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(245, '23UIT033', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(246, '23UIT034', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(247, '23UIT035', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(248, '23UIT036', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(249, '23UIT037', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(250, '23UIT038', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(251, '23UIT039', '2023-09-30', 1, 4, 'Tamil', 0, 'DEV_01'),
+(252, '23UIT001', '2023-09-30', 1, 5, 'English', 1, 'DEV_01'),
+(253, '23UIT002', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(254, '23UIT003', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(255, '23UIT004', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(256, '23UIT005', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(257, '23UIT006', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(258, '23UIT007', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(259, '23UIT008', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(260, '23UIT009', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(261, '23UIT010', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(262, '23UIT011', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(263, '23UIT012', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(264, '23UIT013', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(265, '23UIT014', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(266, '23UIT015', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(267, '23UIT016', '2023-09-30', 1, 5, 'English', 1, 'DEV_01'),
+(268, '23UIT017', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(269, '23UIT018', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(270, '23UIT019', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(271, '23UIT020', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(272, '23UIT021', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(273, '23UIT022', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(274, '23UIT023', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(275, '23UIT024', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(276, '23UIT025', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(277, '23UIT026', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(278, '23UIT027', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(279, '23UIT028', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(280, '23UIT029', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(281, '23UIT030', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(282, '23UIT031', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(283, '23UIT032', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(284, '23UIT033', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(285, '23UIT034', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(286, '23UIT035', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(287, '23UIT036', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(288, '23UIT037', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(289, '23UIT038', '2023-09-30', 1, 5, 'English', 0, 'DEV_01'),
+(290, '23UIT039', '2023-09-30', 1, 5, 'English', 1, 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -145,15 +333,17 @@ INSERT INTO `tblattendance` (`id`, `regno`, `date`, `DayOrder`, `subjectHour`, `
 -- Table structure for table `tblcourse`
 --
 
-CREATE TABLE `tblcourse` (
-  `id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblcourse` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `deptId` mediumint(3) NOT NULL,
   `year` varchar(3) DEFAULT NULL,
   `semester` varchar(3) DEFAULT NULL,
   `courseName` varchar(150) DEFAULT NULL,
   `courseCode` varchar(20) DEFAULT NULL,
-  `AcadamicYear` varchar(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `AcadamicYear` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `courseCode` (`courseCode`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `tblcourse`
@@ -182,16 +372,62 @@ INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `cour
 -- Table structure for table `tbldayattendance`
 --
 
-CREATE TABLE `tbldayattendance` (
-  `id` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbldayattendance` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `deptId` mediumint(3) NOT NULL,
   `semester` varchar(3) NOT NULL,
   `year` varchar(3) NOT NULL,
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `status` varchar(10) NOT NULL,
-  `staffId` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `staffId` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+
+--
+-- Dumping data for table `tbldayattendance`
+--
+
+INSERT INTO `tbldayattendance` (`id`, `deptId`, `semester`, `year`, `regno`, `date`, `status`, `staffId`) VALUES
+(1, 1, 'I', 'I', '23UIT001', '2023-09-30', 'A', 'DEV_01'),
+(2, 1, 'I', 'I', '23UIT016', '2023-09-30', 'A', 'DEV_01'),
+(3, 1, 'I', 'I', '23UIT003', '2023-09-30', 'P', 'DEV_01'),
+(4, 1, 'I', 'I', '23UIT004', '2023-09-30', 'P', 'DEV_01'),
+(5, 1, 'I', 'I', '23UIT005', '2023-09-30', 'P', 'DEV_01'),
+(6, 1, 'I', 'I', '23UIT006', '2023-09-30', 'P', 'DEV_01'),
+(7, 1, 'I', 'I', '23UIT007', '2023-09-30', 'P', 'DEV_01'),
+(8, 1, 'I', 'I', '23UIT008', '2023-09-30', 'P', 'DEV_01'),
+(9, 1, 'I', 'I', '23UIT009', '2023-09-30', 'P', 'DEV_01'),
+(10, 1, 'I', 'I', '23UIT010', '2023-09-30', 'P', 'DEV_01'),
+(11, 1, 'I', 'I', '23UIT011', '2023-09-30', 'P', 'DEV_01'),
+(12, 1, 'I', 'I', '23UIT012', '2023-09-30', 'P', 'DEV_01'),
+(13, 1, 'I', 'I', '23UIT013', '2023-09-30', 'P', 'DEV_01'),
+(14, 1, 'I', 'I', '23UIT014', '2023-09-30', 'P', 'DEV_01'),
+(15, 1, 'I', 'I', '23UIT015', '2023-09-30', 'P', 'DEV_01'),
+(16, 1, 'I', 'I', '23UIT017', '2023-09-30', 'P', 'DEV_01'),
+(17, 1, 'I', 'I', '23UIT018', '2023-09-30', 'P', 'DEV_01'),
+(18, 1, 'I', 'I', '23UIT019', '2023-09-30', 'P', 'DEV_01'),
+(19, 1, 'I', 'I', '23UIT020', '2023-09-30', 'P', 'DEV_01'),
+(20, 1, 'I', 'I', '23UIT021', '2023-09-30', 'P', 'DEV_01'),
+(21, 1, 'I', 'I', '23UIT022', '2023-09-30', 'P', 'DEV_01'),
+(22, 1, 'I', 'I', '23UIT023', '2023-09-30', 'P', 'DEV_01'),
+(23, 1, 'I', 'I', '23UIT024', '2023-09-30', 'P', 'DEV_01'),
+(24, 1, 'I', 'I', '23UIT025', '2023-09-30', 'P', 'DEV_01'),
+(25, 1, 'I', 'I', '23UIT026', '2023-09-30', 'P', 'DEV_01'),
+(26, 1, 'I', 'I', '23UIT027', '2023-09-30', 'P', 'DEV_01'),
+(27, 1, 'I', 'I', '23UIT028', '2023-09-30', 'P', 'DEV_01'),
+(28, 1, 'I', 'I', '23UIT029', '2023-09-30', 'P', 'DEV_01'),
+(29, 1, 'I', 'I', '23UIT030', '2023-09-30', 'P', 'DEV_01'),
+(30, 1, 'I', 'I', '23UIT031', '2023-09-30', 'P', 'DEV_01'),
+(31, 1, 'I', 'I', '23UIT032', '2023-09-30', 'P', 'DEV_01'),
+(32, 1, 'I', 'I', '23UIT033', '2023-09-30', 'P', 'DEV_01'),
+(33, 1, 'I', 'I', '23UIT034', '2023-09-30', 'P', 'DEV_01'),
+(34, 1, 'I', 'I', '23UIT035', '2023-09-30', 'P', 'DEV_01'),
+(35, 1, 'I', 'I', '23UIT036', '2023-09-30', 'P', 'DEV_01'),
+(36, 1, 'I', 'I', '23UIT037', '2023-09-30', 'P', 'DEV_01'),
+(37, 1, 'I', 'I', '23UIT038', '2023-09-30', 'P', 'DEV_01'),
+(38, 1, 'I', 'I', '23UIT002', '2023-09-30', 'AP', 'DEV_01'),
+(39, 1, 'I', 'I', '23UIT039', '2023-09-30', 'PA', 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -199,10 +435,11 @@ CREATE TABLE `tbldayattendance` (
 -- Table structure for table `tbldepartment`
 --
 
-CREATE TABLE `tbldepartment` (
-  `id` mediumint(3) NOT NULL,
-  `dname` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE IF NOT EXISTS `tbldepartment` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
+  `dname` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `tbldepartment`
@@ -225,15 +462,17 @@ INSERT INTO `tbldepartment` (`id`, `dname`) VALUES
 -- Table structure for table `tblinternalexam`
 --
 
-CREATE TABLE `tblinternalexam` (
+CREATE TABLE IF NOT EXISTS `tblinternalexam` (
   `Code` varchar(30) NOT NULL,
   `Name` varchar(200) NOT NULL,
   `Type` varchar(4) NOT NULL,
   `Maxmark` mediumint(3) NOT NULL,
   `Convertmark` mediumint(3) NOT NULL,
   `Year` varchar(4) NOT NULL,
-  `CreatedBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `CreatedBy` varchar(50) NOT NULL,
+  PRIMARY KEY (`Code`),
+  KEY `CreatedBy` (`CreatedBy`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblinternalexam`
@@ -249,8 +488,8 @@ INSERT INTO `tblinternalexam` (`Code`, `Name`, `Type`, `Maxmark`, `Convertmark`,
 -- Table structure for table `tblinternalmarks`
 --
 
-CREATE TABLE `tblinternalmarks` (
-  `Id` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblinternalmarks` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
   `ExamCode` varchar(30) NOT NULL,
   `RegNo` varchar(10) NOT NULL,
   `DeptId` mediumint(3) NOT NULL,
@@ -259,8 +498,9 @@ CREATE TABLE `tblinternalmarks` (
   `CourseCode` varchar(20) NOT NULL,
   `CurrentMark` mediumint(3) NOT NULL,
   `FinalMark` varchar(3) NOT NULL,
-  `CreatedBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `CreatedBy` varchar(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
 
 --
 -- Dumping data for table `tblinternalmarks`
@@ -329,14 +569,20 @@ INSERT INTO `tblinternalmarks` (`Id`, `ExamCode`, `RegNo`, `DeptId`, `Semester`,
 -- Table structure for table `tbllateattendance`
 --
 
-CREATE TABLE `tbllateattendance` (
-  `id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbllateattendance` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `regno` varchar(20) NOT NULL,
   `deptid` mediumint(3) NOT NULL,
   `semester` varchar(5) NOT NULL,
   `year` varchar(5) NOT NULL,
-  `date` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `tbllateattendance`
+--
+
 
 -- --------------------------------------------------------
 
@@ -344,11 +590,13 @@ CREATE TABLE `tbllateattendance` (
 -- Table structure for table `tblroles`
 --
 
-CREATE TABLE `tblroles` (
-  `Id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblroles` (
+  `Id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `Description` varchar(250) NOT NULL,
-  `is_Active` bit(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `is_Active` bit(1) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Description` (`Description`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tblroles`
@@ -367,8 +615,8 @@ INSERT INTO `tblroles` (`Id`, `Description`, `is_Active`) VALUES
 -- Table structure for table `tblstudent`
 --
 
-CREATE TABLE `tblstudent` (
-  `id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblstudent` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(250) NOT NULL,
   `lastName` varchar(250) DEFAULT NULL,
   `regNo` varchar(10) NOT NULL,
@@ -393,8 +641,9 @@ CREATE TABLE `tblstudent` (
   `city` varchar(255) DEFAULT NULL,
   `pincode` varchar(10) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
-  `nationality` varchar(255) NOT NULL DEFAULT 'India'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `nationality` varchar(255) NOT NULL DEFAULT 'India',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1170 ;
 
 --
 -- Dumping data for table `tblstudent`
@@ -1581,8 +1830,8 @@ INSERT INTO `tblstudent` (`id`, `firstName`, `lastName`, `regNo`, `dob`, `age`, 
 -- Table structure for table `tbltimetable`
 --
 
-CREATE TABLE `tbltimetable` (
-  `id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbltimetable` (
+  `id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `deptId` mediumint(3) NOT NULL,
   `Staffid` mediumint(3) NOT NULL,
   `Year` varchar(5) NOT NULL,
@@ -1590,8 +1839,14 @@ CREATE TABLE `tbltimetable` (
   `SubjectId` mediumint(3) NOT NULL,
   `SubjectCore` varchar(150) NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
-  `SubjectHour` mediumint(2) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `SubjectHour` mediumint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `tbltimetable`
+--
+
 
 -- --------------------------------------------------------
 
@@ -1599,8 +1854,8 @@ CREATE TABLE `tbltimetable` (
 -- Table structure for table `tblusers`
 --
 
-CREATE TABLE `tblusers` (
-  `Id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblusers` (
+  `Id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `EmpId` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -1613,15 +1868,17 @@ CREATE TABLE `tblusers` (
   `doj` date NOT NULL,
   `dor` date NOT NULL,
   `roleId` mediumint(3) NOT NULL,
-  `deptid` mediumint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `deptid` mediumint(3) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `EmpId` (`EmpId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tblusers`
 --
 
 INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullname`, `phone`, `gender`, `dob`, `age`, `doj`, `dor`, `roleId`, `deptid`) VALUES
-(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'administrator', '9655120081', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4),
+(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'Administrator', '9655120081', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4),
 (2, 'PCA_01', 'dinesh', 'MTIzNDU2Nzg=', 'dineshkumar@gmail.in', 'Dineshkumar', '9632587410', 'male', '1980-01-01', 43, '2021-01-01', '0000-00-00', 2, 4),
 (3, 'UCA_02', 'chandhiran', 'MTIzNDU2Nzg=', 'chandhiran@rmv.ac.in', 'Chandhiran', '9894316150', 'male', '1980-01-01', 43, '2007-01-10', '0000-00-00', 2, 3),
 (4, 'UIT_01', 'kamaraj', 'MTIzNDU2Nzg=', 'kamaraj@rmv.ac.in', 'Kamaraj', '9942080458', 'male', '1980-01-01', 43, '2007-01-01', '0000-00-00', 3, 1),
@@ -1633,22 +1890,23 @@ INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullnam
 -- Table structure for table `tblusersrights`
 --
 
-CREATE TABLE `tblusersrights` (
-  `Id` mediumint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tblusersrights` (
+  `Id` mediumint(3) NOT NULL AUTO_INCREMENT,
   `EmpId` varchar(50) NOT NULL,
-  `permission` tinyint(1) NOT NULL DEFAULT 0,
-  `addstudent` tinyint(1) NOT NULL DEFAULT 0,
+  `permission` tinyint(1) NOT NULL DEFAULT '0',
+  `addstudent` tinyint(1) NOT NULL DEFAULT '0',
   `updatestudent` tinyint(1) NOT NULL,
-  `addcourse` tinyint(1) NOT NULL DEFAULT 0,
-  `updatecourse` tinyint(1) NOT NULL DEFAULT 0,
-  `addtimetable` tinyint(1) NOT NULL DEFAULT 0,
-  `updatetimetable` tinyint(1) NOT NULL DEFAULT 0,
-  `bulkattendance` tinyint(1) NOT NULL DEFAULT 0,
-  `attendancereport` tinyint(1) NOT NULL DEFAULT 0,
-  `lateAttendance` int(1) NOT NULL DEFAULT 0,
+  `addcourse` tinyint(1) NOT NULL DEFAULT '0',
+  `updatecourse` tinyint(1) NOT NULL DEFAULT '0',
+  `addtimetable` tinyint(1) NOT NULL DEFAULT '0',
+  `updatetimetable` tinyint(1) NOT NULL DEFAULT '0',
+  `bulkattendance` tinyint(1) NOT NULL DEFAULT '0',
+  `attendancereport` tinyint(1) NOT NULL DEFAULT '0',
+  `lateAttendance` int(1) NOT NULL DEFAULT '0',
   `CreatedBy` varchar(50) NOT NULL,
-  `ModifyBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ModifyBy` varchar(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tblusersrights`
@@ -1659,156 +1917,6 @@ INSERT INTO `tblusersrights` (`Id`, `EmpId`, `permission`, `addstudent`, `update
 (2, 'UCA_02', 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 'DEV_01', 'UCA_02');
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `tblattendance`
---
-ALTER TABLE `tblattendance`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tblcourse`
---
-ALTER TABLE `tblcourse`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `courseCode` (`courseCode`);
-
---
--- Indexes for table `tbldayattendance`
---
-ALTER TABLE `tbldayattendance`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbldepartment`
---
-ALTER TABLE `tbldepartment`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tblinternalexam`
---
-ALTER TABLE `tblinternalexam`
-  ADD PRIMARY KEY (`Code`),
-  ADD KEY `CreatedBy` (`CreatedBy`);
-
---
--- Indexes for table `tblinternalmarks`
---
-ALTER TABLE `tblinternalmarks`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `tbllateattendance`
---
-ALTER TABLE `tbllateattendance`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tblroles`
---
-ALTER TABLE `tblroles`
-  ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `Description` (`Description`);
-
---
--- Indexes for table `tblstudent`
---
-ALTER TABLE `tblstudent`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbltimetable`
---
-ALTER TABLE `tbltimetable`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tblusers`
---
-ALTER TABLE `tblusers`
-  ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `EmpId` (`EmpId`);
-
---
--- Indexes for table `tblusersrights`
---
-ALTER TABLE `tblusersrights`
-  ADD PRIMARY KEY (`Id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tblattendance`
---
-ALTER TABLE `tblattendance`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
-
---
--- AUTO_INCREMENT for table `tblcourse`
---
-ALTER TABLE `tblcourse`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `tbldayattendance`
---
-ALTER TABLE `tbldayattendance`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbldepartment`
---
-ALTER TABLE `tbldepartment`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `tblinternalmarks`
---
-ALTER TABLE `tblinternalmarks`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
-
---
--- AUTO_INCREMENT for table `tbllateattendance`
---
-ALTER TABLE `tbllateattendance`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblroles`
---
-ALTER TABLE `tblroles`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tblstudent`
---
-ALTER TABLE `tblstudent`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1170;
-
---
--- AUTO_INCREMENT for table `tbltimetable`
---
-ALTER TABLE `tbltimetable`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblusers`
---
-ALTER TABLE `tblusers`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tblusersrights`
---
-ALTER TABLE `tblusersrights`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- Constraints for dumped tables
 --
 
@@ -1817,8 +1925,3 @@ ALTER TABLE `tblusersrights`
 --
 ALTER TABLE `tblinternalexam`
   ADD CONSTRAINT `tblinternalexam_ibfk_1` FOREIGN KEY (`CreatedBy`) REFERENCES `tblusers` (`EmpId`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -71,10 +71,10 @@
     <title>Day Attendance</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
             <div class="col-md-3">
-                <h3 class=" padding-base">Bulk Import </h3>
+                <p id="headerUser">Bulk Import </p>
             </div>
             <div class="col-md-6">
                 <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
@@ -82,7 +82,6 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-6">
-
                     </div>
                     <div class="col-md-6">
                         <div class="margin-top-base" >
@@ -96,11 +95,11 @@
             </div>
         </div> 
     </div> 
-    <div class="margin-top-base">
-        <div class="container">
+    <div class="container"style="background-color:#EFEFEE"   >
+        <div class="margin-top-base padding-top-base">
             <div class="row">
-                <form id="frmAtt" action="./data/bulk_import.php" method="post">
-                    <div class="mb-4 bg-light rounded-3" style="margin-left:15px;padding-top:20px;height: 100% !important;">
+                <form id="frmAtt" action="./data/bulk_import.php" class="" method="post">
+                    <div class="mb-4 bg-white rounded-3 padding-base">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
@@ -175,7 +174,7 @@
             </div>
             <div class="margin-top-base">
             <div class="row">
-                <h3 style="color:#6d00b2;">Final Absentees List</h3></br></br></br>
+                <b id="headerUser">Final Absentees List</b>
                         <div class="col-md-12">
                             <table id="tblDayAttendance" class="table table-responsive table-hover" cellspacing="0">
                                 <thead>

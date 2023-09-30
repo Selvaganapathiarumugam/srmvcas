@@ -102,29 +102,28 @@
     </STYLE>
 </head>
 <body class="ovflow-y">
-    <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
-        <div class="col-md-3">
-            <h3 class="padding-base">Attendance</h3>
-        </div>
-        <div class="col-md-6">
-            <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
-        </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-6"></div>
+    <div id="header">
+        <div class="row">
+            <div class="col-md-3" >
+                <p id="headerUser">Attendance </p>
+            </div>
+            <div class="col-md-6">
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
                     <div class="col-md-6">
                         <div class="margin-top-base">
-                            <a href="../index.php" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-backward " style="color: #fff;"></i>
-                                <b>BACK</b>
-                            </a>
+                            <a href="./absentindex.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-backward" style="color: #fff;"></i> Back</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
-    <div class="container" style="background-color:rgb(255, 248, 240)">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row " >
             <div class="col-md-12">
                 <marquee>Attendance Master</marquee>
@@ -132,7 +131,7 @@
         </div>
         <div class="row">
             <form id="frmAtt">
-                <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
+                <div class="p-5 mb-4 bg-white rounded-3" style="margin-left:15px;height: 100% !important;">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">

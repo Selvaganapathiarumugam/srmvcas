@@ -62,16 +62,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff</title>
-    
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
             <div class="col-md-3" >
-                <h3 class=" padding-base">Staff Details</h3>
+                <p id="headerUser">Staff Details</h3>
             </div>
             <div class="col-md-6">
-                <center><h3 class=" ">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-3">
                 <div class="row">
@@ -86,7 +85,7 @@
             </div>
         </div> 
     </div>
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row " >
             <div class="col-md-12">
                 <marquee class="box-title margin-top-base">
@@ -98,7 +97,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <form method="POST" class="form-horizontal" id="frmStaff" >
-                    <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
+                    <div class="p-5 mb-4 bg-white rounded-3" style="margin-left:15px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4 ">
@@ -156,7 +155,7 @@
                                         <label for="input1" class="form-label">Department </label>
                                     </div>
                                     <div class=" col-md-6 col-lg-8">
-                                        <select class="form-control select2" name="sf_dept" id="sf_dept" required  autocomplete="off">
+                                        <select class="form-select" name="sf_dept" id="sf_dept" required  autocomplete="off">
                                             <?php
                                                 foreach ($lstDepartment as $value => $label) 
                                                 {
@@ -289,7 +288,7 @@
                                         <label for="input1" class="form-label">Role </label>
                                     </div>
                                     <div class=" col-md-6 col-lg-8">
-                                        <select class="form-control select2" name="sf_role" id="sf_role"
+                                        <select class="form-select" name="sf_role" id="sf_role"
                                             placeholder="Select the Role"   required  autocomplete="off">
                                             <?php
                                                 foreach ($lstroles as $value => $label2) 

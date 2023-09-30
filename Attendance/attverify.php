@@ -98,10 +98,13 @@
     <title>verify </title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
-            <div class="col-md-9">
-                <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science <br /> Coimbatore 641020</h3></center>
+            <div class="col-md-3">
+                <p id="headerUser">Verification</p>
+            </div>
+            <div class="col-md-6">
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-md-3">
                 <div class="row">
@@ -121,7 +124,7 @@
         </div> 
     </div>
     <div class="margin-top-base">
-        <div class="container">
+        <div class="container" style="background-color:#EFEFEE">
             <div class="row">
                 <div class="col-md-2">
                     <div class="card">
@@ -164,101 +167,101 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div>
-        <marquee>Please verify the attendance</marquee>
-    </div>
-    <div class="margin-top-base">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2">
+            <div>
+                <marquee>Please verify the attendance</marquee>
+            </div>
+            <div class="margin-top-base" >
+                <div class="container" style="background-color:#EFEFEE">
+                    <div class="row">
+                        <div class="col-md-2">
 
-                </div>
-                <div class="col-md-6">
-                    <form action="" method="POST" class="card padding-base">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <p>I<sup>st</sup> Hour</p>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="txthouri" class="form-control" autocomplete="off" 
-                                    value = "<?php echo $txthouri; ?>" />
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <p>II<sup>end</sup> Hour</p>
+                        <div class="col-md-6">
+                            <form action="" method="POST" class="card padding-base">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <p>I<sup>st</sup> Hour</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <input type="text" name="txthouri" class="form-control" autocomplete="off" 
+                                            value = "<?php echo $txthouri; ?>" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="txthourii" class="form-control" autocomplete="off" 
-                                    value = "<?php echo $txthourii; ?>" />
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <p>II<sup>end</sup> Hour</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <input type="text" name="txthourii" class="form-control" autocomplete="off" 
+                                            value = "<?php echo $txthourii; ?>" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <p>III<sup>rd</sup>  Hour</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <input type="text" name="txthouriii" class="form-control" autocomplete="off" 
+                                            value = "<?php echo $txthouriii; ?>"  />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <p>IV<sup>th</sup> Hour</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <input type="text" name="txthouriv" class="form-control" autocomplete="off" 
+                                            value = "<?php echo $txthouriv; ?>"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <p>V<sup>th</sup> Hour</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <input type="text" name="txthourv" class="form-control" autocomplete="off" 
+                                            value = "<?php echo $txthourv; ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <input type="submit" name="btnsave" class="btn btn-primary"  value="Save" 
+                                             />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <p>III<sup>rd</sup>  Hour</p>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="txthouriii" class="form-control" autocomplete="off" 
-                                    value = "<?php echo $txthouriii; ?>"  />
-                                </div>
-                            </div>
+                        <div class="col-md-2">
+
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <p>IV<sup>th</sup> Hour</p>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="txthouriv" class="form-control" autocomplete="off" 
-                                    value = "<?php echo $txthouriv; ?>"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <p>V<sup>th</sup> Hour</p>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="txthourv" class="form-control" autocomplete="off" 
-                                    value = "<?php echo $txthourv; ?>" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="submit" name="btnsave" class="btn btn-primary"  value="Save" 
-                                     />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-2">
-                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,7 +270,7 @@
 <script>
     function Updatemsg()
     {
-        alert("Updated");
+        swal("Updated");
     }
 </script>
 </html>

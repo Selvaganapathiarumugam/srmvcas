@@ -31,12 +31,12 @@
     <title>Timetable</title>
 </head>
 <body class="ovflow-y">
-  <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+  <div class="row" id="header">
       <div class="col-md-3">
-        <h3 class=" padding-base">Timetable Records</h3>
+        <p id="headerUser">Timetable</p>
       </div>
       <div class="col-md-6">
-        <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+          <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
       </div>
       <div class="col-md-3">
         <div class="row">
@@ -53,12 +53,12 @@
         </div>
       </div>
   </div>
-  <div class="container" style="background-color:rgb(255, 248, 240)">
+  <div class="container" style="background-color:#EFEFEE">
       <div class="row">
           <div class="col-md-6"></div>  
           <div class="col-md-6">
               <div class="margin-top-base">
-                  <a href="./timetable.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+                  <a href="./timetable.php" class="btn btn-primary btn-sm margin-bottom-base" style="color: #fff;float:right;">
                       <i class="fa fa-plus" ></i><b>Add</b>
                   </a>
               </div>
@@ -66,7 +66,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 margin-top-base">
-          <table id="tblttable" class="display" width="100%" cellspacing="0">
+          <table id="tblttable" class="table table-hover" width="100%" cellspacing="0">
             <thead>
               <tr>
                 <th scope="col">StaffName</th>
