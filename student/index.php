@@ -29,12 +29,12 @@
   <title>Student</title>    
 </head>
 <body class="ovflow-y">
-  <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+  <div class="row" id="header">
     <div class="col-md-3">
-      <h3 class=" padding-base">All Students</h3>
+      <p id="headerUser">All Students</p>
     </div>
     <div class="col-md-6">
-      <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+      <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
     </div>
     <div class="col-md-3">
       <div class="row">
@@ -51,12 +51,12 @@
       </div>
     </div>
   </div>
-  <div class="container" style="background-color:rgb(255, 248, 240)">
+  <div class="container" style="background-color:#EFEFEE">
     <div class="row">
       <div class="col-sm-6-12 col-md-6 col-lg-6"></div>
       <div class="col-sm-6-12 col-md-6 col-lg-6">
         <div class="margin-top-base">
-          <a href="./student.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+          <a href="./student.php" class="btn btn-primary btn-sm margin-bottom-base" style="color: #fff;float:right;">
             <i class="fa fa-plus" ></i><b>Add New Student</b>
           </a>
         </div>
@@ -64,12 +64,13 @@
     </div>
     <div class="row">
       <div class="col-md-12 margin-top-base">  
-        <table id="tblStudents" class="display" width="100%" cellspacing="0">
+        <table id="tblStudents" class="table table-hover" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th scope="col">Registration No.</th>
+              <th scope="col">Register No</th>
               <th scope="col">Name</th>
               <th scope="col">Department</th>
+              <th scope="col">Year</th>
               <th scope="col">Semester</th>
               <th scope="col">Batch</th>
               <th scope="col">Email</th>
@@ -91,6 +92,7 @@
             {data: 'regNo'},
             {data: 'firstName'},
             {data: 'dname'},
+            {data: 'year'},
             {data: 'semester'},
             {data: 'batch'},
             {data: 'email'},

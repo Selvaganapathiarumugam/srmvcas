@@ -17,13 +17,13 @@
     <title>Attendance</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
             <div class="col-md-3">
-                <h3 class=" padding-base">Attendance</h3>
+                <p id="headerUser">Attendance</p>
             </div>
             <div class="col-md-6">
-                <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-md-3">
                 <div class="row">
@@ -50,7 +50,7 @@
                     <div class="padding-base">
                         <div class="card" id="mycard">
                             <div class="card-body">
-                                <center><img src="../images/atten_1.png" width="100px" height="70px"/><center>
+                                <center><img src="../images/atten_1.png" width="60px" height="61px"/><center>
                                 <div class="margin-top-base">
                                     <a href="./absentindex.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Hour Based Absent</a>
                                 </div>
@@ -62,7 +62,7 @@
                     <div class="padding-base">
                         <div class="card" id="mycard">
                             <div class="card-body">
-                                <center><img src="../images/atten_3.png" width="100px" height="70px"/><center>
+                                <center><img src="../images/atten_3.png" width="60px" height="61px"/><center>
                                 <div class="margin-top-base">
                                     <a href="./bulkImport.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Day Attendance</a>
                                 </div>
@@ -74,7 +74,7 @@
                     <div class="padding-base">
                         <div class="card" id="mycard">
                             <div class="card-body">
-                                <center><img src="../images/report.png" width="100px" height="70px"/><center>
+                                <center><img src="../images/report.png" width="60px" height="61px"/><center>
                                 <div class="margin-top-base">
                                     <a href="./dayReport.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Day Report</a>
                                 </div>

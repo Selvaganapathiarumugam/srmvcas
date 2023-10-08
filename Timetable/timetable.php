@@ -6,6 +6,19 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT addtimetable,updatetimetable from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isAddRight = $row['addtimetable'];
+        $isUpRight = $row['updatetimetable'];
+    }
+    if($isAddRight == 0) {
+        header("Location:../403.php");
+    }
+
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -74,6 +87,9 @@
     if(isset($_REQUEST["id"]))
     {
         $id=$_REQUEST['id'];
+        if($isUpRight == 0) {
+            header("Location:../403.php");
+        }
         $SQL="SELECT *  from  tbltimetable 
                  WHERE ID=".$_REQUEST["id"];
         $result = mysqli_query($conn,$SQL);
@@ -111,13 +127,13 @@
     <title>TimeTable</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
             <div class="col-md-3" >
-                <h3 class=" padding-base">Time Table </h3>
+                <p id="headerUser">Timetable </p>
             </div>
             <div class="col-md-6">
-                <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-3">
                 <div class="row">
@@ -132,7 +148,7 @@
             </div>
         </div> 
     </div>
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row " >
             <div class="col-md-12">
                 <marquee>Time Table Master</marquee>
@@ -142,7 +158,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <form method="POST" class="form-horizontal" id="frmTtable" >
-                    <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
+                    <div class="p-5 mb-4 bg-white rounded-3" style="margin-left:15px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">

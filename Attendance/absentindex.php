@@ -119,10 +119,13 @@
     <title>Attendance</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
-            <div class="col-md-9 col-sm-9">
-                <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            <div class="col-md-3">
+                <p id="headerUser">Attendance View</p>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-md-3 col-sm-3">
                 <div class="row">
@@ -141,7 +144,7 @@
             </div>
         </div> 
     </div> 
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="margin-top-base">
             <div class="row">
                 <div class="col-md-9">
@@ -150,7 +153,7 @@
                     </p>
                 </div>
                 <div class="col-md-3">
-                <a href="./attendance.php" class="btn btn-info btn-sm margin-bottom-base margin-top-base" style="color: #fff;float:right;">
+                <a href="./attendance.php" class="btn btn-primary btn-sm margin-bottom-base margin-top-base" style="color: #fff;float:right;">
                     <i class="fa fa-plus" ></i>
                     <b>Go To Attendance</b>
                 </a>
@@ -231,7 +234,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input type="submit" tabindex="5" class="btn btn-primary" name="save" value="Get Data" 
+                                    <input type="submit" tabindex="5" class="btn btn-primary btn-sm" name="save" value="Get Data" 
                                     style="margin-top: 20px;"
                                     />
                                 </div>
@@ -259,7 +262,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <table style="background:#fff;margin-top:10px" class="table table-striped" >
+                <table style="margin-top:10px" class="table table-striped table-hover bg-white" >
                     <tr>
                         <th>Reg NO</th>
                         <th>1</th>

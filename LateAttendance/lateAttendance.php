@@ -5,7 +5,20 @@
     include('../connect.php');
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
+    
     }
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT lateAttendance from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isRight = $row['lateAttendance'];
+    }
+    if($isRight == 0) {
+        header("Location:../403.php");
+    }
+
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment  ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -26,35 +39,6 @@
         "III" => "III"
     );
     $la_date= date('Y-m-d');
-    //--------------------------------Update-------------------------------
-    // if(isset($_REQUEST["id"]))
-    // {
-    //     $id=$_REQUEST['id'];
-    //     $SQL="SELECT *  from  tbltimetable 
-    //              WHERE ID=".$_REQUEST["id"];
-    //     $result = mysqli_query($conn,$SQL);
-    //     while($row = mysqli_fetch_array($result)) 
-    //     {
-    //         $deptId = $row['deptId'];
-    //         $Staffid = $row['Staffid'];
-    //         $year = ($row['Year']);
-    //         $Semester = ($row['Semester']);
-    //         $SubjectId = $row['SubjectId'];
-    //         $SubjectCore = $row['SubjectCore'];
-    //         $DayOrder = $row['DayOrder'];
-    //         $SubjectHour = $row['SubjectHour'];
-    //         $id=$row['id'];
-    //     } 
-    //     $opDept=$deptId;
-    //     $opSem = $Semester;
-    //     $opYear=$year;
-    //     $opsub=$SubjectId;
-    //     $opsubcore=$SubjectCore;
-    //     $opDayOrder=$DayOrder;
-    //     $opHours=$SubjectHour;
-    //     $opstname=$Staffid;
-    // }
-    
     mysqli_close($conn);
     include("../links.php")
 ?>
@@ -67,13 +51,13 @@
     <title>Late  Attendance</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
             <div class="col-md-3" >
-                <h3 class=" padding-base">Late Attendance</h3>
+                <p id="headerUser">Late Attendance</p>
             </div>
             <div class="col-md-6">
-                <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-3">
                 <div class="row">
@@ -88,17 +72,17 @@
             </div>
         </div> 
     </div>
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row " >
             <div class="col-md-12">
                 <marquee>Late of Attendance Master</marquee>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <form method="POST" class="form-horizontal" id="frmlatt" >
-                    <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:15px;height: 100% !important;">
+                    <div class="p-5 mb-4 bg-white rounded-3" style="margin-left:15px;height: 100% !important;">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
@@ -185,7 +169,7 @@
                     </div>
                 </form>   
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
     </div>
     <script type="text/javascript">

@@ -8,6 +8,17 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    $Eid=$_SESSION['EmpId'];
+    $SQL="SELECT attendancereport from  tblusersrights where EmpId ='". $Eid."'";
+    $result = mysqli_query($conn,$SQL);
+    
+    while($row = mysqli_fetch_array($result)) 
+    {
+        $isAddRight = $row['attendancereport'];
+    }
+    if($isAddRight == 0) {
+        header("Location:../403.php");
+    }
 ?> 
 
 <!DOCTYPE html>
@@ -18,13 +29,13 @@
     <title>Day Report</title>
 </head>
 <body class="ovflow-y">
-    <div class="border-1p" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div id="header">
         <div class="row">
             <div class="col-md-3">
-                <h3 class=" padding-base">Absent List</h3>
+                <p id="headerUser">Attendance Report</p>
             </div>
             <div class="col-md-6">
-                <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+                <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
             </div>
             <div class="col-md-3">
                 <div class="row">
@@ -43,7 +54,7 @@
             </div>
         </div> 
     </div> 
-    <div class="container">
+    <div class="container" >
         <div class="margin-top-base">
             <form id="frmAtt"  method="post">
                 <div class="mb-4 bg-light rounded-3 padding-base" style="margin-left:15px;height: 100% !important;">
@@ -66,7 +77,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type='submit' id='btnsubmit' name='btnsubmit' class="btn btn-primary"
+                                <input type='submit' id='btnsubmit' name='btnsubmit' class="btn btn-primary btn-sm"
                                         tabindex="3"  autocomplete="off" value="Get Record"
                                     style="margin-top:30px;"
                                 />    
@@ -74,7 +85,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type='button' id='printButton' name='btnsprint' class="btn btn-success"
+                                <input type='button' id='printButton' name='btnsprint' class="btn btn-success btn-sm"
                                     tabindex="4"  autocomplete="off" value="Print"  style="margin-top:30px;"
                                 />
                             </div>

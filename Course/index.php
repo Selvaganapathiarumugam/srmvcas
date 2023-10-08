@@ -32,12 +32,12 @@
 </head>
 
 <body class="ovflow-y">
-<div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div class="row" id="header">
         <div class="col-md-3">
-            <h3 class=" padding-base">Course</h3>
+            <p id="headerUser">Course</p>
         </div>
         <div class="col-md-6">
-            <center><h3 class="">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
         </div>
         <div class="col-md-3">
             <div class="row">
@@ -55,13 +55,13 @@
             </div>
         </div>
     </div> 
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row margin-top-base">
             <div class="col-md-6">
             </div>
             <div class="col-md-6">
                 <div class="margin-top-base">
-                    <a href="./course.php" class="btn btn-info btn-sm margin-bottom-base" style="color: #fff;float:right;">
+                    <a href="./course.php" class="btn btn-primary btn-sm margin-bottom-base" style="color: #fff;float:right;">
                         <i class="fa fa-plus " ></i>
                         <b>Add New Course</b>
                     </a>
@@ -70,7 +70,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table id="tblcourses" class="table table-responsive table-hover" cellspacing="0">
+                <table id="tblcourses" class="table table-hover" cellspacing="0">
                     <thead>
                         <tr>
                         <th scope="col">courseCode</th>

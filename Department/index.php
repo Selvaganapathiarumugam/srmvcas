@@ -5,6 +5,9 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
+    if($_SESSION['Role'] != 1 && $_SESSION['Role'] != 3 && $_SESSION['Role'] != 5) {
+        header("Location:../403.php");
+    }
     include('../connect.php');
     include('../links.php');
 
@@ -43,12 +46,12 @@
     <title>Department</title>
 </head>
 <body class="ovflow-y">
-    <div class="row" style="border:1px solid #ffb9b9;background-color: rgb(255, 193, 132);color:#3d0dfd">
+    <div class="row" id="header">
         <div class="col-md-3">
-            <h3 class="padding-base">Department List</h3>
+            <p id="headerUser">Department List</p>
         </div>
         <div class="col-md-6">
-            <center><h3>Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
+            <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
         </div>
         <div class="col-md-3">
             <div class="row">
@@ -62,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" style="background-color:#EFEFEE">
         <div class="row">
             <div class="col-md-6">
             </div>
@@ -75,7 +78,7 @@
                     <table id="tblDepartments" class="table table-hover" cellspacing="0">
                         <thead>
                             <tr>
-                             <th scope="col">ID</th>
+                             <th scope="col">Id</th>
                              <th scope="col">Name</th>
                              <th scope="col">Edit</th>
                              <th scope="col">Delete</th>
@@ -84,7 +87,7 @@
                     </table> 
                 </div>
                 <div class="col-md-6">
-                    <div class="p-5 mb-4 bg-light rounded-3" style="margin-left:30px;height: 100% !important;">
+                    <div class=" rounded-3" style="margin-left:30px;height: 100% !important;">
                         <form method="POST" id="frmDept" class="form-horizontal">
                             <div class="form-group">
                                 <div class="row">
