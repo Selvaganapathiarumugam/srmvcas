@@ -1,8 +1,7 @@
 <?php 
     ob_start();
     session_start();
-    //error_reporting(0); 
-    include('../links.php');
+    error_reporting(0); 
     include('../connect.php');
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
@@ -94,8 +93,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>verify </title>
+    <?php include('../links.php'); ?>
+    <title>verify Attendance</title>
 </head>
 <body class="ovflow-y">
     <div id="header">

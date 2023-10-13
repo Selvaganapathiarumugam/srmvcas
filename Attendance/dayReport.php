@@ -2,7 +2,6 @@
     ob_start();
     session_start();
     error_reporting(0); 
-    include('../links.php');
     include('../connect.php'); 
 
     if(!isset($_SESSION['Username'])) {
@@ -25,7 +24,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('../links.php'); ?>
     <title>Day Report</title>
 </head>
 <body class="ovflow-y">
@@ -96,7 +95,7 @@
         </div>
         <div class="margin-top-base">
             <div id="tableContainer" style="display: none;" >
-                <table id="dynamicTable" class="table table-striped table table-responsive">
+                <table id="dynamicTable" class="table table-bordered table table-responsive">
                 </table>
             </div>
         </div>
@@ -221,8 +220,9 @@
         tableWindow.document.write(table.outerHTML);
         tableWindow.document.write("</body></html>");
         tableWindow.document.close();
-        //tableWindow.print();
-        //tableWindow.close();
+        setTimeout(function() {
+            tableWindow.close();
+        }, 1000);
 
     }
 

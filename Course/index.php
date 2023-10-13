@@ -5,7 +5,6 @@
     error_reporting(0);
 
     include('../connect.php');
-    include("../links.php");
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
@@ -26,8 +25,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('../links.php'); ?>
     <title>Course</title>
 </head>
 
@@ -73,14 +71,14 @@
                 <table id="tblcourses" class="table table-hover" cellspacing="0">
                     <thead>
                         <tr>
-                        <th scope="col">courseCode</th>
-                        <th scope="col">courseName</th>
-                         <th scope="col">Department</th>
-                         <th scope="col">semester</th>
-                         <th scope="col">year</th>
-                         <th scope="col">AcadamicYear</th>
-                         <th scope="col">Edit</th>
-                         <th scope="col">Delete</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">CourseName</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">AcadamicYear</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                 </table> 

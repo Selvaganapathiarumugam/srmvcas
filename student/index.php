@@ -2,7 +2,6 @@
   ob_start();
   session_start();
   error_reporting(0);
-  include('../links.php');
   include('../connect.php'); 
   if(!isset($_SESSION['Username'])) {
     header("Location:../login.php");
@@ -26,6 +25,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php include('../links.php'); ?>
   <title>Student</title>    
 </head>
 <body class="ovflow-y">

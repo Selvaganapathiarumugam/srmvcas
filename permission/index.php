@@ -7,7 +7,7 @@
     }
 
     include('../connect.php');
-    include('../links.php');
+    
     if(isset($_REQUEST["did"]))
     {
         $id=$_REQUEST['did'];
@@ -26,7 +26,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('../links.php'); ?>
     <title>User Permission</title>
 </head>
 <body class="ovflow-y">

@@ -1,5 +1,4 @@
 <?php
-    include('../links.php');
     include('../connect.php');
 
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment ORDER BY id asc");
@@ -38,7 +37,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('../links.php'); ?>
     <title>Internal Marks</title>
 
 </head>
@@ -173,138 +172,143 @@
         </div>
         <div id="rpInternal">
             <div class="container" > 
-            <div class="row" >
-            <div class="col-md-1">
-                <img src="../images/favicon/192x192.png" width="60px" height="60px" alt="logo" />
-            </div>
-            <div class="col-md-10">
-                 <b  id="clgname"> Sri Ramakirshna Mission Vidyalaya College Of Arts And Science</b>
-                 <center><span>(Autonomous) Coimbatore - 641 020</span></center>
-            </div>
-            <div class="col-md-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="float:right;">
+                            <button id="printButton" class="btn btn-success btn-sm"><i class="fa fa-print"  aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="printAre">
+                    <div class="row" >
+                        <div class="col-md-1">
+                            <img src="../images/favicon/192x192.png" width="60px" height="60px" alt="logo" />
+                        </div>
+                        <div class="col-md-11">
+                             <b id="clgname"> Sri Ramakirshna Mission Vidyalaya College Of Arts And Science</b>
+                             <center><span>(Autonomous) Coimbatore - 641 020</span></center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <center><u><b id="lblExamName"></b></u></center>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>PROGRAMME & DEPARTMENRT</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" >
+                                    <div id="lblDepartment" style="border-bottom:1px solid #000;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>COURSE TITLE WITH CODE</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="lblCourseName" style="border-bottom:1px solid #000;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>YEAR</label>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div  id="lblYear"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>SEMESTER</label>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div  id="lblSemester" style="border-bottom:1px solid #000;"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>MAX.MARKS </label>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div  id="lblMaxMarks" style="border-bottom:1px solid #000;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <center><u><b id="lblExamName"></b></u></center>
+                            <center>
+                                <div style="border:3px double #000; margin:10px;0px;10px;0px;">
+                                    <b>STATEMENT OF MARKS</b>
+                                </div>
+                            </center>
                         </div>
                         <div class="col-md-4"></div>
                     </div>
-                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>PROGRAMME & DEPARTMENRT</label>
+                    <div class="row border">
+                        <div class="col-md-6">
+                            <table id="tblMark1" class="table table-bordered " style="font-weight: 600;">
+                                <thead>
+                                    <tr>
+                                        <td>S.NO</td>
+                                        <td>Register Number</td>
+                                        <td>Marks</td>
+                                        <td>Signature of the Student</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6" >
+                            <table id="tblMark2" class="table table-bordered " style="font-weight: 600;">
+                                <thead>
+                                    <tr>
+                                        <td>S.NO</td>
+                                        <td>Register Number</td>
+                                        <td>Marks</td>
+                                        <td>Signature of the Student</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div id="lblDepartment" style="border-bottom:1px solid #000;">
+                    <div style="margin-top:55px">
+                        <div class="row">
+                            <div class="col-md-4">
+                                    <i>Date:</i>
+                            </div>
+                            <div class="col-md-4">
+                                <i>Signature of the Staff <br /> Name in </i><b>BLOCK LETTERS</b>
+                            </div>
+                            <div class="col-md-4">
+                                <i>Signature of the HOD with date</i>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>COURSE TITLE WITH CODE</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="lblCourseName" style="border-bottom:1px solid #000;">
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label>YEAR</label>
-                        </div>
-                        <div class="col-md-7" >
-                            <div  id="lblYear"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label>SEMESTER</label>
-                        </div>
-                        <div class="col-md-7" >
-                            <div  id="lblSemester" style="border-bottom:1px solid #000;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label>MAX.MARKS</label>
-                        </div>
-                        <div class="col-md-7" >
-                            <div  id="lblMaxMarks" style="border-bottom:1px solid #000;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <center>
-                        <div style="border:3px double #000; margin:10px;0px;10px;0px;">
-                            <b>STATEMENT OF MARKS</b>
-                        </div>
-                    </center>
-                </div>
-                <div class="col-md-4"></div>
-            </div>
-            </div>
-            <div class="container">
-            <div class="row border">
-            <div class="col-md-6">
-                <table id="tblMark1" class="table table-bordered " style="font-weight: 600;">
-                    <thead>
-                        <tr>
-                            <td>S.NO</td>
-                            <td>Register Number</td>
-                            <td>Marks</td>
-                            <td>Signature of the Student</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6" >
-                <table id="tblMark2" class="table table-bordered " style="font-weight: 600;">
-                    <thead>
-                        <tr>
-                            <td>S.NO</td>
-                            <td>Register Number</td>
-                            <td>Marks</td>
-                            <td>Signature of the Student</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-            </div>
-            <div style="margin-top:55px">
-                <div class="row">
-                    <div class="col-md-4">
-                            <i>Date:</i>
-                    </div>
-                    <div class="col-md-4">
-                        <i>Signature of the Staff <br /> Name in </i><b>BLOCK LETTERS</b>
-                    </div>
-                    <div class="col-md-4">
-                        <i>Signature of the HOD with date</i>
-                    </div>
-                </div>
-            </div>
             </div>
         </div>
     </div>
@@ -398,6 +402,29 @@
                 }
             });
        });
+       $('#printButton').click(function(e) {
+            var printContent = document.getElementById("printAre").innerHTML;
+
+            // Create an HTML string with the content
+            var htmlContent = `<html lang='en'><head>
+                <link rel='stylesheet' type='text/css' href='../css/main.css'>
+                <link rel='stylesheet' type='text/css' href='../css/Bootstrap.css'>
+                <title>Internal Report</title>
+                <style type='text/css' media='print'> @page { size: auto; margin: 0mm; }</style>
+            </head>
+            <body onload='window.print();'><div class='container'>${printContent}</div></body></html>`;
+
+            // Log the HTML content for debugging
+            console.log(htmlContent);
+            var tableWindow = window.open("", "Table Print");
+            tableWindow.document.write(htmlContent);
+            tableWindow.document.close();
+            setTimeout(function() {
+                tableWindow.close();
+            }, 1000);
+
+        });
+
     });
 </script>        
 </html>

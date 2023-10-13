@@ -65,3 +65,19 @@ function AttMsg() {
         }
     });
 }
+
+var inactivityTimer = setTimeout(function() {
+    window.location.href = '../logout.php'; 
+}, 300000); 
+
+// Listen for any user activity
+document.addEventListener('mousemove', resetTimer);
+document.addEventListener('keydown', resetTimer);
+
+// Reset the timer when user is active
+function resetTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(function() {
+        window.location.href = '../logout.php'; 
+    }, 300000);
+}

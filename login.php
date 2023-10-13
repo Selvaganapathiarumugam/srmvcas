@@ -8,6 +8,9 @@
   <link rel="stylesheet" type="text/css" href="./css/main.css">
   <link rel="stylesheet" type="text/css" href="./css/Bootstrap.css">
   <link rel="stylesheet" type="text/css" href="./css/fontawesome.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
   <script src="./js/popper.js"></script>
   <script src="./js/Bootstrap.js"></script>
   <script src="./js/fontawesome.js"></script>
@@ -18,7 +21,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <div class="margin-top-base" style="color:#000099;">
-        <center><strong><h3>Sri Ramakrishna Mission Vidyalaya</BR > College of Arts and Science</h3></strong></center>
+        <center><strong><h4>Sri Ramakrishna Mission Vidyalaya</BR > College of Arts and Science</h4></strong></center>
       </div>
     </div>
     <div class="col-md-4"></div>

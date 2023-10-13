@@ -2,7 +2,6 @@
     ob_start();
     session_start();
     error_reporting(0); 
-    include("../links.php");
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
@@ -65,14 +64,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('../links.php'); ?>
     <title>User Rights</title>
 </head>
 <body class="ovflow-y">
     <div id="header">
         <div class="row">
             <div class="col-md-3" >
-                <p id="headerUser">Timetable </p>
+                <p id="headerUser">User Rights </p>
             </div>
             <div class="col-md-6">
                 <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>

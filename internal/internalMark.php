@@ -56,14 +56,13 @@
 //            $id=$row['Code'];
 //        }
 //     }
-    include("../links.php")
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('../links.php'); ?>
     <title>Internal Exam</title>
 </head>
 <body class="ovflow-y">
@@ -373,8 +372,8 @@
                         },
                         }).then((value) => {
                             switch (value) {
-                                case "OK":window.location.href='./index.php'; break;
-                                default:window.location.href='./index.php';
+                                case "OK":window.location.href='./mark.php'; break;
+                                default:window.location.href='./mark.php';
                             }
                         });
                     }
