@@ -31,32 +31,6 @@
     $opSem = $Semester;
     $opYear=$year;
     $opReg =$reg;
-   //--------------------------------Update-------------------------------
-//    if(isset($_REQUEST["id"]))
-//    {
-//        $id=$_REQUEST['id'];
-//        $SQL="SELECT Code,Name,Type,Maxmark,Year,Convertmark from tblinternalexam
-//                WHERE Code='".$_REQUEST["id"]."'";
-//        $result = mysqli_query($conn,$SQL);
-//        while($row = mysqli_fetch_array($result)) 
-//        {
-//            $ie_code = $row['Code'];
-//            $ie_name = $row['Name'];
-//            $Type = $row['Type'];
-//            //echo $Type;die();
-//            $typeug = $Type == "UG" ? 'checked' : " ";
-//            $typepg = $Type == "PG" ? 'checked' : " ";
-//            //echo $typepg;die();
-
-//            $ie_mmark = $row['Maxmark'];
-
-//            $opYear = $row['Year'];
-//            $ie_cmark = $row['Convertmark'];
-        
-//            $id=$row['Code'];
-//        }
-//     }
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +62,7 @@
         </div> 
     </div>
     <div class="container" style="background-color:#EFEFEE">
-        <div class="p-5 mb-4 bg-white rounded-3" style="margin-left:15px;height: 100% !important;">
+        <div class="p-5 mb-4 rounded-3" style="margin-left:15px;height: 100% !important;">
             <form method="POST" class="form-horizontal" id="frmIE" >
                 <div class="row">
                     <div class="col-md-4 col-lg-4">
@@ -161,6 +135,14 @@
                 </div>
             </form>   
         </div>
+        <div class="grpopertion">
+            <div class="row">
+                <div class="col-md-11"></div>
+                <div class="col-md-1" >
+                    <h6 id="Edit" class="badge bg-secondary" style="float:right;"> Edit </h6>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <div class="row">
@@ -226,7 +208,7 @@
             </div>
             <div class="col-md-8 col-lg-8 col-sm-12">
                 <form id='frmIMark' method="POST" class="form-horizontal">
-                    <div class="grpStudent">
+                    <div class="grpCourset">
                         <div class="row">
                             <div class="col-md-2">
                                 <label class="form-label">Course</label>
@@ -256,18 +238,29 @@
                                         <!-- The dynamic table will be generated here -->
                                     </tbody>
                                 </table>
-                                <input type='submit' id='savenamark' class='btn btn-success btn-sm' 
-                                    style='float:right;'/>
+                                
                             </div>
                         </div>
                     </div>
-                </form>              
+                </form>  
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type='submit' id='savemark' value='Save' class='btn btn-success btn-sm'/>
+                        <button id='Editmark'class='btn btn-warning text-dark btn-sm'>Update</button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>            
             </div>
         </div>
         
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
+            $("#grpopertion").hide();
+            $("#Editmark").hide();
+            $("#savemark").hide();
+
             $('#ie_EName').change(function() {
                 var ExCode = $(this).find(":selected").attr("id");
                 if (ExCode != "") {
@@ -332,16 +325,16 @@
             });
             $('#ie_Cname').change(function() { 
                 var CODE = $(this).find(":selected").attr("id");
-                ///alert(CODE);
                 $('#ie_Code').val(CODE);
             });
-
-            //
             $('#frmIE').submit(function(e) {
                 e.preventDefault(); 
+                $("#Editmark").hide();
                 var departmentId = $('#ie_dept').val();
                 var semester = $('#ie_semester').val();
                 var year = $('#ie_year').val();
+                $("#grpopertion").show();
+                $("#savemark").show();
                 $.ajax({
                     url: './data/get_student.php',
                     method: 'POST',
@@ -352,7 +345,6 @@
                         
                     },
                     success: function(data) {
-                       // $('#grpStudent').css('display', 'inline');
                         $('#markTable tbody').html(data);
                     }
                 });
@@ -444,9 +436,104 @@
                     }
                 }
             });
+        });
+        $('#Edit').click(function(){
+            $("#Editmark").show();
+            $("#savemark").hide();
+            $("#markTable tbody tr").remove();
+            var departmentId = $('#ie_dept').val();
+            var semester = $('#ie_semester').val();
+            var year = $('#ie_year').val();
+            var CCode = $('#ie_Code').val();
+            var ExCode = $('#ie_EName').find(":selected").attr("id");
+            if(CCode == "")
+            {
+                swal("Please Select The Course",{ icon: "warning",});
+            }
+            else if(ExCode == "")
+            {
+                swal("Please Select The Exam",{ icon: "warning",});
+            }
+            else
+            {
+                setTimeout(function() {
+                    $.ajax({
+                        url: './data/get_EditMarklist.php',
+                        method: 'POST',
+                        data: { 
+                            departmentId: departmentId,
+                            semester:semester,
+                            year:year,
+                            CCode:CCode,
+                            ExCode:ExCode
+                        },
+                        success: function(data) {
+                           // $('#grpStudent').css('display', 'inline');
+                            $('#markTable tbody').html(data);
+                        }
+                    });
+                }, 1000);
+                
+            }
+        });
+        $('#Editmark').click(function() {
+            var departmentId = $('#ie_dept').val();
+            var semester = $('#ie_semester').val();
+            var year = $('#ie_year').val();
+            var CCode = $('#ie_Code').val();
+            var ExCode = $('#ie_EName').find(":selected").attr("id");
+            var StudentNo = $('input[name="ie_SReg[]"]').map(function() {
+                return this.value;
+            }).get();
+            var studentMarks = $('input[name="mark[]"]').map(function() {
+                return this.value;
+            }).get();
+            var finalmark = $('input[name="final_mark[]"]').map(function() {
+                return this.value;
+            }).get();
+            var Id = $('input[name="ie_Id[]"]').map(function() {
+                return this.value;
+            }).get();
+            $.ajax({
+                url: './data/editMark.php',
+                method: 'POST',
+                data: {
+                    courseCode: CCode,
+                    studentMarks: studentMarks,
+                    departmentId:departmentId,
+                    semester:semester,
+                    year:year,
+                    StudentNo:StudentNo,
+                    ExCode:ExCode,
+                    finalmark:finalmark,
+                    Id:Id
+                },
+                success: function(response) {
+                    if(response === "Marks updated successfully!")
+                    {
+                        swal(response, {
+                            buttons: {
+                                OK: {
+                                text: "OK",
+                                value: "OK",
+                                icon:"success" 
+                            },
+                        },
+                        }).then((value) => {
+                            switch (value) {
+                                case "OK":window.location.href='./mark.php'; break;
+                                default:window.location.href='./mark.php';
+                            }
+                        });
+                    }
+                    else
+                    {
+                        swal(response,{ icon: "warning",});
+                    }
+                }
+            });
             
         });
-        
     </script>
 </body>
 </html>

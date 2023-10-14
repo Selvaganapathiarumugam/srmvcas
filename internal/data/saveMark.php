@@ -4,7 +4,8 @@
     error_reporting(0);
     include('../../connect.php');
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "POST")
+    {
         $courseCode = $_POST['courseCode'];
         $studentMarks = $_POST['studentMarks'];
         $finalmarks = $_POST['finalmark'];
@@ -34,7 +35,6 @@
                 $response = "Error inserting data: " . mysqli_error($conn);
             }
         }
-        //die();
         echo $response;
     }
     mysqli_close($conn);

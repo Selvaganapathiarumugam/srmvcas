@@ -12,6 +12,7 @@
          order by id asc";
         $result = mysqli_query($conn, $sql);
         $rows = "";
+        //echo $sql;die();
         while ($row = mysqli_fetch_assoc($result)) {
             $rows .= "<tr>";
             $rows .= "<td><input type='text' value='{$row['regNo']}' disabled class='form-control' autocomplete='off' name='ie_SReg[]'></td>";
@@ -24,7 +25,6 @@
 
         echo $rows;
     }
-
     mysqli_close($conn);
 ?>
 
