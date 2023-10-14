@@ -53,10 +53,9 @@
   color: red;
   font-weight: 400;
 }
-body{
- 
+/* body{
   font-family: "Poppins" !important;
-}
+} */
 #clgname {
   font-size: 22px;
   margin-top: 13px;

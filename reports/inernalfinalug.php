@@ -174,7 +174,7 @@
                             <div class="col-md-1"></div>
                             <div class="col-md-10">
                                 <center>
-                                    <b>CONTINUOUS INTERNAL ASSESSMENT MARKS(P.G.DEGREES)</b>
+                                    <b>CONTINUOUS INTERNAL ASSESSMENT MARKS(U.G.DEGREES)</b>
                                 </center>
                                 <div class="row">
                                     <div class="col-md-4"></div>
@@ -224,7 +224,7 @@
                                             <td rowspan='2'>Register Number</td>
                                             <td colspan="2">CIA</td>
                                             <td colspan="2">Model </td>
-                                            <td>Seminar</td>
+                                            <td>Assignment</td>
                                             <td>Attendance</td>
                                             <td rowspan='2'>Marks For 50 </td>
                                         </tr>
@@ -282,7 +282,6 @@
                     course:course
                 },
                 success: function(data) {
-                    console.log(data);
                     $('#lblDepartment').text(data.data[0].dname);
                     $('#lblCourseName').text(data.data[0].courseName);
                     $('#lblYear').text(data.data[0].Year);
@@ -291,12 +290,12 @@
                     var content="";
                     for(var i=0;i<data.totalrecords;i++)
                         {
-                            var CIA = data.data[i].EX01==null?0:data.data[i].Code1;
-                            var CIAT = data.data[i].EX01==null?0:data.data[i].T1;
-                            var MODEL = data.data[i].EX03==null?0:data.data[i].Code1;
-                            var MODELT = data.data[i].EX03==null?0:data.data[i].T1;
-                            var Assignment=data.data[i].EX04==null?0:data.data[i].Code1;
-                            var attendance=data.data[i].EX05==null?0:data.data[i].T1;
+                            var CIA = data.data[i].EX01==null?0:data.data[i].C;
+                            var CIAT = data.data[i].EX01==null?0:data.data[i].T;
+                            var MODEL = data.data[i].EX03==null?0:data.data[i].C;
+                            var MODELT = data.data[i].EX03==null?0:data.data[i].T;
+                            var Assignment=data.data[i].EX04==null?0:data.data[i].C;
+                            var attendance=data.data[i].EX05==null?0:data.data[i].T;
                             var total=parseInt(CIAT, 10)+parseInt(MODELT, 10)+parseInt(Assignment, 10)+parseInt(attendance, 10);
                             contentM="<tr>"+
                                         "<td>"+ (i+1) +"</td>"+

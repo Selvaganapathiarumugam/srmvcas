@@ -12,7 +12,7 @@
     {
         $lstDepartment[] = $row;
     }
-    
+
 
     $lstYear = array(
         "I" => "I",
@@ -154,7 +154,7 @@
                     </div>
                     <div class="col-md-2 col-lg-2">
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-sm"  tabindex="4"  id="btnGet" value="Get Subjects" 
+                            <input type="submit" class="btn btn-primary btn-sm"  tabindex="4"  id="btnGet" value="Get Students" 
                             style=" margin-top: 31px;"/>
                         </div>
                     </div>
@@ -165,19 +165,31 @@
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <div class="row">
                     <div class="col-md-5">
-                        <label class="form-label">Exam Code</label>
+                        <label class="form-label">Type</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" class="form-control"  id="Excode" tabindex="5"  required/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="radio" name="ie_Type" value="UG" />
+                                <label>UG</label><br>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="ie_Type" value="PG" />
+                                <label>PG</label><br>
+                            </div>
+                        </div>
                     </div>
                 </div>  
                 <div class="margin-top-base">
                     <div class="row">
                         <div class="col-md-5">
-                            <label class="form-label">Exam Name</label>
+                            <label class="form-label">Exam</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" disabled id="ExName" />
+                            <select class="form-select" name="ie_EName" id="ie_EName" 
+                                  required  autocomplete="off">
+
+                            </select>
                         </div>
                     </div> 
                 </div>  
@@ -216,14 +228,15 @@
                 <form id='frmIMark' method="POST" class="form-horizontal">
                     <div class="grpStudent">
                         <div class="row">
-                            <div class="col-md-3">
-                                <label class="form-label">Reg No</label>
+                            <div class="col-md-2">
+                                <label class="form-label">Course</label>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-select" name="ie_Cname" id="ie_Cname">
+                                </select>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" id="ie_SReg" class="form-control" tabindex="6" required autocomplete="off"/>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" id="ie_SName"  disabled class="form-control">
+                                <input type="text" id="ie_Code"  disabled class="form-control">
                             </div>
                         </div>
                     </div>
@@ -233,8 +246,8 @@
                                 <table id="markTable" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Course Code</th>
-                                            <th>Course Name</th>
+                                            <th>RegNO</th>
+                                            <th>Name</th>
                                             <th>Mark</th>
                                             <th>Final Mark</th>
                                         </tr>
@@ -255,8 +268,8 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#Excode').blur(function() {
-                var ExCode = $(this).val();
+            $('#ie_EName').change(function() {
+                var ExCode = $(this).find(":selected").attr("id");
                 if (ExCode != "") {
                     $.ajax({
                     type: "POST",
@@ -269,7 +282,7 @@
                         console.log(response);
                         } else {
                             var sdata=JSON.parse(response);
-                            $('#ExName').val(sdata.Name);
+                          
                             $('#ExMmark').val(sdata.Maxmark);
                             $('#ExCmark').val(sdata.Convertmark);
                             $('#ExYear').val(sdata.Year);                        
@@ -278,26 +291,51 @@
                     });
                 }
             });
-            $('#ie_SReg').blur(function() {
-                var StudentNo = $(this).val();
-                if (StudentNo != "") {
+            var Year="";
+            $('#ie_year').change(function() {
+                var departmentId = $('#ie_dept').val();
+                var semester = $('#ie_semester').val();
+                Year = $(this).val();
+
+                if(departmentId == null)
+                {
+                    swal("Please Select The Department",{ icon: "warning",});
+                    $('#ie_year').val(null)
+                }
+                else if(semester == null)
+                {
+                    swal("Please Select The Semester",{ icon: "warning",});
+                    $('#ie_year').val(null)
+                }
+                else if (Year != null) {
                     $.ajax({
-                    type: "POST",
-                    url: "./data/ExamType.php",
-                    data: {
-                        StudentNo: StudentNo
-                    },
-                    success: function(response) {
-                        if (response.error) {
-                        console.log(response);
-                        } else {
-                            var sdata=JSON.parse(response);
-                            $('#ie_SName').val(sdata.Name);              
+                        type: "POST",
+                        url: "./data/get_courses.php",
+                        data: { 
+                            departmentId: departmentId,
+                            semester:semester,
+                            year:Year,
+
+                        },
+                        success: function(response) {
+                            if (response.error) 
+                            {
+                                swal(response,{ icon: "warning",});
+                            } 
+                            else
+                            {
+                                $('#ie_Cname').html(response);              
+                            }
                         }
-                    }
                     });
                 }
             });
+            $('#ie_Cname').change(function() { 
+                var CODE = $(this).find(":selected").attr("id");
+                ///alert(CODE);
+                $('#ie_Code').val(CODE);
+            });
+
             //
             $('#frmIE').submit(function(e) {
                 e.preventDefault(); 
@@ -305,12 +343,13 @@
                 var semester = $('#ie_semester').val();
                 var year = $('#ie_year').val();
                 $.ajax({
-                    url: './data/get_courses.php',
+                    url: './data/get_student.php',
                     method: 'POST',
                     data: { 
                         departmentId: departmentId,
                         semester:semester,
-                        year:year
+                        year:year,
+                        
                     },
                     success: function(data) {
                        // $('#grpStudent').css('display', 'inline');
@@ -327,7 +366,29 @@
 
                 $row.find('input[name="final_mark[]"]').val( Math.round(finalMark.toFixed(2))); 
             });
+            $('input[type=radio][name=ie_Type]').change(function() {
+                var Type = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "./data/ExamType.php",
+                    data: { 
+                        type: Type,
+                        year: Year
+                    },
+                    success: function(response) {
+                        if (response.error) 
+                        {
+                            swal(response,{ icon: "warning",});
+                        } 
+                        else
+                        {
+                            $('#ie_EName').html(response);              
+                        }
+                    }
+                });
+            });
             
+
         });
         // Save student marks
         $('#frmIMark').submit(function(e) {
@@ -335,9 +396,9 @@
             var departmentId = $('#ie_dept').val();
             var semester = $('#ie_semester').val();
             var year = $('#ie_year').val();
-            var StudentNo = $('#ie_SReg').val();
-            var ExCode=$('#Excode').val();
-            var courseCode = $('input[name="courseCode[]"]').map(function() {
+            var CCode = $('#ie_Code').val();
+            var ExCode = $('#ie_EName').find(":selected").attr("id");
+            var StudentNo = $('input[name="ie_SReg[]"]').map(function() {
                 return this.value;
             }).get();
             var studentMarks = $('input[name="mark[]"]').map(function() {
@@ -350,7 +411,7 @@
                 url: './data/saveMark.php',
                 method: 'POST',
                 data: {
-                    courseCode: courseCode,
+                    courseCode: CCode,
                     studentMarks: studentMarks,
                     departmentId:departmentId,
                     semester:semester,

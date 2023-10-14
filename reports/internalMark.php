@@ -184,10 +184,11 @@
                         <div class="col-md-1">
                             <img src="../images/favicon/192x192.png" width="60px" height="60px" alt="logo" />
                         </div>
-                        <div class="col-md-11">
-                             <b id="clgname"> Sri Ramakirshna Mission Vidyalaya College Of Arts And Science</b>
-                             <center><span>(Autonomous) Coimbatore - 641 020</span></center>
+                        <div class="col-md-10">
+                            <center><b> Sri Ramakirshna Mission Vidyalaya College Of Arts And Science</b></center>
+                            <center><span>(Autonomous) Coimbatore - 641 020</span></center>
                         </div>
+                        <div class="col-md-1"></div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -265,7 +266,7 @@
                     </div>
                     <div class="row border">
                         <div class="col-md-6">
-                            <table id="tblMark1" class="table table-bordered " style="font-weight: 600;">
+                            <table id="tblMark1" class="table table-bordered " >
                                 <thead>
                                     <tr>
                                         <td>S.NO</td>
@@ -274,13 +275,13 @@
                                         <td>Signature of the Student</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody style=" line-height: 5px; font-size: 12px; ">
 
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-md-6" >
-                            <table id="tblMark2" class="table table-bordered " style="font-weight: 600;">
+                            <table id="tblMark2" class="table table-bordered " >
                                 <thead>
                                     <tr>
                                         <td>S.NO</td>
@@ -289,7 +290,7 @@
                                         <td>Signature of the Student</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody style=" line-height: 5px; font-size: 12px; ">
 
                                 </tbody>
                             </table>

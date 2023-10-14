@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2023 at 08:23 PM
+-- Generation Time: Oct 14, 2023 at 01:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,33 +28,37 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Sp_FinalInternalReportUG` (IN `p_deptid` INT, IN `p_Year` VARCHAR(255), IN `p_Semester` VARCHAR(255), IN `p_CourseCode` VARCHAR(255))   BEGIN
     DECLARE dynamicColumns TEXT;
     DECLARE dynamicColumns2 TEXT;
+    DECLARE rowNumber INT DEFAULT 1; -- Initialize the row number
+    
     SET SESSION group_concat_max_len = 1000000;
     
-    SELECT GROUP_CONCAT(DISTINCT
-        CONCAT(
-            'MAX(CASE WHEN im.ExamCode = ''',
-            Code,
-            ''' THEN IFNULL(im.CurrentMark, 0) END) AS ',
-            Code
+    SET @sql_dynamicColumns = (
+        SELECT GROUP_CONCAT(DISTINCT
+            CONCAT(
+                'MAX(CASE WHEN im.ExamCode = ''',
+                Code,
+                ''' THEN IFNULL(im.CurrentMark, 0) END) AS Code', rowNumber
+            )
         )
-    ) INTO dynamicColumns
-    FROM tblinternalexam
-    WHERE Type = 'PG';
+        FROM tblinternalexam
+        WHERE Type = 'PG'
+    );
     
-    SELECT GROUP_CONCAT(DISTINCT
-        CONCAT(
-            'MAX(CASE WHEN im.ExamCode = ''',
-            Code,
-            ''' THEN IFNULL(im.FinalMark, 0) END) AS T',
-             Code
+    SET @sql_dynamicColumns2 = (
+        SELECT GROUP_CONCAT(DISTINCT
+            CONCAT(
+                'MAX(CASE WHEN im.ExamCode = ''',
+                Code,
+                ''' THEN IFNULL(im.FinalMark, 0) END) AS T', rowNumber
+            )
         )
-    ) INTO dynamicColumns2
-    FROM tblinternalexam
-    WHERE Type = 'PG';
+        FROM tblinternalexam
+        WHERE Type = 'PG'
+    );
     
     SET @sql = CONCAT('
         SELECT  im.CourseCode,im.Id,im.Semester,im.Year, im.RegNo,d.dname,c.courseName,
-        ', dynamicColumns, ', ', dynamicColumns2, '
+        ', @sql_dynamicColumns, ', ', @sql_dynamicColumns2, '
         FROM tblinternalmarks im
         inner join tbldepartment d on im.deptid=d.id
         inner join tblcourse c on im.CourseCode=c.courseCode
@@ -191,7 +195,7 @@ CREATE TABLE `tblinternalexam` (
 
 INSERT INTO `tblinternalexam` (`Code`, `Name`, `Type`, `Maxmark`, `Convertmark`, `Year`, `CreatedBy`) VALUES
 ('EX01', 'CIA01', 'PG', 45, 15, 'II', 'DEV_01'),
-('EX02', 'CIA-01', 'UG', 45, 15, 'II', 'DEV_01'),
+('EX02', 'CIA-UG', 'UG', 45, 15, 'II', 'DEV_01'),
 ('EX03', 'Model', 'PG', 75, 20, 'II', 'DEV_01'),
 ('EX04', 'Seminar', 'PG', 10, 10, 'II', 'DEV_01'),
 ('EX05', 'Attendence', 'PG', 5, 5, 'II', 'DEV_01');
@@ -220,18 +224,56 @@ CREATE TABLE `tblinternalmarks` (
 --
 
 INSERT INTO `tblinternalmarks` (`Id`, `ExamCode`, `RegNo`, `DeptId`, `Semester`, `Year`, `CourseCode`, `CurrentMark`, `FinalMark`, `CreatedBy`) VALUES
-(1, 'EX01', '22PCA001', 4, 'III', 'II', '22PCA3C08', 30, '10', 'DEV_01'),
-(2, 'EX01', '22PCA001', 4, 'III', 'II', '22PCA3C09', 30, '10', 'DEV_01'),
-(3, 'EX01', '22PCA001', 4, 'III', 'II', '22PCA3EB2', 30, '10', 'DEV_01'),
-(4, 'EX03', '22PCA001', 4, 'III', 'II', '22PCA3C08', 60, '16', 'DEV_01'),
-(5, 'EX03', '22PCA001', 4, 'III', 'II', '22PCA3C09', 60, '16', 'DEV_01'),
-(6, 'EX03', '22PCA001', 4, 'III', 'II', '22PCA3EB2', 60, '16', 'DEV_01'),
-(7, 'EX04', '22PCA001', 4, 'III', 'II', '22PCA3C08', 7, '7', 'DEV_01'),
-(8, 'EX04', '22PCA001', 4, 'III', 'II', '22PCA3C09', 7, '7', 'DEV_01'),
-(9, 'EX04', '22PCA001', 4, 'III', 'II', '22PCA3EB2', 7, '7', 'DEV_01'),
-(10, 'EX05', '22PCA001', 4, 'III', 'II', '22PCA3C08', 4, '4', 'DEV_01'),
-(11, 'EX05', '22PCA001', 4, 'III', 'II', '22PCA3C09', 4, '4', 'DEV_01'),
-(12, 'EX05', '22PCA001', 4, 'III', 'II', '22PCA3EB2', 4, '4', 'DEV_01');
+(1, 'EX01', '22PCA001', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(2, 'EX01', '22PCA002', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(3, 'EX01', '22PCA003', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(4, 'EX01', '22PCA004', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(5, 'EX01', '22PCA005', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(6, 'EX01', '22PCA006', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(7, 'EX01', '22PCA007', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(8, 'EX01', '22PCA008', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(9, 'EX01', '22PCA009', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(10, 'EX01', '22PCA010', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(11, 'EX01', '22PCA011', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(12, 'EX01', '22PCA012', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(13, 'EX01', '22PCA013', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(14, 'EX01', '22PCA014', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(15, 'EX01', '22PCA015', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(16, 'EX01', '22PCA016', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(17, 'EX01', '22PCA017', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(18, 'EX01', '22PCA018', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(19, 'EX01', '22PCA019', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(20, 'EX01', '22PCA020', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(21, 'EX01', '22PCA021', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(22, 'EX01', '22PCA022', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(23, 'EX01', '22PCA023', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(24, 'EX01', '22PCA024', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(25, 'EX01', '22PCA025', 4, 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
+(26, 'EX01', '22PCA026', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(27, 'EX01', '22PCA027', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(28, 'EX01', '22PCA028', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(29, 'EX01', '22PCA029', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(30, 'EX01', '22PCA030', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(31, 'EX01', '22PCA031', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(32, 'EX01', '22PCA032', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(33, 'EX01', '22PCA033', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(34, 'EX01', '22PCA034', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(35, 'EX01', '22PCA035', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(36, 'EX01', '22PCA036', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(37, 'EX01', '22PCA037', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(38, 'EX01', '22PCA038', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(39, 'EX01', '22PCA039', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(40, 'EX01', '22PCA040', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(41, 'EX01', '22PCA041', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(42, 'EX01', '22PCA042', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(43, 'EX01', '22PCA043', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(44, 'EX01', '22PCA044', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(45, 'EX01', '22PCA045', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(46, 'EX01', '22PCA046', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(47, 'EX01', '22PCA047', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(48, 'EX01', '22PCA048', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(49, 'EX01', '22PCA049', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
+(50, 'EX01', '22PCA050', 4, 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01');
 
 -- --------------------------------------------------------
 
@@ -1680,7 +1722,7 @@ ALTER TABLE `tbldepartment`
 -- AUTO_INCREMENT for table `tblinternalmarks`
 --
 ALTER TABLE `tblinternalmarks`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `tbllateattendance`

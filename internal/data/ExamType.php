@@ -26,22 +26,25 @@
             echo json_encode($response);
         }
     } 
-    if($_SERVER['REQUEST_METHOD'] === 'POST' &&  isset($_POST['StudentNo']))
+    if($_SERVER['REQUEST_METHOD'] === 'POST' &&  isset($_POST['type']))
     {
-        $StudentNo = strToUpper($_POST['StudentNo']);
-        $sql = "SELECT id,CONCAT(firstName, ' ', COALESCE(lastName,' ')) as Name
-                FROM tblstudent 
-                WHERE regNo  = '$StudentNo'";
-
+        $type = $_POST['type'];
+        $year = $_POST['year'];
+        $sql = "SELECT Code, Name
+                FROM tblinternalexam 
+                WHERE Type  = '$type' and year='$year'";
         $result = mysqli_query($conn, $sql);
+        $rows = "<option id=''>Select a exam</option>";
         if ($result && mysqli_num_rows($result) > 0)
         {
-            $row = mysqli_fetch_assoc($result);
-            $response = array(
-                'Name' => $row['Name'],
-                "id" => $row['id']
-            );
-            echo json_encode($response);die();
+            while ($row = mysqli_fetch_assoc($result)) {
+                // Use single quotes for the 'id' attribute
+                $rows .= "<option id='{$row['Code']}'>";
+                $rows .= "{$row['Name']}";
+                $rows .= "</option>";
+            }
+            echo $rows;
+            die();
         }
         else
         {

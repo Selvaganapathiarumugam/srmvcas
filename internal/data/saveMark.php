@@ -1,62 +1,41 @@
 <?php
     ob_start();
     session_start();
-    error_reporting(0); 
+    error_reporting(0);
     include('../../connect.php');
-    
-    if ($_SERVER["REQUEST_METHOD"] === "POST") 
-    {
-       
-        $courseCodes  = $_POST['courseCode'];
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $courseCode = $_POST['courseCode'];
         $studentMarks = $_POST['studentMarks'];
-        $finalmarks   = $_POST['finalmark'];
+        $finalmarks = $_POST['finalmark'];
         $departmentId = $_POST["departmentId"];
-        $semester     = $_POST["semester"];
-        $year         = $_POST["year"];
-        $StudentNo    = strtoupper($_POST["StudentNo"]);
-        $ExCode       = $_POST["ExCode"];
-        $Author       = $_SESSION['EmpId'];
-        $count = count($courseCodes);
-        // var_dump($courseCodes);
-        // var_dump($studentMarks);
-        // die();
-        
-        $checkSQL="SELECT count(*) as Total FROM tblinternalmarks where RegNo ='".$StudentNo."' and
-        ExamCode='". $ExCode ."'; ";
-        
-        $result=mysqli_query($conn, $checkSQL);
-        $value = mysqli_fetch_array($result);
-       
-        if($value['Total'] == 0)
-        {
-      
-            for ($i = 0; $i < $count; $i++) {
-                $courseCode = strtoupper($courseCodes[$i]);
-                $mark = $studentMarks[$i];
-                $finalmark= $finalmarks[$i];
+        $semester = $_POST["semester"];
+        $year = $_POST["year"];
+        $StudentNo = $_POST["StudentNo"];
+        $ExCode = $_POST["ExCode"];
+        $Author = $_SESSION['EmpId'];
+        $count = count($StudentNo);
 
-              $sql = "INSERT INTO tblinternalmarks (ExamCode,RegNo,DeptId,Semester,Year,CourseCode,CurrentMark,FinalMark,CreatedBy)
-                      VALUES('$ExCode','$StudentNo',$departmentId,'$semester','$year','$courseCode',$mark,$finalmark,'$Author')";
-                //echo $sql;
-                //die();   
-                if (mysqli_query($conn, $sql)) 
-                {
-                  $response = "Marks saved successfully!";
-                } 
-                else 
-                {
-                
-                    $response = "Error insert Data";
-                    exit; 
-                }
+        for ($i = 0; $i < $count; $i++) 
+        {
+            $regno = $StudentNo[$i]; 
+            $courseCode = strtoupper($courseCode);
+            $mark = $studentMarks[$i];
+            $finalmark = $finalmarks[$i];
+            $sql = "INSERT INTO tblinternalmarks (ExamCode, RegNo, DeptId, Semester, Year, CourseCode, CurrentMark, FinalMark, CreatedBy)
+              VALUES ('$ExCode', '$regno', $departmentId, '$semester', '$year', '$courseCode', $mark, $finalmark, '$Author')";
+
+            if (mysqli_query($conn, $sql))
+            {
+                $response = "Marks saved successfully!";
+            } 
+            else 
+            {
+                $response = "Error inserting data: " . mysqli_error($conn);
             }
-            echo $response;
         }
-        else
-        {
-            echo "The internal mark has already been given to this student.";
-        }
+        //die();
+        echo $response;
     }
-
     mysqli_close($conn);
 ?>

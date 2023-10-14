@@ -12,9 +12,9 @@
 <script src="../js/jquery.dataTables.js"></script>
 <script src="../js/fontawesome.js"></script>
 <script src="../js/sweetalert.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet"> -->
 <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
 <?php
     $tz='Asia/Kolkata';
