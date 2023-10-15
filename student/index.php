@@ -99,7 +99,7 @@
             { 
                 data: '',
                 render: (data,type,row) => {
-                 return `<a href='./Student.php?id=${row.id}'><i class="fa fa-pencil"></i></a>`;
+                 return `<a href='./student.php?id=${row.id}'><i class="fa fa-pencil"></i></a>`;
                 }
             },
             { 

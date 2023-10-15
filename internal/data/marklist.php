@@ -11,7 +11,7 @@
     {
         $con=" where im.DeptId =".$_SESSION['Dept'];
     }
-    $SQL="SELECT im.Id,ie.Name,im.RegNo,D.dname,s.firstName,c.courseName,
+    $SQL="SELECT im.Id,ie.Name,im.RegNo,d.dname,s.firstName,c.courseName,
                  im.CurrentMark,im.FinalMark
                 from tblinternalmarks im
                 inner join tblinternalexam ie on im.ExamCode = ie.Code 

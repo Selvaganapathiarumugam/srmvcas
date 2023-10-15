@@ -76,7 +76,10 @@
                 mysqli_query($conn,$qry);
                 $_SESSION["msg"]="Data Entry Saved";
             }
-            header("location:./absentindex.php");    
+            //echo "<script>alert('Attendance Saved !!')</script>";
+            //header("location:./absentindex.php");   
+            echo "<script>alert('Attendance Saved !!');";
+            echo "window.location = './absentindex.php';</script>";
             
         }
         else

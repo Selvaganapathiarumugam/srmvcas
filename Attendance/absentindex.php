@@ -41,30 +41,30 @@
     $opDept=$deptid;
     function getDataFromDatabase($sdate,$sdept,$ssemester,$syear) {
         global $conn;
-        $query = "SELECT regno,date, SubjectHour, isAbsent FROM tblAttendance
+        $query = "SELECT regno,date, SubjectHour, isAbsent FROM tblattendance
                    where date='$sdate'";
         if($sdept != 0)
         {
-            $query = "SELECT a.regno,a.date, a.SubjectHour, a.isAbsent FROM tblAttendance a
+            $query = "SELECT a.regno,a.date, a.SubjectHour, a.isAbsent FROM tblattendance a
                       inner join tblstudent s on a.regno = s.regno
                    where a.date='$sdate' and s.deptid =$sdept ";
         }
         if($ssemester != null)
         {
-            $query = "SELECT a.regno,a.date, a.SubjectHour, a.isAbsent FROM tblAttendance a
+            $query = "SELECT a.regno,a.date, a.SubjectHour, a.isAbsent FROM tblattendance a
                       inner join tblstudent s on a.regno = s.regno
                    where a.date='$sdate' and s.deptid =$sdept and s.semester='$ssemester' ";
         }
         if($syear != null)
         {
-            $query = "SELECT a.regno,a.date, a.SubjectHour, a.isAbsent FROM tblAttendance a
+            $query = "SELECT a.regno,a.date, a.SubjectHour, a.isAbsent FROM tblattendance a
                       inner join tblstudent s on a.regno = s.regno
                    where a.date='$sdate' and s.deptid =$sdept and s.semester='$ssemester' 
                    and s.year='$syear'";
         }
-         //echo $query;die();
+        //echo $query;die();
         $result = mysqli_query($conn, $query);
-       // print_r($result);die();
+       //print_r($result);die();
         $data = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
@@ -89,7 +89,7 @@
     }
     if(isset($_POST['save']))
     {
-        
+        //echo "<script>alert('Selva');</script>";
         $fdate=$_POST['date'];
         $dept=$_POST['st_dept'];
         $st_semester=$_POST['st_semester'];
@@ -107,6 +107,7 @@
     }
     
     $organizedData = organizeData($data);
+    
 
 ?>
 <!DOCTYPE html>

@@ -12,7 +12,7 @@
 
         $sql = "SELECT im.Id, im.RegNo, S.firstName,im.CurrentMark,im.FinalMark
                 FROM tblinternalmarks im 
-                Inner Join tblStudent S on im.Regno = S.regNo 
+                Inner Join tblstudent S on im.Regno = S.regNo 
                 WHERE im.DeptId = '$departmentId' and im.Year='$year' and im.Semester='$semester'
                 and im.CourseCode='$Code' and im.ExamCode='$Excode'
                 order by im.id asc";

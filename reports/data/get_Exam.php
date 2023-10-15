@@ -9,7 +9,7 @@
         // Start with an empty option
         $rows = "<option id=''></option>";
         
-        $SQL=" Select Type from tblDepartment  WHERE Id = '$departmentId';";
+        $SQL=" Select Type from tbldepartment  WHERE Id = '$departmentId';";
         //echo $SQL;Die();
         $result = mysqli_query($conn,$SQL);
     

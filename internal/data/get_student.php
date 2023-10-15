@@ -7,7 +7,7 @@
         $departmentId = $_POST['departmentId'];
         $year = $_POST['year'];
         $semester = $_POST['semester'];
-        $sql = "SELECT id, regNo, firstName FROM tblStudent
+        $sql = "SELECT id, regNo, firstName FROM tblstudent
          WHERE deptId = '$departmentId' and year='$year' and semester='$semester'
          order by id asc";
         $result = mysqli_query($conn, $sql);
