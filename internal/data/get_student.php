@@ -15,10 +15,10 @@
         //echo $sql;die();
         while ($row = mysqli_fetch_assoc($result)) {
             $rows .= "<tr>";
-            $rows .= "<td><input type='text' value='{$row['regNo']}' disabled class='form-control' autocomplete='off' name='ie_SReg[]'></td>";
+            $rows .= "<td><input type='text' value='{$row['regNo']}' disabled class='form-control' style='height: 23px;' autocomplete='off' name='ie_SReg[]'></td>";
             $rows .= "<td>{$row['firstName']}</td>";
-            $rows .= "<td><input type='number' class='form-control' autocomplete='off' name='mark[]'></td>";
-            $rows .= "<td><input type='number' class='form-control' name='final_mark[]' disabled></td>";
+            $rows .= "<td><input type='number' style='height: 23px;' class='form-control' autocomplete='off' name='mark[]'></td>";
+            $rows .= "<td><input type='number' style='height: 23px;' class='form-control' name='final_mark[]' disabled></td>";
             $rows .= "</tr>";
             
         }

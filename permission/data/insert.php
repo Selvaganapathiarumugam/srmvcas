@@ -22,7 +22,7 @@
  
     $SQL = "INSERT INTO tblUsersRights (EmpId, permission, addstudent, updatestudent, addcourse, updatecourse, addtimetable, updatetimetable, bulkattendance, attendancereport, CreatedBY)
             VALUES ('$EmpId', $Permission, $addstudent, $updatestudent, $addcourse, $updatecourse, $addtimetable, $updatetimetable, $bulkattendance, $attendancereport,'$CreatedBY')";
-   // echo $SQL;die();
+   //echo $SQL;die();
     if (mysqli_query($conn, $SQL)) {
         $response="Data inserted successfully!";
     } else {

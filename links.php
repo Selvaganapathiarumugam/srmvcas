@@ -1,6 +1,8 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Selvaganapathi.A">
+<meta property="author:url" content="https://selvacv.netlify.app/">
 <link rel="stylesheet" type="text/css" href="../css/main.css">
 <link rel="stylesheet" type="text/css" href="../css/Bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
@@ -16,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet"> -->
 <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
+
 <?php
     $tz='Asia/Kolkata';
     date_default_timezone_set($tz);

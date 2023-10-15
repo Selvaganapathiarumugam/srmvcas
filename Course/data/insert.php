@@ -10,8 +10,9 @@
     $courseCode = strtoupper(trim($_POST['cs_code']));
     $courseName = trim($_POST['cs_name']);
     $acadamicYear =trim($_POST['cs_ayear']);
-    $SQL = "INSERT INTO tblcourse (deptId, year, semester, courseCode, courseName, AcadamicYear)
-    VALUES ($deptId, '$year', '$semester', '$courseCode', '$courseName', '$acadamicYear');";
+    $StaffId=$_SESSION['EmpId'];
+    $SQL = "INSERT INTO tblcourse (deptId,StaffId, year, semester, courseCode, courseName, AcadamicYear)
+    VALUES ($deptId,'$EmpId','$year', '$semester', '$courseCode', '$courseName', '$acadamicYear');";
     if (mysqli_query($conn, $SQL)) {
         $response="Data inserted successfully!";
     } else {
