@@ -51,7 +51,7 @@
     <?php include('../links.php'); ?>
     <title>Internal Marks</title>
 </head>
-<body>
+<body class="ovflow-y">
     <div  id="header">
         <div class="row">
             <div class="col-md-3">
