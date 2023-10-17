@@ -172,6 +172,22 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
+            function isMobileView() {
+                return $(window).width() <= 768; 
+            }
+            var old=$('#clgname').text();
+            function updateH3Text() {
+                if (isMobileView()) {
+                    $('#clgname').text('SRMVCAS');
+                }
+                else{
+                     $('#clgname').text(old);
+                }
+            }
+            
+
+            updateH3Text();
+            $(window).resize(updateH3Text);
             $('#la_reg').blur(function() {
                 var reg = $(this).val();
                 if (reg != "") {

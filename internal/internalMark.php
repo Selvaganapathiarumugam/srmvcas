@@ -62,82 +62,80 @@
         </div> 
     </div>
     <div class="container" style="background-color:#EFEFEE">
-        <div class="p-5 mb-4 rounded-3" style="margin-left:15px;height: 100% !important;">
-            <form method="POST" class="form-horizontal" id="frmIE" >
-                <div class="row">
-                    <div class="col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <label for="input1" class="form-label">Department </label>
-                            <select class="form-select" name="ie_dept" id="ie_dept" 
-                             tabindex="1" required  autocomplete="off">
-                                <?php
-                                    foreach ($lstDepartment as $value => $label) 
-                                    {
-                                        $selected = ($opDept == $label['id']) ? "selected" : "";
-                                        echo "<option value=\"{$label['id']}\" $selected>{$label['dname']}</option>";
-                                    }
-                                ?>
-                            </select>
-                            <script>
-                                $(document).ready(function() {
-                                    var selectedValue = "<?php echo $opDept; ?>";
-                                    $("#ie_dept").val(selectedValue);
-                                });
-                            </script>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="form-group">
-                            <label for="input1" class=" form-label"> Semester</label>
-                            <select class="form-select" name="ie_semester" id="ie_semester"
-                                 placeholder="Select the Semester" tabindex="2" required  autocomplete="off">
-                                <?php
-                                    foreach ($lstSemester as $value => $label) {
-                                    $selected = ($opSem == $value) ? "selected" : "";
-                                    echo "<option value=\"$value\" $selected>$label</option>";
-                                    }
-                                ?>
-                            </select>
-                            <script>
-                                $(document).ready(function() {
-                                    var selectedValue = "<?php echo $opSem; ?>";
-                                   $("#ie_semester").val(selectedValue);
-                                });
-                            </script>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="form-group">
-                            <label for="input1" class=" form-label">Year</label>
-                            <select class="form-select" tabindex="3" name="ie_year" id="ie_year"
-                                placeholder="Select the Year" required  autocomplete="off" >
-                                <?php
-                                    foreach ($lstYear as $value => $label) {
-                                    $selected = ($opYear == $value) ? "selected" : "";
-                                    echo "<option value=\"$value\" $selected>$label</option>";
+        <form method="POST" class="form-horizontal" id="frmIE" >
+            <div class="row">
+                <div class="col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label for="input1" class="form-label">Department </label>
+                        <select class="form-select" name="ie_dept" id="ie_dept" 
+                         tabindex="1" required  autocomplete="off">
+                            <?php
+                                foreach ($lstDepartment as $value => $label) 
+                                {
+                                    $selected = ($opDept == $label['id']) ? "selected" : "";
+                                    echo "<option value=\"{$label['id']}\" $selected>{$label['dname']}</option>";
                                 }
-                                ?>
-                            </select>
-                            <script>
-                                $(document).ready(function() {
-                                    var selectedValue = "<?php echo $opYear; ?>";
-                                   $("#ie_year").val(selectedValue);
-                                });
-                            </script>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-lg-2">
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-sm"  tabindex="4"  id="btnGet" value="Get Students" 
-                            style=" margin-top: 31px;"/>
-                        </div>
+                            ?>
+                        </select>
+                        <script>
+                            $(document).ready(function() {
+                                var selectedValue = "<?php echo $opDept; ?>";
+                                $("#ie_dept").val(selectedValue);
+                            });
+                        </script>
                     </div>
                 </div>
-            </form>   
-        </div>
-        <div class="grpopertion">
+                <div class="col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <label for="input1" class=" form-label">Year</label>
+                        <select class="form-select" tabindex="2" name="ie_year" id="ie_year"
+                            placeholder="Select the Year" required  autocomplete="off" >
+                            <?php
+                                foreach ($lstYear as $value => $label) {
+                                $selected = ($opYear == $value) ? "selected" : "";
+                                echo "<option value=\"$value\" $selected>$label</option>";
+                            }
+                            ?>
+                        </select>
+                        <script>
+                            $(document).ready(function() {
+                                var selectedValue = "<?php echo $opYear; ?>";
+                               $("#ie_year").val(selectedValue);
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <label for="input1" class=" form-label"> Semester</label>
+                        <select class="form-select" name="ie_semester" id="ie_semester"
+                             placeholder="Select the Semester" tabindex="3" required  autocomplete="off">
+                            <?php
+                                foreach ($lstSemester as $value => $label) {
+                                $selected = ($opSem == $value) ? "selected" : "";
+                                echo "<option value=\"$value\" $selected>$label</option>";
+                                }
+                            ?>
+                        </select>
+                        <script>
+                            $(document).ready(function() {
+                                var selectedValue = "<?php echo $opSem; ?>";
+                               $("#ie_semester").val(selectedValue);
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2">
+                </div>
+            </div>
+        </form>   
+        <div class="grpopertion padding-base">
             <div class="row">
-                <div class="col-md-11"></div>
+                <div class="col-md-11">
+                    <div style="float:right" >
+                        <button class="btn btn-primary btn-sm" id="btnGet" > Get Students</button>
+                    </div>
+                </div>
                 <div class="col-md-1" >
                     <h6 id="Edit" class="badge bg-secondary" style="float:right;"> Edit </h6>
                 </div>
@@ -246,14 +244,13 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <input type='submit' id='savemark' value='Save' class='btn btn-success btn-sm'/>
+                        <button id='savemark'class='btn btn-success btn-sm'>Save</button>
                         <button id='Editmark'class='btn btn-warning text-dark btn-sm'>Update</button>
                     </div>
                     <div class="col-md-4"></div>
                 </div>            
             </div>
         </div>
-        
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -285,22 +282,22 @@
                 }
             });
             var Year="";
-            $('#ie_year').change(function() {
+            $('#ie_semester').change(function() {
                 var departmentId = $('#ie_dept').val();
-                var semester = $('#ie_semester').val();
-                Year = $(this).val();
+                Year = $('#ie_year').val();
+                var semester = $(this).val();
 
                 if(departmentId == null)
                 {
                     swal("Please Select The Department",{ icon: "warning",});
-                    $('#ie_year').val(null)
+                    $('#ie_semester').val(null)
                 }
-                else if(semester == null)
+                else if(Year == null)
                 {
-                    swal("Please Select The Semester",{ icon: "warning",});
-                    $('#ie_year').val(null)
+                    swal("Please Select The Year",{ icon: "warning",});
+                    $('#ie_semester').val(null)
                 }
-                else if (Year != null) {
+                else if (semester != null) {
                     $.ajax({
                         type: "POST",
                         url: "./data/get_courses.php",
@@ -327,8 +324,8 @@
                 var CODE = $(this).find(":selected").attr("id");
                 $('#ie_Code').val(CODE);
             });
-            $('#frmIE').submit(function(e) {
-                e.preventDefault(); 
+            var MMark=0;
+            $('#btnGet').click(function() {
                 $("#Editmark").hide();
                 var departmentId = $('#ie_dept').val();
                 var semester = $('#ie_semester').val();
@@ -346,8 +343,23 @@
                     },
                     success: function(data) {
                         $('#markTable tbody').html(data);
+                        setTimeout(function() {
+                            MMark = $('#ExMmark').val();
+                            //alert(MMark);
+                            $('input[name="mark[]"]').attr('max', MMark);
+                        }, 2000);
+                        
                     }
                 });
+            });
+            $('#markTable').on('input','input[name="mark[]"]', function() {
+                var input = parseInt($(this).val(), 10)
+                if (MMark < input) 
+                {
+                    swal("Please insert the valid Mark",{ icon: "warning",});
+                    //$('input[name="mark[]"]').val(0);
+                }
+                    
             });
             $('#markTable').on('blur', 'input[name="mark[]"]', function() {
                 var $row = $(this).closest('tr');
@@ -383,8 +395,8 @@
 
         });
         // Save student marks
-        $('#frmIMark').submit(function(e) {
-            e.preventDefault(); 
+        $('#savemark').click(function() {
+           
             var departmentId = $('#ie_dept').val();
             var semester = $('#ie_semester').val();
             var year = $('#ie_year').val();
@@ -470,6 +482,11 @@
                         success: function(data) {
                            // $('#grpStudent').css('display', 'inline');
                             $('#markTable tbody').html(data);
+                            setTimeout(function() {
+                            var MMark = $('#ExMmark').val();
+                            //alert(MMark);
+                            $('input[name="mark[]"]').attr('max', MMark);
+                        }, 2000);
                         }
                     });
                 }, 1000);

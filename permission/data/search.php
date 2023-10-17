@@ -8,7 +8,7 @@
 
    
     $SQL="SELECT p.id,u.username,p.addstudent,p.updatestudent,p.addcourse,p.updatecourse,p.addtimetable,p.updatetimetable,p.bulkattendance,p.attendancereport,p.permission 
-    FROM tblpermission p right outer join tblusers u on p.staffid=u.EmpId order by u.username ASC; ";
+    FROM tblusersrights p right outer join tblusers u on p.staffid=u.EmpId order by u.username ASC; ";
     $result = mysqli_query($conn,$SQL);
 
     while ($row = mysqli_fetch_array($result))

@@ -1,58 +1,25 @@
-
-DELIMITER $$
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Sp_FinalInternalReportUG` (IN `p_deptid` INT, IN `p_Year` VARCHAR(255), IN `p_Semester` VARCHAR(255), IN `p_CourseCode` VARCHAR(255))   BEGIN
-    DECLARE dynamicColumns TEXT;
-    DECLARE dynamicColumns2 TEXT;
-    DECLARE rowNumber INT DEFAULT 1; -- Initialize the row number
-    
-    SET SESSION group_concat_max_len = 1000000;
-    
-    SET @sql_dynamicColumns = (
-        SELECT GROUP_CONCAT(DISTINCT
-            CONCAT(
-                'MAX(CASE WHEN im.ExamCode = ''',
-                Code,
-                ''' THEN IFNULL(im.CurrentMark, 0) END) AS Code', rowNumber
-            )
-        )
-        FROM tblinternalexam
-        WHERE Type = 'PG'
-    );
-    
-    SET @sql_dynamicColumns2 = (
-        SELECT GROUP_CONCAT(DISTINCT
-            CONCAT(
-                'MAX(CASE WHEN im.ExamCode = ''',
-                Code,
-                ''' THEN IFNULL(im.FinalMark, 0) END) AS T', rowNumber
-            )
-        )
-        FROM tblinternalexam
-        WHERE Type = 'PG'
-    );
-    
-    SET @sql = CONCAT('
-        SELECT  im.CourseCode,im.Id,im.Semester,im.Year, im.RegNo,d.dname,c.courseName,
-        ', @sql_dynamicColumns, ', ', @sql_dynamicColumns2, '
-        FROM tblinternalmarks im
-        inner join tbldepartment d on im.deptid=d.id
-        inner join tblcourse c on im.CourseCode=c.courseCode
-        WHERE im.deptid = ', p_deptid, '
-            AND im.Year = ''', p_Year, '''
-            AND im.Semester = ''', p_Semester, '''
-            AND im.CourseCode = ''', p_CourseCode, '''
-        GROUP BY im.RegNo
-    ');
-    
-    PREPARE stmt FROM @sql;
-    EXECUTE stmt;
-    DEALLOCATE PREPARE stmt;
-END$$
+-- Host: localhost:3306
+-- Generation Time: Oct 15, 2023 at 04:46 PM
+-- Server version: 5.7.43
+-- PHP Version: 8.1.16
 
-DELIMITER ;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `srmvcasm_Internal`
+--
 
 -- --------------------------------------------------------
 
@@ -67,9 +34,9 @@ CREATE TABLE `tblattendance` (
   `date` date NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `subjectHour` mediumint(2) NOT NULL,
-  `IsAbsent` tinyint(3) NOT NULL DEFAULT 0,
+  `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
   `CourseTaught` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -79,34 +46,14 @@ CREATE TABLE `tblattendance` (
 
 CREATE TABLE `tblcourse` (
   `id` mediumint(3) NOT NULL,
+  `Staffid` varchar(50) NOT NULL DEFAULT 'DEV_01',
   `deptId` mediumint(3) NOT NULL,
   `year` varchar(3) NOT NULL,
   `semester` varchar(3) NOT NULL,
   `courseName` varchar(150) NOT NULL,
   `courseCode` varchar(20) NOT NULL,
   `AcadamicYear` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tblcourse`
---
-
-INSERT INTO `tblcourse` (`id`, `deptId`, `year`, `semester`, `courseName`, `courseCode`, `AcadamicYear`) VALUES
-(1, 1, 'I', 'I', 'Programming In C', '20UIT1C01', '2023'),
-(2, 1, 'II', 'II', 'Java Programming', '20UIT3C03', '2023'),
-(3, 1, 'III', 'V', 'Fundamentals of Cyber Security', '20UIT5EL01', '2023'),
-(4, 1, 'III', 'V', 'Python Programming', '20UIT5C09', '2023'),
-(5, 4, 'I', 'I', 'OOPs With CPP', '22PCA1C01', '2023'),
-(6, 4, 'I', 'I', 'Relational Database Management System', '22PCA1C02', '2023'),
-(7, 4, 'I', 'I', 'Data Structures & Algorithms With CPP', '22PCA1C03', '2023'),
-(8, 4, 'I', 'I', 'Fundamentals of Accounts', '22PCA1C04', '2023'),
-(9, 1, 'I', 'I', 'Amutha Tamil -1', '20UIT1TA01', '2023'),
-(10, 1, 'I', 'I', 'Mathematics -1', '20UIT1AL01', '2023'),
-(11, 1, 'I', 'I', 'English - 1', '20UIT1EN01', '2023'),
-(12, 1, 'I', 'I', 'PC Software', '20UIT1C02', '2023'),
-(13, 4, 'II', 'III', 'Windows Application Development', '22PCA3C08', '2023'),
-(14, 4, 'II', 'III', 'Data Science using R', '22PCA3C09', '2023'),
-(15, 4, 'II', 'III', 'Open Source Application Development with Android', '22PCA3EB2', '2023');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -123,7 +70,7 @@ CREATE TABLE `tbldayattendance` (
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -133,23 +80,25 @@ CREATE TABLE `tbldayattendance` (
 
 CREATE TABLE `tbldepartment` (
   `id` mediumint(3) NOT NULL,
-  `dname` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `dname` varchar(100) NOT NULL,
+  `Type` varchar(5) NOT NULL DEFAULT 'UG'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbldepartment`
 --
 
-INSERT INTO `tbldepartment` (`id`, `dname`) VALUES
-(1, 'B.Sc IT'),
-(2, 'B.Sc CS'),
-(3, 'BCA'),
-(4, 'MCA'),
-(5, 'B.COM'),
-(6, 'B.COM PA'),
-(7, 'B.COM CA'),
-(8, 'PGDCA'),
-(9, 'Physical Education');
+INSERT INTO `tbldepartment` (`id`, `dname`, `Type`) VALUES
+(1, 'B.Sc IT', 'UG'),
+(2, 'B.Sc CS', 'UG'),
+(3, 'BCA', 'UG'),
+(4, 'MCA', 'PG'),
+(5, 'B.COM', 'UG'),
+(6, 'B.COM PA', 'UG'),
+(7, 'B.COM CA', 'UG'),
+(8, 'PGDCA', 'UG'),
+(9, 'Physical Education', 'UG'),
+(10, 'MSW', 'PG');
 
 -- --------------------------------------------------------
 
@@ -165,18 +114,7 @@ CREATE TABLE `tblinternalexam` (
   `Maxmark` mediumint(3) NOT NULL,
   `Convertmark` mediumint(3) NOT NULL,
   `Year` varchar(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tblinternalexam`
---
-
-INSERT INTO `tblinternalexam` (`Code`, `CreatedBy`, `Name`, `Type`, `Maxmark`, `Convertmark`, `Year`) VALUES
-('EX01', 'DEV_01', 'CIA01', 'PG', 45, 15, 'II'),
-('EX02', 'DEV_01', 'CIA-UG', 'UG', 45, 15, 'II'),
-('EX03', 'DEV_01', 'Model', 'PG', 75, 20, 'II'),
-('EX04', 'DEV_01', 'Seminar', 'PG', 10, 10, 'II'),
-('EX05', 'DEV_01', 'Attendence', 'PG', 5, 5, 'II');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -195,63 +133,7 @@ CREATE TABLE `tblinternalmarks` (
   `CurrentMark` mediumint(3) NOT NULL,
   `FinalMark` varchar(3) NOT NULL,
   `CreatedBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tblinternalmarks`
---
-
-INSERT INTO `tblinternalmarks` (`Id`, `ExamCode`, `DeptId`, `RegNo`, `Semester`, `Year`, `CourseCode`, `CurrentMark`, `FinalMark`, `CreatedBy`) VALUES
-(1, 'EX01', 4, '22PCA001', 'III', 'II', '22PCA3C08', 40, '13', 'DEV_01'),
-(2, 'EX01', 4, '22PCA002', 'III', 'II', '22PCA3C08', 40, '13', 'DEV_01'),
-(3, 'EX01', 4, '22PCA003', 'III', 'II', '22PCA3C08', 40, '13', 'DEV_01'),
-(4, 'EX01', 4, '22PCA004', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(5, 'EX01', 4, '22PCA005', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(6, 'EX01', 4, '22PCA006', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(7, 'EX01', 4, '22PCA007', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(8, 'EX01', 4, '22PCA008', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(9, 'EX01', 4, '22PCA009', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(10, 'EX01', 4, '22PCA010', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(11, 'EX01', 4, '22PCA011', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(12, 'EX01', 4, '22PCA012', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(13, 'EX01', 4, '22PCA013', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(14, 'EX01', 4, '22PCA014', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(15, 'EX01', 4, '22PCA015', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(16, 'EX01', 4, '22PCA016', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(17, 'EX01', 4, '22PCA017', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(18, 'EX01', 4, '22PCA018', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(19, 'EX01', 4, '22PCA019', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(20, 'EX01', 4, '22PCA020', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(21, 'EX01', 4, '22PCA021', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(22, 'EX01', 4, '22PCA022', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(23, 'EX01', 4, '22PCA023', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(24, 'EX01', 4, '22PCA024', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(25, 'EX01', 4, '22PCA025', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(26, 'EX01', 4, '22PCA026', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(27, 'EX01', 4, '22PCA027', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(28, 'EX01', 4, '22PCA028', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(29, 'EX01', 4, '22PCA029', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(30, 'EX01', 4, '22PCA030', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(31, 'EX01', 4, '22PCA031', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(32, 'EX01', 4, '22PCA032', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(33, 'EX01', 4, '22PCA033', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(34, 'EX01', 4, '22PCA034', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(35, 'EX01', 4, '22PCA035', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(36, 'EX01', 4, '22PCA036', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(37, 'EX01', 4, '22PCA037', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(38, 'EX01', 4, '22PCA038', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(39, 'EX01', 4, '22PCA039', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(40, 'EX01', 4, '22PCA040', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(41, 'EX01', 4, '22PCA041', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(42, 'EX01', 4, '22PCA042', 'III', 'II', '22PCA3C08', 45, '15', 'DEV_01'),
-(43, 'EX01', 4, '22PCA043', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(44, 'EX01', 4, '22PCA044', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(45, 'EX01', 4, '22PCA045', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(46, 'EX01', 4, '22PCA046', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(47, 'EX01', 4, '22PCA047', 'III', 'II', '22PCA3C08', 35, '12', 'DEV_01'),
-(48, 'EX01', 4, '22PCA048', 'III', 'II', '22PCA3C08', 30, '10', 'DEV_01'),
-(49, 'EX01', 4, '22PCA049', 'III', 'II', '22PCA3C08', 30, '10', 'DEV_01'),
-(50, 'EX01', 4, '22PCA050', 'III', 'II', '22PCA3C08', 30, '10', 'DEV_01');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -266,7 +148,7 @@ CREATE TABLE `tbllateattendance` (
   `semester` varchar(5) NOT NULL,
   `year` varchar(5) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -278,7 +160,7 @@ CREATE TABLE `tblroles` (
   `Id` mediumint(3) NOT NULL,
   `Description` varchar(250) NOT NULL,
   `is_Active` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblroles`
@@ -324,7 +206,7 @@ CREATE TABLE `tblstudent` (
   `pincode` varchar(10) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `nationality` varchar(255) NOT NULL DEFAULT 'India'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblstudent`
@@ -1521,7 +1403,7 @@ CREATE TABLE `tbltimetable` (
   `SubjectCore` varchar(150) NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `SubjectHour` mediumint(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1544,18 +1426,14 @@ CREATE TABLE `tblusers` (
   `dor` date NOT NULL,
   `roleId` mediumint(3) NOT NULL,
   `deptid` mediumint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblusers`
 --
 
 INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullname`, `phone`, `gender`, `dob`, `age`, `doj`, `dor`, `roleId`, `deptid`) VALUES
-(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'administrator', '9655120081', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4),
-(2, 'PCA_01', 'dinesh', 'MTIzNDU2Nzg=', 'dineshkumar@gmail.in', 'Dineshkumar', '9632587410', 'male', '1980-01-01', 43, '2021-01-01', '0000-00-00', 2, 4),
-(3, 'UCA_02', 'chandhiran', 'MTIzNDU2Nzg=', 'chandhiran@rmv.ac.in', 'Chandhiran', '9894316150', 'male', '1980-01-01', 43, '2007-01-10', '0000-00-00', 2, 3),
-(4, 'UIT_01', 'kamaraj', 'MTIzNDU2Nzg=', 'kamaraj@rmv.ac.in', 'Kamaraj', '9942080458', 'male', '1980-01-01', 43, '2007-01-01', '0000-00-00', 3, 1),
-(5, 'PCA_02', 'prakash', 'MTIzNDU2Nzg=', 'prakash.mk@rmv.ac.in', 'Prakash MK', '9876543210', 'male', '1990-01-01', 33, '2015-01-01', '0000-00-00', 2, 4);
+(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'Administrator', '0000000000', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -1566,27 +1444,26 @@ INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullnam
 CREATE TABLE `tblusersrights` (
   `Id` mediumint(3) NOT NULL,
   `EmpId` varchar(50) NOT NULL,
-  `permission` tinyint(1) NOT NULL DEFAULT 0,
-  `addstudent` tinyint(1) NOT NULL DEFAULT 0,
+  `permission` tinyint(1) NOT NULL DEFAULT '0',
+  `addstudent` tinyint(1) NOT NULL DEFAULT '0',
   `updatestudent` tinyint(1) NOT NULL,
-  `addcourse` tinyint(1) NOT NULL DEFAULT 0,
-  `updatecourse` tinyint(1) NOT NULL DEFAULT 0,
-  `addtimetable` tinyint(1) NOT NULL DEFAULT 0,
-  `updatetimetable` tinyint(1) NOT NULL DEFAULT 0,
-  `bulkattendance` tinyint(1) NOT NULL DEFAULT 0,
-  `attendancereport` tinyint(1) NOT NULL DEFAULT 0,
-  `lateAttendance` int(1) NOT NULL DEFAULT 0,
+  `addcourse` tinyint(1) NOT NULL DEFAULT '0',
+  `updatecourse` tinyint(1) NOT NULL DEFAULT '0',
+  `addtimetable` tinyint(1) NOT NULL DEFAULT '0',
+  `updatetimetable` tinyint(1) NOT NULL DEFAULT '0',
+  `bulkattendance` tinyint(1) NOT NULL DEFAULT '0',
+  `attendancereport` tinyint(1) NOT NULL DEFAULT '0',
+  `lateAttendance` int(1) NOT NULL DEFAULT '0',
   `CreatedBy` varchar(50) NOT NULL,
   `ModifyBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblusersrights`
 --
 
 INSERT INTO `tblusersrights` (`Id`, `EmpId`, `permission`, `addstudent`, `updatestudent`, `addcourse`, `updatecourse`, `addtimetable`, `updatetimetable`, `bulkattendance`, `attendancereport`, `lateAttendance`, `CreatedBy`, `ModifyBy`) VALUES
-(1, 'DEV_01', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'DEV_01', 'DEV_01'),
-(2, 'UCA_02', 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 'DEV_01', 'UCA_02');
+(1, 'DEV_01', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'DEV_01', 'DEV_01');
 
 --
 -- Indexes for dumped tables
@@ -1697,7 +1574,7 @@ ALTER TABLE `tblattendance`
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbldayattendance`
@@ -1709,13 +1586,13 @@ ALTER TABLE `tbldayattendance`
 -- AUTO_INCREMENT for table `tbldepartment`
 --
 ALTER TABLE `tbldepartment`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tblinternalmarks`
 --
 ALTER TABLE `tblinternalmarks`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbllateattendance`
@@ -1745,13 +1622,13 @@ ALTER TABLE `tbltimetable`
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tblusersrights`
 --
 ALTER TABLE `tblusersrights`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -1811,12 +1688,8 @@ ALTER TABLE `tbltimetable`
 ALTER TABLE `tblusers`
   ADD CONSTRAINT `fk_depart_u` FOREIGN KEY (`deptid`) REFERENCES `tbldepartment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_roles_u` FOREIGN KEY (`roleId`) REFERENCES `tblroles` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tblusersrights`
---
-ALTER TABLE `tblusersrights`
-  ADD CONSTRAINT `fk_user_ur` FOREIGN KEY (`EmpId`) REFERENCES `tblusers` (`EmpId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_userc_ur` FOREIGN KEY (`CreatedBy`) REFERENCES `tblusers` (`EmpId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_userm_ur` FOREIGN KEY (`ModifyBy`) REFERENCES `tblusers` (`EmpId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,5 +1,11 @@
 <?php
+    ob_start();
+    session_start();
+    //error_reporting(0); 
     include('../connect.php');
+    if(!isset($_SESSION['Username'])) {
+        header("Location:../login.php");
+    }
 
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment ORDER BY id asc");
     $lstDepartment=array();
@@ -26,12 +32,17 @@
         "II" => "II",
         "III" => "III"
     );
-    $all_query = mysqli_query($conn,"SELECT courseCode from tblcourse ORDER BY id asc");
+    $EmpId=$_SESSION["EmpId"];
+    $all_query = mysqli_query($conn,"SELECT courseCode,courseName from tblcourse 
+     where StaffId='$EmpId'ORDER BY id asc");
     $lstCourse=array();
     while ($row = mysqli_fetch_array($all_query)) 
     {
         $lstCourse[] = $row;
     }
+    $opDept="";
+    $opSem="";
+    $opYear="";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,9 +50,8 @@
     <meta charset="UTF-8">
     <?php include('../links.php'); ?>
     <title>Internal Marks</title>
-
 </head>
-<body>
+<body class="ovflow-y">
     <div  id="header">
         <div class="row">
             <div class="col-md-3">
@@ -97,7 +107,7 @@
                         foreach ($lstCourse as $value => $label) 
                         {
                             $selected = ($opDept == $label['courseCode']) ? "selected" : "";
-                            echo "<option value=\"{$label['courseCode']}\" $selected>{$label['courseCode']}</option>";
+                            echo "<option value=\"{$label['courseCode']}\" $selected>{$label['courseName']}</option>";
                         }
                     ?>
                 </select>
@@ -112,20 +122,8 @@
                 <label for="input1" class="form-label">Exam</label>
                 <select class="form-select" name="ri_exam" id="ri_exam"
                     placeholder="Select the Exam" required  autocomplete="off">
-                    <?php
-                        foreach ($lstExam as $value => $label) 
-                        {
-                            $selected = ($opExam == $label['Code']) ? "selected" : "";
-                            echo "<option value=\"{$label['Code']}\" $selected>{$label['Name']}</option>";
-                        }
-                    ?>
+                
                 </select>
-                <script>
-                    $(document).ready(function() {
-                        var selectedValue = "<?php echo $opDept; ?>";
-                        $("#ri_exam").val(selectedValue);
-                    });
-                </script>
                 </div>
                 <div class="col-md-2">
                <label for="input1" class="form-label">Semester </label>
@@ -180,12 +178,12 @@
                     </div>
                 </div>
                 <div id="printAre">
-                    <div class="row" >
+                    <div class="row" style="margin-top:10px;" >
                         <div class="col-md-1">
                             <img src="../images/favicon/192x192.png" width="60px" height="60px" alt="logo" />
                         </div>
                         <div class="col-md-10">
-                            <center><b> Sri Ramakirshna Mission Vidyalaya College Of Arts And Science</b></center>
+                            <center><b> Sri Ramakirshna Mission Vidyalaya College of Arts And Science</b></center>
                             <center><span>(Autonomous) Coimbatore - 641 020</span></center>
                         </div>
                         <div class="col-md-1"></div>
@@ -198,6 +196,20 @@
                                     <center><u><b id="lblExamName"></b></u></center>
                                 </div>
                                 <div class="col-md-4"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-7" style=" padding-right: 0px; ">
+                                            <center><p style="float: right;font-size: 13PX;">MONTH & YEAR OF EXAMINATION:</p></center>
+                                        </div>
+                                        <div class="col-md-4" style=" padding-left: 0px; ">
+                                            <input type="text" id="txtMonth" required style="height:23px" />
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -269,7 +281,7 @@
                             <table id="tblMark1" class="table table-bordered " >
                                 <thead>
                                     <tr>
-                                        <td>S.NO</td>
+                                        <td>S.No</td>
                                         <td>Register Number</td>
                                         <td>Marks</td>
                                         <td>Signature of the Student</td>
@@ -284,7 +296,7 @@
                             <table id="tblMark2" class="table table-bordered " >
                                 <thead>
                                     <tr>
-                                        <td>S.NO</td>
+                                        <td>S.No</td>
                                         <td>Register Number</td>
                                         <td>Marks</td>
                                         <td>Signature of the Student</td>
@@ -318,13 +330,14 @@
     $(document).ready(function() {
         $('#tblMark2').hide();
         $('#rpInternal').hide();
-        $('#btnGet').click(function(e) {
+        $('#btnGet').click(function(e) 
+        {
             $('#rpInternal').show();
             e.preventDefault(); 
             var departmentId = $('#ri_dept').val();
             var semester = $('#ri_semester').val();
             var year = $('#ri_year').val();
-            var exam = $('#ri_exam').val();
+            var exam = $('#ri_exam').find(":selected").attr("id");
             var course = $('#ri_course').val();
             $.ajax({
                 url: './data/internel.php',
@@ -352,9 +365,9 @@
                         {
                            
                             contentM="<tr>"+
-                                        "<td>"+ (i+1) +"</td>"+
+                                        "<td  STYLE='text-align:center;' >"+ (i+1) +"</td>"+
                                         "<td>"+ data.data[i].RegNo +"</td>"+
-                                        "<td>"+ data.data[i].CurrentMark +"</td>"+
+                                        "<td  STYLE='text-align:center;'>"+ data.data[i].CurrentMark +"</td>"+
                                         "<td></td>"+
                                         "</tr>";
                            content=content+contentM;
@@ -366,10 +379,10 @@
                         for(var i=30;i<data.totalrecords;i++)
                         {
                             flag=true;
-                            contentM="<tr>"+
-                                        "<td>"+(i+1)+"</td>"+
+                            contentM="<tr >"+
+                                        "<td STYLE='text-align:center;'>"+(i+1)+"</td>"+
                                         "<td>"+data.data[i].RegNo+"</td>"+
-                                        "<td>"+data.data[i].CurrentMark+"</td>"+
+                                        "<td STYLE='text-align:center;'>"+data.data[i].CurrentMark+"</td>"+
                                         "<td></td>"+
                                         "</tr>";
                            content=content+contentM;
@@ -388,9 +401,9 @@
                         {
                            
                             contentM="<tr>"+
-                                        "<td>"+ (i+1) +"</td>"+
+                                        "<td STYLE='text-align:center;'>"+ (i+1) +"</td>"+
                                         "<td>"+ data.data[i].RegNo +"</td>"+
-                                        "<td>"+ data.data[i].CurrentMark +"</td>"+
+                                        "<td STYLE='text-align:center;'>"+ data.data[i].CurrentMark +"</td>"+
                                         "<td></td>"+
                                         "</tr>";
                            content=content+contentM;
@@ -426,6 +439,32 @@
 
         });
 
+    });
+    $('#txtMonth').on('blur', function() {
+        var newValue = $(this).val();
+        $(this).attr('value', newValue);
+    });
+    $('#ri_dept').change(function(){
+        var dept=$(this).val();
+        //alert(dept);
+        $.ajax({
+            type: "POST",
+            url: "./data/get_Exam.php",
+            data: { 
+                departmentId: dept
+                
+            },
+            success: function(response) {
+                if (response.error) 
+                {
+                    swal(response,{ icon: "warning",});
+                } 
+                else
+                {
+                    $('#ri_exam').html(response);              
+                }
+            }
+        });
     });
 </script>        
 </html>

@@ -18,7 +18,7 @@
     $ModifyBy=trim($_SESSION["EmpId"]);
     $id=trim($_POST['up_hid']);
 
-    $SQL = "UPDATE tblUsersRights SET EmpId='$EmpId', permission=$permission, addstudent=$addstudent, updatestudent=$updatestudent, addcourse=$addcourse, 
+    $SQL = "UPDATE tblusersrights SET EmpId='$EmpId', permission=$permission, addstudent=$addstudent, updatestudent=$updatestudent, addcourse=$addcourse, 
         updatecourse=$updatecourse,addtimetable=$addtimetable, updatetimetable=$updatetimetable, bulkattendance=$bulkattendance, attendancereport=$attendancereport
         ,ModifyBy='$ModifyBy',lateAttendance=$lateAttendance WHERE Id=$id ; ";
     //echo $SQL;Die();

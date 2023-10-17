@@ -8,7 +8,7 @@
     } 
     $txtdate = $_REQUEST['date'];
     $txtRegno=$_REQUEST["id"];
-    $query = "SELECT id, isAbsent FROM tblAttendance
+    $query = "SELECT id, isAbsent FROM tblattendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=1";
     $result = mysqli_query($conn, $query);
     // print_r($result);die();
@@ -16,7 +16,7 @@
     $txthouri=$row["isAbsent"];
     $txtidi=$row["id"];
 
-    $queryii = "SELECT id, isAbsent FROM tblAttendance
+    $queryii = "SELECT id, isAbsent FROM tblattendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=2";
     $resultii = mysqli_query($conn, $queryii);
     // print_r($result);die();
@@ -24,7 +24,7 @@
     $txthourii=$rowii["isAbsent"];
     $txtidii=$rowii["id"];
 
-    $queryiii = "SELECT id, isAbsent FROM tblAttendance
+    $queryiii = "SELECT id, isAbsent FROM tblattendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=3";
     $resultiii = mysqli_query($conn, $queryiii);
     // print_r($result);die();
@@ -32,7 +32,7 @@
     $txthouriii=$rowiii["isAbsent"];
     $txtidiii=$rowiii["id"];
 
-    $queryiv = "SELECT id, isAbsent FROM tblAttendance
+    $queryiv = "SELECT id, isAbsent FROM tblattendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=4";
     $resultiv = mysqli_query($conn, $queryiv);
     // print_r($result);die();
@@ -40,7 +40,7 @@
     $txthouriv=$rowiv["isAbsent"];
     $txtidiv=$rowiv["id"];
 
-    $queryv = "SELECT id, isAbsent FROM tblAttendance
+    $queryv = "SELECT id, isAbsent FROM tblattendance
     where date='$txtdate' and regno ='$txtRegno' and SubjectHour=5";
     $resultv = mysqli_query($conn, $queryv);
     // print_r($result);die();
@@ -50,38 +50,27 @@
     if (isset($_POST['btnsave'])) 
     {
         try {       
-            $SQL1="update tblAttendance set isAbsent =". $_POST['txthouri'] ." where Id=". $txtidi ;
+            $SQL1="update tblattendance set isAbsent =". $_POST['txthouri'] ." where Id=". $txtidi ;
             mysqli_query($conn, $SQL1);
             
-            $SQL2="update tblAttendance set isAbsent =". $_POST['txthourii'] ." where Id=". $txtidii ;
+            $SQL2="update tblattendance set isAbsent =". $_POST['txthourii'] ." where Id=". $txtidii ;
             mysqli_query($conn, $SQL2);
 
-            $SQL3="update tblAttendance set isAbsent =". $_POST['txthouriii'] ." where Id=". $txtidiii ;
+            $SQL3="update tblattendance set isAbsent =". $_POST['txthouriii'] ." where Id=". $txtidiii ;
             mysqli_query($conn, $SQL3);
 
-            $SQL4="update tblAttendance set isAbsent =". $_POST['txthouriv'] ." where Id=". $txtidiv ;
+            $SQL4="update tblattendance set isAbsent =". $_POST['txthouriv'] ." where Id=". $txtidiv ;
             mysqli_query($conn, $SQL4);
 
-            $SQL5="update tblAttendance set isAbsent =". $_POST['txthourv'] ." where Id=". $txtidv ;
+            $SQL5="update tblattendance set isAbsent =". $_POST['txthourv'] ." where Id=". $txtidv ;
+            //echo $SQL5;die();
             mysqli_query($conn, $SQL5);
-            echo "<script> 
-            swal('Successfully Updated', {
-                icon: 'success',
-                buttons: {
-                    OK: {
-                    text: 'OK',
-                    value: 'OK',
-                },
-            },
-            }).then((value) => {
-                switch (value) {
-                    case 'OK':window.location.href='./absentindex.php'; break;
-                    default:window.location.href='./absentindex.php';
-                }
-            });
-            </script>";
+            echo "<script>alert('Attendance Saved !!');";
+	    echo "window.location = './absentindex.php';</script>";
 
-        } catch (\Throwable $th) {
+        } 
+        catch (\Throwable $th) 
+        {
             throw $th;
         }
 
@@ -269,7 +258,20 @@
 <script>
     function Updatemsg()
     {
-        swal("Updated");
+        swal('Successfully Updated', {
+                icon: 'success',
+                buttons: {
+                    OK: {
+                    text: 'OK',
+                    value: 'OK',
+                },
+            },
+            }).then((value) => {
+                switch (value) {
+                    case 'OK':window.location.href='./absentindex.php'; break;
+                    default:window.location.href='./absentindex.php';
+                }
+            });
     }
 </script>
 </html>

@@ -11,9 +11,10 @@
         // Start with an empty option
         $rows = "<option id=''>Select a course</option>";
 
-        $sql = "SELECT id, CourseCode, CourseName FROM tblCourse
+        $sql = "SELECT id, CourseCode, CourseName FROM tblcourse
         WHERE deptId = '$departmentId' and year='$year' and semester='$semester'
         ORDER BY id ASC";
+        //echo $sql; die();
         $result = mysqli_query($conn, $sql);
 
         while ($row = mysqli_fetch_assoc($result)) {

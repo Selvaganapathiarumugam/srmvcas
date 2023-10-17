@@ -64,27 +64,45 @@
         </div>
         <div class="row">
             <div class="col-md-12 margin-top-base">
-                <table id="tbllateatt" class="display" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th scope="col">Batch</th>
-                            <th scope="col">Reg.NO</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Year</th>
-                            <th scope="col">Semester</th>
-                            <th scope="col">Departmet</th>
-                            <th scope="col">Date</th>
-                            <!-- <th scope="col">Edit</th> -->
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                </table>
+            	<div class="table-responsive">
+                	<table id="tbllateatt" class="display" width="100%" cellspacing="0">
+                    		<thead>
+                        		<tr>
+                            			<th scope="col">Batch</th>
+                            			<th scope="col">Reg.NO</th>
+                            			<th scope="col">Name</th>
+                            			<th scope="col">Year</th>
+                            			<th scope="col">Semester</th>
+                            			<th scope="col">Departmet</th>
+                            			<th scope="col">Date</th>
+                            			<!-- <th scope="col">Edit</th> -->
+                            			<th scope="col">Delete</th>
+                        		</tr>
+                    		</thead>
+                	</table>
+                </div>
             </div>  
         </div>
     </div>
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+    	 function isMobileView() {
+                return $(window).width() <= 768; 
+            }
+            var old=$('#clgname').text();
+            function updateH3Text() {
+                if (isMobileView()) {
+                    $('#clgname').text('SRMVCAS');
+                }
+                else{
+                     $('#clgname').text(old);
+                }
+            }
+            
+
+            updateH3Text();
+            $(window).resize(updateH3Text);
         $('#tbllateatt').dataTable({
             "processing": true,
             "ajax": "./data/list.php",

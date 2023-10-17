@@ -81,3 +81,4 @@ function resetTimer() {
         window.location.href = '../logout.php'; 
     }, 300000);
 }
+
