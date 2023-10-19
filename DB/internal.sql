@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2023 at 08:39 PM
+-- Generation Time: Oct 19, 2023 at 09:08 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -26,7 +26,7 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InternalFinalPG` (IN `I_CourseCode` VARCHAR(255), IN `I_Year` VARCHAR(255))   BEGIN
- SET SESSION group_concat_max_len = 10000000;
+    SET SESSION group_concat_max_len = 10000000;
     SET @sql = NULL;
     SET @count = 0;
     SET @columns = '';
@@ -113,19 +113,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InternalFinalUG` (IN `I_CourseCo
     DEALLOCATE PREPARE stmt;
 END$$
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `srmvcasm_Internal`
---
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -140,9 +128,9 @@ CREATE TABLE `tblattendance` (
   `date` date NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `subjectHour` mediumint(2) NOT NULL,
-  `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
+  `IsAbsent` tinyint(3) NOT NULL DEFAULT 0,
   `CourseTaught` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblattendance`
@@ -259,7 +247,6 @@ CREATE TABLE `tblcourse` (
   `courseName` varchar(150) NOT NULL,
   `courseCode` varchar(20) NOT NULL,
   `AcadamicYear` varchar(10) NOT NULL
-<<<<<<< HEAD:DB/internal.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -270,9 +257,6 @@ INSERT INTO `tblcourse` (`id`, `Staffid`, `deptId`, `year`, `semester`, `courseN
 (21, 'MCA01', 4, 'II', 'III', 'Open Source Application Development with Android/Content Management', '20PCA3EB2', '2023'),
 (22, 'BSC03', 2, 'I', 'I', 'Programming C', '23USC1C01', '2023'),
 (23, 'BSC03', 2, 'III', 'V', 'Web Technology', '20USC5C12', '2021');
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 -- --------------------------------------------------------
 
@@ -289,7 +273,7 @@ CREATE TABLE `tbldayattendance` (
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -301,11 +285,7 @@ CREATE TABLE `tbldepartment` (
   `id` mediumint(3) NOT NULL,
   `dname` varchar(100) NOT NULL,
   `Type` varchar(5) NOT NULL DEFAULT 'UG'
-<<<<<<< HEAD:DB/internal.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 --
 -- Dumping data for table `tbldepartment`
@@ -320,11 +300,7 @@ INSERT INTO `tbldepartment` (`id`, `dname`, `Type`) VALUES
 (6, 'B.COM PA', 'UG'),
 (7, 'B.COM CA', 'UG'),
 (8, 'PGDCA', 'UG'),
-<<<<<<< HEAD:DB/internal.sql
 (9, 'B.P.E', 'UG'),
-=======
-(9, 'Physical Education', 'UG'),
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 (10, 'MSW', 'PG');
 
 -- --------------------------------------------------------
@@ -340,7 +316,6 @@ CREATE TABLE `tblinternalexam` (
   `Type` varchar(4) NOT NULL,
   `Maxmark` mediumint(3) NOT NULL,
   `Convertmark` mediumint(3) NOT NULL,
-<<<<<<< HEAD:DB/internal.sql
   `Year` varchar(4) NOT NULL,
   `RowOrder` int(11) DEFAULT NULL,
   `isActive` int(11) DEFAULT 1
@@ -357,10 +332,6 @@ INSERT INTO `tblinternalexam` (`Code`, `CreatedBy`, `Name`, `Type`, `Maxmark`, `
 ('INT-ATTENDANCE', 'DEV_01', 'Attendance', 'UG', 5, 5, 'I', 4, 1),
 ('INT-CIA', 'DEV_01', 'CIA-TEST', 'UG', 45, 15, 'I', 1, 1),
 ('INT-MODEL', 'DEV_01', 'Model Exam', 'UG', 75, 20, 'I', 2, 1);
-=======
-  `Year` varchar(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 -- --------------------------------------------------------
 
@@ -379,7 +350,6 @@ CREATE TABLE `tblinternalmarks` (
   `CurrentMark` mediumint(3) NOT NULL,
   `FinalMark` varchar(3) NOT NULL,
   `CreatedBy` varchar(50) NOT NULL
-<<<<<<< HEAD:DB/internal.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -575,9 +545,6 @@ INSERT INTO `tblinternalmarks` (`Id`, `ExamCode`, `DeptId`, `RegNo`, `Semester`,
 (186, 'INT-ATTENDANCE', 2, '23USC045', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
 (187, 'INT-ATTENDANCE', 2, '23USC046', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
 (188, 'INT-ATTENDANCE', 2, '23USC047', 'I', 'I', '23USC1C01', 3, '3', 'BSC03');
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 -- --------------------------------------------------------
 
@@ -592,7 +559,7 @@ CREATE TABLE `tbllateattendance` (
   `semester` varchar(5) NOT NULL,
   `year` varchar(5) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -604,7 +571,7 @@ CREATE TABLE `tblroles` (
   `Id` mediumint(3) NOT NULL,
   `Description` varchar(250) NOT NULL,
   `is_Active` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblroles`
@@ -650,7 +617,7 @@ CREATE TABLE `tblstudent` (
   `pincode` varchar(10) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `nationality` varchar(255) NOT NULL DEFAULT 'India'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblstudent`
@@ -1847,7 +1814,7 @@ CREATE TABLE `tbltimetable` (
   `SubjectCore` varchar(150) NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `SubjectHour` mediumint(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -1870,20 +1837,16 @@ CREATE TABLE `tblusers` (
   `dor` date NOT NULL,
   `roleId` mediumint(3) NOT NULL,
   `deptid` mediumint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblusers`
 --
 
 INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullname`, `phone`, `gender`, `dob`, `age`, `doj`, `dor`, `roleId`, `deptid`) VALUES
-<<<<<<< HEAD:DB/internal.sql
 (1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'Administrator', '0000000000', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4),
 (8, 'MCA01', 'chandran', 'Y2hhbmRyYW4=', 'onchandran@gmail.com', 'Dr.M.Chandran', '9894326150', 'male', '1980-05-15', 43, '2006-12-05', '0000-00-00', 2, 4),
 (9, 'BSC03', 'soundarraj', 'OTc4OTEzNTMzMg==', 'soundarraj28@gmail.com', 'Dr.K.Soundarraj', '9789135332', 'male', '1987-04-28', 36, '2010-07-07', '0000-00-00', 2, 2);
-=======
-(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'Administrator', '0000000000', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4);
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 -- --------------------------------------------------------
 
@@ -1894,32 +1857,28 @@ INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullnam
 CREATE TABLE `tblusersrights` (
   `Id` mediumint(3) NOT NULL,
   `EmpId` varchar(50) NOT NULL,
-  `permission` tinyint(1) NOT NULL DEFAULT '0',
-  `addstudent` tinyint(1) NOT NULL DEFAULT '0',
+  `permission` tinyint(1) NOT NULL DEFAULT 0,
+  `addstudent` tinyint(1) NOT NULL DEFAULT 0,
   `updatestudent` tinyint(1) NOT NULL,
-  `addcourse` tinyint(1) NOT NULL DEFAULT '0',
-  `updatecourse` tinyint(1) NOT NULL DEFAULT '0',
-  `addtimetable` tinyint(1) NOT NULL DEFAULT '0',
-  `updatetimetable` tinyint(1) NOT NULL DEFAULT '0',
-  `bulkattendance` tinyint(1) NOT NULL DEFAULT '0',
-  `attendancereport` tinyint(1) NOT NULL DEFAULT '0',
-  `lateAttendance` int(1) NOT NULL DEFAULT '0',
+  `addcourse` tinyint(1) NOT NULL DEFAULT 0,
+  `updatecourse` tinyint(1) NOT NULL DEFAULT 0,
+  `addtimetable` tinyint(1) NOT NULL DEFAULT 0,
+  `updatetimetable` tinyint(1) NOT NULL DEFAULT 0,
+  `bulkattendance` tinyint(1) NOT NULL DEFAULT 0,
+  `attendancereport` tinyint(1) NOT NULL DEFAULT 0,
+  `lateAttendance` int(1) NOT NULL DEFAULT 0,
   `CreatedBy` varchar(50) NOT NULL,
   `ModifyBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblusersrights`
 --
 
 INSERT INTO `tblusersrights` (`Id`, `EmpId`, `permission`, `addstudent`, `updatestudent`, `addcourse`, `updatecourse`, `addtimetable`, `updatetimetable`, `bulkattendance`, `attendancereport`, `lateAttendance`, `CreatedBy`, `ModifyBy`) VALUES
-<<<<<<< HEAD:DB/internal.sql
 (1, 'DEV_01', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'DEV_01', 'DEV_01'),
 (4, 'MCA01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'DEV_01', 'DEV_01'),
 (5, 'BSC03', 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 'BSC03', '');
-=======
-(1, 'DEV_01', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'DEV_01', 'DEV_01');
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 --
 -- Indexes for dumped tables
@@ -2030,11 +1989,7 @@ ALTER TABLE `tblattendance`
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-<<<<<<< HEAD:DB/internal.sql
   MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-=======
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 --
 -- AUTO_INCREMENT for table `tbldayattendance`
@@ -2052,11 +2007,7 @@ ALTER TABLE `tbldepartment`
 -- AUTO_INCREMENT for table `tblinternalmarks`
 --
 ALTER TABLE `tblinternalmarks`
-<<<<<<< HEAD:DB/internal.sql
   MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
-=======
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 --
 -- AUTO_INCREMENT for table `tbllateattendance`
@@ -2086,21 +2037,13 @@ ALTER TABLE `tbltimetable`
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-<<<<<<< HEAD:DB/internal.sql
   MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-=======
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 --
 -- AUTO_INCREMENT for table `tblusersrights`
 --
 ALTER TABLE `tblusersrights`
-<<<<<<< HEAD:DB/internal.sql
   MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-=======
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
->>>>>>> b47b5955f7f20b34e207fb690d5221004ff45a65:DB/attendance.sql
 
 --
 -- Constraints for dumped tables
