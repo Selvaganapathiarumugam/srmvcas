@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 15, 2023 at 04:46 PM
--- Server version: 5.7.43
--- PHP Version: 8.1.16
+-- Host: 127.0.0.1
+-- Generation Time: Oct 19, 2023 at 08:39 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,102 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `srmvcasm_Internal`
+-- Database: `internal`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InternalFinalPG` (IN `I_CourseCode` VARCHAR(255), IN `I_Year` VARCHAR(255))   BEGIN
+ SET SESSION group_concat_max_len = 10000000;
+    SET @sql = NULL;
+    SET @count = 0;
+    SET @columns = '';
+    SET @Year =I_Year;
+    SET @CC=I_CourseCode;
+    SET @Code_Ex = (
+        SELECT GROUP_CONCAT(CONCAT("'", Code, "'") ORDER BY RowOrder ASC)
+        FROM tblinternalexam
+        WHERE Type = 'PG' AND Year = @Year AND isActive = 1
+    );
+    SELECT COUNT(*) INTO @count FROM tblinternalexam
+    WHERE Type = 'PG' AND Year = @Year AND isActive = 1;
+    SET @i = 1;
+    WHILE @i <= @count DO
+        SET @currentCode = '';
+        SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(@Code_Ex, ',', @i), ',', -1) INTO @currentCode;
+        SET @columns = CONCAT(@columns, 
+            'MAX(CASE WHEN im.ExamCode = ', @currentCode,
+            ' THEN im.CurrentMark ELSE NULL END) AS Code', @i, ', ',
+            'MAX(CASE WHEN im.ExamCode = ', @currentCode ,
+            ' THEN im.FinalMark ELSE NULL END) AS Total', @i
+        );
+        IF @i < @count THEN
+            SET @columns = CONCAT(@columns, ', ');
+        END IF;
+        SET @i = @i + 1;
+    END WHILE;
+    SET @sql = CONCAT('
+        SELECT im.RegNo, ', @columns, '
+        ,d.dname,im.Year,im.Semester,im.CourseCode,c.coursename FROM tblinternalmarks im
+        INNER JOIN tblinternalexam ie ON im.ExamCode = ie.Code
+        INNER JOIN tbldepartment d ON im.DeptId = d.Id
+        INNER JOIN tblcourse c ON im.CourseCode = c.courseCode
+        WHERE ie.Type = ''UG'' AND ie.isActive = 1 AND im.CourseCode = "',@CC,'"
+        GROUP BY im.RegNo 
+        ORDER BY im.RegNo, ie.RowOrder ASC
+    ');
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_InternalFinalUG` (IN `I_CourseCode` VARCHAR(255), IN `I_Year` VARCHAR(255))   BEGIN
+    SET SESSION group_concat_max_len = 10000000;
+    SET @sql = NULL;
+    SET @count = 0;
+    SET @columns = '';
+    SET @Year =I_Year;
+    SET @CC=I_CourseCode;
+    SET @Code_Ex = (
+        SELECT GROUP_CONCAT(CONCAT("'", Code, "'") ORDER BY RowOrder ASC)
+        FROM tblinternalexam
+        WHERE Type = 'UG' AND Year = @Year AND isActive = 1
+    );
+    SELECT COUNT(*) INTO @count FROM tblinternalexam
+    WHERE Type = 'UG' AND Year = @Year AND isActive = 1;
+    SET @i = 1;
+    WHILE @i <= @count DO
+        SET @currentCode = '';
+        SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(@Code_Ex, ',', @i), ',', -1) INTO @currentCode;
+        SET @columns = CONCAT(@columns, 
+            'MAX(CASE WHEN im.ExamCode = ', @currentCode,
+            ' THEN im.CurrentMark ELSE NULL END) AS Code', @i, ', ',
+            'MAX(CASE WHEN im.ExamCode = ', @currentCode ,
+            ' THEN im.FinalMark ELSE NULL END) AS Total', @i
+        );
+        IF @i < @count THEN
+            SET @columns = CONCAT(@columns, ', ');
+        END IF;
+        SET @i = @i + 1;
+    END WHILE;
+    SET @sql = CONCAT('
+        SELECT im.RegNo, ', @columns, '
+        ,d.dname,im.Year,im.Semester,im.CourseCode,c.coursename FROM tblinternalmarks im
+        INNER JOIN tblinternalexam ie ON im.ExamCode = ie.Code
+        INNER JOIN tbldepartment d ON im.DeptId = d.Id
+        INNER JOIN tblcourse c ON im.CourseCode = c.courseCode
+        WHERE ie.Type = ''UG'' AND ie.isActive = 1 AND im.CourseCode = "',@CC,'"
+        GROUP BY im.RegNo 
+        ORDER BY im.RegNo, ie.RowOrder ASC
+    ');
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -34,9 +128,109 @@ CREATE TABLE `tblattendance` (
   `date` date NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `subjectHour` mediumint(2) NOT NULL,
-  `IsAbsent` tinyint(3) NOT NULL DEFAULT '0',
+  `IsAbsent` tinyint(3) NOT NULL DEFAULT 0,
   `CourseTaught` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tblattendance`
+--
+
+INSERT INTO `tblattendance` (`id`, `Staffid`, `regno`, `date`, `DayOrder`, `subjectHour`, `IsAbsent`, `CourseTaught`) VALUES
+(1, 'BSC03', '23USC001', '2023-10-16', 1, 1, 0, 'C Programming'),
+(2, 'BSC03', '23USC002', '2023-10-16', 1, 1, 0, 'C Programming'),
+(3, 'BSC03', '23USC003', '2023-10-16', 1, 1, 0, 'C Programming'),
+(4, 'BSC03', '23USC004', '2023-10-16', 1, 1, 0, 'C Programming'),
+(5, 'BSC03', '23USC005', '2023-10-16', 1, 1, 0, 'C Programming'),
+(6, 'BSC03', '23USC006', '2023-10-16', 1, 1, 0, 'C Programming'),
+(7, 'BSC03', '23USC007', '2023-10-16', 1, 1, 0, 'C Programming'),
+(8, 'BSC03', '23USC008', '2023-10-16', 1, 1, 0, 'C Programming'),
+(9, 'BSC03', '23USC009', '2023-10-16', 1, 1, 0, 'C Programming'),
+(10, 'BSC03', '23USC010', '2023-10-16', 1, 1, 0, 'C Programming'),
+(11, 'BSC03', '23USC011', '2023-10-16', 1, 1, 0, 'C Programming'),
+(12, 'BSC03', '23USC012', '2023-10-16', 1, 1, 0, 'C Programming'),
+(13, 'BSC03', '23USC013', '2023-10-16', 1, 1, 0, 'C Programming'),
+(14, 'BSC03', '23USC014', '2023-10-16', 1, 1, 0, 'C Programming'),
+(15, 'BSC03', '23USC015', '2023-10-16', 1, 1, 0, 'C Programming'),
+(16, 'BSC03', '23USC016', '2023-10-16', 1, 1, 0, 'C Programming'),
+(17, 'BSC03', '23USC017', '2023-10-16', 1, 1, 0, 'C Programming'),
+(18, 'BSC03', '23USC018', '2023-10-16', 1, 1, 0, 'C Programming'),
+(19, 'BSC03', '23USC019', '2023-10-16', 1, 1, 0, 'C Programming'),
+(20, 'BSC03', '23USC020', '2023-10-16', 1, 1, 0, 'C Programming'),
+(21, 'BSC03', '23USC021', '2023-10-16', 1, 1, 0, 'C Programming'),
+(22, 'BSC03', '23USC022', '2023-10-16', 1, 1, 0, 'C Programming'),
+(23, 'BSC03', '23USC023', '2023-10-16', 1, 1, 1, 'C Programming'),
+(24, 'BSC03', '23USC024', '2023-10-16', 1, 1, 0, 'C Programming'),
+(25, 'BSC03', '23USC025', '2023-10-16', 1, 1, 0, 'C Programming'),
+(26, 'BSC03', '23USC026', '2023-10-16', 1, 1, 0, 'C Programming'),
+(27, 'BSC03', '23USC027', '2023-10-16', 1, 1, 0, 'C Programming'),
+(28, 'BSC03', '23USC028', '2023-10-16', 1, 1, 0, 'C Programming'),
+(29, 'BSC03', '23USC029', '2023-10-16', 1, 1, 0, 'C Programming'),
+(30, 'BSC03', '23USC030', '2023-10-16', 1, 1, 0, 'C Programming'),
+(31, 'BSC03', '23USC031', '2023-10-16', 1, 1, 0, 'C Programming'),
+(32, 'BSC03', '23USC032', '2023-10-16', 1, 1, 0, 'C Programming'),
+(33, 'BSC03', '23USC033', '2023-10-16', 1, 1, 0, 'C Programming'),
+(34, 'BSC03', '23USC034', '2023-10-16', 1, 1, 0, 'C Programming'),
+(35, 'BSC03', '23USC035', '2023-10-16', 1, 1, 0, 'C Programming'),
+(36, 'BSC03', '23USC036', '2023-10-16', 1, 1, 0, 'C Programming'),
+(37, 'BSC03', '23USC037', '2023-10-16', 1, 1, 0, 'C Programming'),
+(38, 'BSC03', '23USC038', '2023-10-16', 1, 1, 0, 'C Programming'),
+(39, 'BSC03', '23USC039', '2023-10-16', 1, 1, 1, 'C Programming'),
+(40, 'BSC03', '23USC040', '2023-10-16', 1, 1, 0, 'C Programming'),
+(41, 'BSC03', '23USC041', '2023-10-16', 1, 1, 0, 'C Programming'),
+(42, 'BSC03', '23USC042', '2023-10-16', 1, 1, 0, 'C Programming'),
+(43, 'BSC03', '23USC043', '2023-10-16', 1, 1, 0, 'C Programming'),
+(44, 'BSC03', '23USC044', '2023-10-16', 1, 1, 0, 'C Programming'),
+(45, 'BSC03', '23USC045', '2023-10-16', 1, 1, 1, 'C Programming'),
+(46, 'BSC03', '23USC046', '2023-10-16', 1, 1, 0, 'C Programming'),
+(47, 'BSC03', '23USC047', '2023-10-16', 1, 1, 0, 'C Programming'),
+(48, 'BSC03', '23USC001', '2023-10-16', 1, 2, 0, ''),
+(49, 'BSC03', '23USC002', '2023-10-16', 1, 2, 0, ''),
+(50, 'BSC03', '23USC003', '2023-10-16', 1, 2, 0, ''),
+(51, 'BSC03', '23USC004', '2023-10-16', 1, 2, 0, ''),
+(52, 'BSC03', '23USC005', '2023-10-16', 1, 2, 0, ''),
+(53, 'BSC03', '23USC006', '2023-10-16', 1, 2, 0, ''),
+(54, 'BSC03', '23USC007', '2023-10-16', 1, 2, 0, ''),
+(55, 'BSC03', '23USC008', '2023-10-16', 1, 2, 0, ''),
+(56, 'BSC03', '23USC009', '2023-10-16', 1, 2, 0, ''),
+(57, 'BSC03', '23USC010', '2023-10-16', 1, 2, 0, ''),
+(58, 'BSC03', '23USC011', '2023-10-16', 1, 2, 0, ''),
+(59, 'BSC03', '23USC012', '2023-10-16', 1, 2, 0, ''),
+(60, 'BSC03', '23USC013', '2023-10-16', 1, 2, 0, ''),
+(61, 'BSC03', '23USC014', '2023-10-16', 1, 2, 0, ''),
+(62, 'BSC03', '23USC015', '2023-10-16', 1, 2, 0, ''),
+(63, 'BSC03', '23USC016', '2023-10-16', 1, 2, 0, ''),
+(64, 'BSC03', '23USC017', '2023-10-16', 1, 2, 0, ''),
+(65, 'BSC03', '23USC018', '2023-10-16', 1, 2, 0, ''),
+(66, 'BSC03', '23USC019', '2023-10-16', 1, 2, 0, ''),
+(67, 'BSC03', '23USC020', '2023-10-16', 1, 2, 0, ''),
+(68, 'BSC03', '23USC021', '2023-10-16', 1, 2, 0, ''),
+(69, 'BSC03', '23USC022', '2023-10-16', 1, 2, 0, ''),
+(70, 'BSC03', '23USC023', '2023-10-16', 1, 2, 0, ''),
+(71, 'BSC03', '23USC024', '2023-10-16', 1, 2, 0, ''),
+(72, 'BSC03', '23USC025', '2023-10-16', 1, 2, 0, ''),
+(73, 'BSC03', '23USC026', '2023-10-16', 1, 2, 0, ''),
+(74, 'BSC03', '23USC027', '2023-10-16', 1, 2, 0, ''),
+(75, 'BSC03', '23USC028', '2023-10-16', 1, 2, 0, ''),
+(76, 'BSC03', '23USC029', '2023-10-16', 1, 2, 0, ''),
+(77, 'BSC03', '23USC030', '2023-10-16', 1, 2, 0, ''),
+(78, 'BSC03', '23USC031', '2023-10-16', 1, 2, 0, ''),
+(79, 'BSC03', '23USC032', '2023-10-16', 1, 2, 0, ''),
+(80, 'BSC03', '23USC033', '2023-10-16', 1, 2, 0, ''),
+(81, 'BSC03', '23USC034', '2023-10-16', 1, 2, 0, ''),
+(82, 'BSC03', '23USC035', '2023-10-16', 1, 2, 0, ''),
+(83, 'BSC03', '23USC036', '2023-10-16', 1, 2, 0, ''),
+(84, 'BSC03', '23USC037', '2023-10-16', 1, 2, 0, ''),
+(85, 'BSC03', '23USC038', '2023-10-16', 1, 2, 0, ''),
+(86, 'BSC03', '23USC039', '2023-10-16', 1, 2, 0, ''),
+(87, 'BSC03', '23USC040', '2023-10-16', 1, 2, 0, ''),
+(88, 'BSC03', '23USC041', '2023-10-16', 1, 2, 0, ''),
+(89, 'BSC03', '23USC042', '2023-10-16', 1, 2, 0, ''),
+(90, 'BSC03', '23USC043', '2023-10-16', 1, 2, 0, ''),
+(91, 'BSC03', '23USC044', '2023-10-16', 1, 2, 0, ''),
+(92, 'BSC03', '23USC045', '2023-10-16', 1, 2, 0, ''),
+(93, 'BSC03', '23USC046', '2023-10-16', 1, 2, 0, ''),
+(94, 'BSC03', '23USC047', '2023-10-16', 1, 2, 0, '');
 
 -- --------------------------------------------------------
 
@@ -53,7 +247,16 @@ CREATE TABLE `tblcourse` (
   `courseName` varchar(150) NOT NULL,
   `courseCode` varchar(20) NOT NULL,
   `AcadamicYear` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tblcourse`
+--
+
+INSERT INTO `tblcourse` (`id`, `Staffid`, `deptId`, `year`, `semester`, `courseName`, `courseCode`, `AcadamicYear`) VALUES
+(21, 'MCA01', 4, 'II', 'III', 'Open Source Application Development with Android/Content Management', '20PCA3EB2', '2023'),
+(22, 'BSC03', 2, 'I', 'I', 'Programming C', '23USC1C01', '2023'),
+(23, 'BSC03', 2, 'III', 'V', 'Web Technology', '20USC5C12', '2021');
 
 -- --------------------------------------------------------
 
@@ -70,7 +273,7 @@ CREATE TABLE `tbldayattendance` (
   `regno` varchar(20) NOT NULL,
   `date` date NOT NULL,
   `status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -82,7 +285,7 @@ CREATE TABLE `tbldepartment` (
   `id` mediumint(3) NOT NULL,
   `dname` varchar(100) NOT NULL,
   `Type` varchar(5) NOT NULL DEFAULT 'UG'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbldepartment`
@@ -97,7 +300,7 @@ INSERT INTO `tbldepartment` (`id`, `dname`, `Type`) VALUES
 (6, 'B.COM PA', 'UG'),
 (7, 'B.COM CA', 'UG'),
 (8, 'PGDCA', 'UG'),
-(9, 'Physical Education', 'UG'),
+(9, 'B.P.E', 'UG'),
 (10, 'MSW', 'PG');
 
 -- --------------------------------------------------------
@@ -113,8 +316,22 @@ CREATE TABLE `tblinternalexam` (
   `Type` varchar(4) NOT NULL,
   `Maxmark` mediumint(3) NOT NULL,
   `Convertmark` mediumint(3) NOT NULL,
-  `Year` varchar(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Year` varchar(4) NOT NULL,
+  `RowOrder` int(11) DEFAULT NULL,
+  `isActive` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tblinternalexam`
+--
+
+INSERT INTO `tblinternalexam` (`Code`, `CreatedBy`, `Name`, `Type`, `Maxmark`, `Convertmark`, `Year`, `RowOrder`, `isActive`) VALUES
+('BSC-2021', 'DEV_01', 'CIA Test', 'UG', 45, 15, 'III', 1, 1),
+('CIA01', 'DEV_01', 'CIA Test', 'PG', 45, 15, 'II', 1, 1),
+('INT-ASSIGNMENT', 'DEV_01', 'Assignment', 'UG', 10, 10, 'I', 3, 1),
+('INT-ATTENDANCE', 'DEV_01', 'Attendance', 'UG', 5, 5, 'I', 4, 1),
+('INT-CIA', 'DEV_01', 'CIA-TEST', 'UG', 45, 15, 'I', 1, 1),
+('INT-MODEL', 'DEV_01', 'Model Exam', 'UG', 75, 20, 'I', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +350,201 @@ CREATE TABLE `tblinternalmarks` (
   `CurrentMark` mediumint(3) NOT NULL,
   `FinalMark` varchar(3) NOT NULL,
   `CreatedBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tblinternalmarks`
+--
+
+INSERT INTO `tblinternalmarks` (`Id`, `ExamCode`, `DeptId`, `RegNo`, `Semester`, `Year`, `CourseCode`, `CurrentMark`, `FinalMark`, `CreatedBy`) VALUES
+(1, 'INT-CIA', 2, '23USC001', 'I', 'I', '23USC1C01', 19, '6', 'BSC03'),
+(2, 'INT-CIA', 2, '23USC002', 'I', 'I', '23USC1C01', 5, '2', 'BSC03'),
+(3, 'INT-CIA', 2, '23USC003', 'I', 'I', '23USC1C01', 11, '4', 'BSC03'),
+(4, 'INT-CIA', 2, '23USC004', 'I', 'I', '23USC1C01', 14, '5', 'BSC03'),
+(5, 'INT-CIA', 2, '23USC005', 'I', 'I', '23USC1C01', 13, '4', 'BSC03'),
+(6, 'INT-CIA', 2, '23USC006', 'I', 'I', '23USC1C01', 20, '7', 'BSC03'),
+(7, 'INT-CIA', 2, '23USC007', 'I', 'I', '23USC1C01', 17, '6', 'BSC03'),
+(8, 'INT-CIA', 2, '23USC008', 'I', 'I', '23USC1C01', 26, '9', 'BSC03'),
+(9, 'INT-CIA', 2, '23USC009', 'I', 'I', '23USC1C01', 5, '2', 'BSC03'),
+(10, 'INT-CIA', 2, '23USC010', 'I', 'I', '23USC1C01', 17, '6', 'BSC03'),
+(11, 'INT-CIA', 2, '23USC011', 'I', 'I', '23USC1C01', 6, '2', 'BSC03'),
+(12, 'INT-CIA', 2, '23USC012', 'I', 'I', '23USC1C01', 29, '10', 'BSC03'),
+(13, 'INT-CIA', 2, '23USC013', 'I', 'I', '23USC1C01', 33, '11', 'BSC03'),
+(14, 'INT-CIA', 2, '23USC014', 'I', 'I', '23USC1C01', 22, '7', 'BSC03'),
+(15, 'INT-CIA', 2, '23USC015', 'I', 'I', '23USC1C01', 9, '3', 'BSC03'),
+(16, 'INT-CIA', 2, '23USC016', 'I', 'I', '23USC1C01', 5, '2', 'BSC03'),
+(17, 'INT-CIA', 2, '23USC017', 'I', 'I', '23USC1C01', 24, '8', 'BSC03'),
+(18, 'INT-CIA', 2, '23USC018', 'I', 'I', '23USC1C01', 11, '4', 'BSC03'),
+(19, 'INT-CIA', 2, '23USC019', 'I', 'I', '23USC1C01', 11, '4', 'BSC03'),
+(20, 'INT-CIA', 2, '23USC020', 'I', 'I', '23USC1C01', 18, '6', 'BSC03'),
+(21, 'INT-CIA', 2, '23USC021', 'I', 'I', '23USC1C01', 13, '4', 'BSC03'),
+(22, 'INT-CIA', 2, '23USC022', 'I', 'I', '23USC1C01', 23, '8', 'BSC03'),
+(23, 'INT-CIA', 2, '23USC023', 'I', 'I', '23USC1C01', 12, '4', 'BSC03'),
+(24, 'INT-CIA', 2, '23USC024', 'I', 'I', '23USC1C01', 18, '6', 'BSC03'),
+(25, 'INT-CIA', 2, '23USC025', 'I', 'I', '23USC1C01', 28, '9', 'BSC03'),
+(26, 'INT-CIA', 2, '23USC026', 'I', 'I', '23USC1C01', 12, '4', 'BSC03'),
+(27, 'INT-CIA', 2, '23USC027', 'I', 'I', '23USC1C01', 24, '8', 'BSC03'),
+(28, 'INT-CIA', 2, '23USC028', 'I', 'I', '23USC1C01', 21, '7', 'BSC03'),
+(29, 'INT-CIA', 2, '23USC029', 'I', 'I', '23USC1C01', 12, '4', 'BSC03'),
+(30, 'INT-CIA', 2, '23USC030', 'I', 'I', '23USC1C01', 10, '3', 'BSC03'),
+(31, 'INT-CIA', 2, '23USC031', 'I', 'I', '23USC1C01', 12, '4', 'BSC03'),
+(32, 'INT-CIA', 2, '23USC032', 'I', 'I', '23USC1C01', 18, '6', 'BSC03'),
+(33, 'INT-CIA', 2, '23USC033', 'I', 'I', '23USC1C01', 20, '7', 'BSC03'),
+(34, 'INT-CIA', 2, '23USC034', 'I', 'I', '23USC1C01', 14, '5', 'BSC03'),
+(35, 'INT-CIA', 2, '23USC035', 'I', 'I', '23USC1C01', 9, '3', 'BSC03'),
+(36, 'INT-CIA', 2, '23USC036', 'I', 'I', '23USC1C01', 29, '10', 'BSC03'),
+(37, 'INT-CIA', 2, '23USC037', 'I', 'I', '23USC1C01', 8, '3', 'BSC03'),
+(38, 'INT-CIA', 2, '23USC038', 'I', 'I', '23USC1C01', 9, '3', 'BSC03'),
+(39, 'INT-CIA', 2, '23USC039', 'I', 'I', '23USC1C01', 7, '2', 'BSC03'),
+(40, 'INT-CIA', 2, '23USC040', 'I', 'I', '23USC1C01', 12, '4', 'BSC03'),
+(41, 'INT-CIA', 2, '23USC041', 'I', 'I', '23USC1C01', 32, '11', 'BSC03'),
+(42, 'INT-CIA', 2, '23USC042', 'I', 'I', '23USC1C01', 18, '6', 'BSC03'),
+(43, 'INT-CIA', 2, '23USC043', 'I', 'I', '23USC1C01', 18, '6', 'BSC03'),
+(44, 'INT-CIA', 2, '23USC044', 'I', 'I', '23USC1C01', 30, '10', 'BSC03'),
+(45, 'INT-CIA', 2, '23USC045', 'I', 'I', '23USC1C01', 15, '5', 'BSC03'),
+(46, 'INT-CIA', 2, '23USC046', 'I', 'I', '23USC1C01', 20, '7', 'BSC03'),
+(47, 'INT-CIA', 2, '23USC047', 'I', 'I', '23USC1C01', 9, '3', 'BSC03'),
+(48, 'INT-MODEL', 2, '23USC001', 'I', 'I', '23USC1C01', 12, '3', 'BSC03'),
+(49, 'INT-MODEL', 2, '23USC002', 'I', 'I', '23USC1C01', 34, '9', 'BSC03'),
+(50, 'INT-MODEL', 2, '23USC003', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(51, 'INT-MODEL', 2, '23USC004', 'I', 'I', '23USC1C01', 45, '12', 'BSC03'),
+(52, 'INT-MODEL', 2, '23USC005', 'I', 'I', '23USC1C01', 55, '15', 'BSC03'),
+(53, 'INT-MODEL', 2, '23USC006', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(54, 'INT-MODEL', 2, '23USC007', 'I', 'I', '23USC1C01', 55, '15', 'BSC03'),
+(55, 'INT-MODEL', 2, '23USC008', 'I', 'I', '23USC1C01', 66, '18', 'BSC03'),
+(56, 'INT-MODEL', 2, '23USC009', 'I', 'I', '23USC1C01', 55, '15', 'BSC03'),
+(57, 'INT-MODEL', 2, '23USC010', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(58, 'INT-MODEL', 2, '23USC011', 'I', 'I', '23USC1C01', 72, '19', 'BSC03'),
+(59, 'INT-MODEL', 2, '23USC012', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(60, 'INT-MODEL', 2, '23USC013', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(61, 'INT-MODEL', 2, '23USC014', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(62, 'INT-MODEL', 2, '23USC015', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(63, 'INT-MODEL', 2, '23USC016', 'I', 'I', '23USC1C01', 66, '18', 'BSC03'),
+(64, 'INT-MODEL', 2, '23USC017', 'I', 'I', '23USC1C01', 54, '14', 'BSC03'),
+(65, 'INT-MODEL', 2, '23USC018', 'I', 'I', '23USC1C01', 34, '9', 'BSC03'),
+(66, 'INT-MODEL', 2, '23USC019', 'I', 'I', '23USC1C01', 43, '11', 'BSC03'),
+(67, 'INT-MODEL', 2, '23USC020', 'I', 'I', '23USC1C01', 34, '9', 'BSC03'),
+(68, 'INT-MODEL', 2, '23USC021', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(69, 'INT-MODEL', 2, '23USC022', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(70, 'INT-MODEL', 2, '23USC023', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(71, 'INT-MODEL', 2, '23USC024', 'I', 'I', '23USC1C01', 32, '9', 'BSC03'),
+(72, 'INT-MODEL', 2, '23USC025', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(73, 'INT-MODEL', 2, '23USC026', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(74, 'INT-MODEL', 2, '23USC027', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(75, 'INT-MODEL', 2, '23USC028', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(76, 'INT-MODEL', 2, '23USC029', 'I', 'I', '23USC1C01', 43, '11', 'BSC03'),
+(77, 'INT-MODEL', 2, '23USC030', 'I', 'I', '23USC1C01', 34, '9', 'BSC03'),
+(78, 'INT-MODEL', 2, '23USC031', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(79, 'INT-MODEL', 2, '23USC032', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(80, 'INT-MODEL', 2, '23USC033', 'I', 'I', '23USC1C01', 22, '6', 'BSC03'),
+(81, 'INT-MODEL', 2, '23USC034', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(82, 'INT-MODEL', 2, '23USC035', 'I', 'I', '23USC1C01', 34, '9', 'BSC03'),
+(83, 'INT-MODEL', 2, '23USC036', 'I', 'I', '23USC1C01', 32, '9', 'BSC03'),
+(84, 'INT-MODEL', 2, '23USC037', 'I', 'I', '23USC1C01', 22, '6', 'BSC03'),
+(85, 'INT-MODEL', 2, '23USC038', 'I', 'I', '23USC1C01', 22, '6', 'BSC03'),
+(86, 'INT-MODEL', 2, '23USC039', 'I', 'I', '23USC1C01', 3, '1', 'BSC03'),
+(87, 'INT-MODEL', 2, '23USC040', 'I', 'I', '23USC1C01', 44, '12', 'BSC03'),
+(88, 'INT-MODEL', 2, '23USC041', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(89, 'INT-MODEL', 2, '23USC042', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(90, 'INT-MODEL', 2, '23USC043', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(91, 'INT-MODEL', 2, '23USC044', 'I', 'I', '23USC1C01', 33, '9', 'BSC03'),
+(92, 'INT-MODEL', 2, '23USC045', 'I', 'I', '23USC1C01', 22, '6', 'BSC03'),
+(93, 'INT-MODEL', 2, '23USC046', 'I', 'I', '23USC1C01', 45, '12', 'BSC03'),
+(94, 'INT-MODEL', 2, '23USC047', 'I', 'I', '23USC1C01', 55, '15', 'BSC03'),
+(95, 'INT-ASSIGNMENT', 2, '23USC001', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(96, 'INT-ASSIGNMENT', 2, '23USC002', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(97, 'INT-ASSIGNMENT', 2, '23USC003', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(98, 'INT-ASSIGNMENT', 2, '23USC004', 'I', 'I', '23USC1C01', 6, '6', 'BSC03'),
+(99, 'INT-ASSIGNMENT', 2, '23USC005', 'I', 'I', '23USC1C01', 7, '7', 'BSC03'),
+(100, 'INT-ASSIGNMENT', 2, '23USC006', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(101, 'INT-ASSIGNMENT', 2, '23USC007', 'I', 'I', '23USC1C01', 7, '7', 'BSC03'),
+(102, 'INT-ASSIGNMENT', 2, '23USC008', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(103, 'INT-ASSIGNMENT', 2, '23USC009', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(104, 'INT-ASSIGNMENT', 2, '23USC010', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(105, 'INT-ASSIGNMENT', 2, '23USC011', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(106, 'INT-ASSIGNMENT', 2, '23USC012', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(107, 'INT-ASSIGNMENT', 2, '23USC013', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(108, 'INT-ASSIGNMENT', 2, '23USC014', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(109, 'INT-ASSIGNMENT', 2, '23USC015', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(110, 'INT-ASSIGNMENT', 2, '23USC016', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(111, 'INT-ASSIGNMENT', 2, '23USC017', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(112, 'INT-ASSIGNMENT', 2, '23USC018', 'I', 'I', '23USC1C01', 7, '7', 'BSC03'),
+(113, 'INT-ASSIGNMENT', 2, '23USC019', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(114, 'INT-ASSIGNMENT', 2, '23USC020', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(115, 'INT-ASSIGNMENT', 2, '23USC021', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(116, 'INT-ASSIGNMENT', 2, '23USC022', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(117, 'INT-ASSIGNMENT', 2, '23USC023', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(118, 'INT-ASSIGNMENT', 2, '23USC024', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(119, 'INT-ASSIGNMENT', 2, '23USC025', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(120, 'INT-ASSIGNMENT', 2, '23USC026', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(121, 'INT-ASSIGNMENT', 2, '23USC027', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(122, 'INT-ASSIGNMENT', 2, '23USC028', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(123, 'INT-ASSIGNMENT', 2, '23USC029', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(124, 'INT-ASSIGNMENT', 2, '23USC030', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(125, 'INT-ASSIGNMENT', 2, '23USC031', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(126, 'INT-ASSIGNMENT', 2, '23USC032', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(127, 'INT-ASSIGNMENT', 2, '23USC033', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(128, 'INT-ASSIGNMENT', 2, '23USC034', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(129, 'INT-ASSIGNMENT', 2, '23USC035', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(130, 'INT-ASSIGNMENT', 2, '23USC036', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(131, 'INT-ASSIGNMENT', 2, '23USC037', 'I', 'I', '23USC1C01', 8, '8', 'BSC03'),
+(132, 'INT-ASSIGNMENT', 2, '23USC038', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(133, 'INT-ASSIGNMENT', 2, '23USC039', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(134, 'INT-ASSIGNMENT', 2, '23USC040', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(135, 'INT-ASSIGNMENT', 2, '23USC041', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(136, 'INT-ASSIGNMENT', 2, '23USC042', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(137, 'INT-ASSIGNMENT', 2, '23USC043', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(138, 'INT-ASSIGNMENT', 2, '23USC044', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(139, 'INT-ASSIGNMENT', 2, '23USC045', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(140, 'INT-ASSIGNMENT', 2, '23USC046', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(141, 'INT-ASSIGNMENT', 2, '23USC047', 'I', 'I', '23USC1C01', 9, '9', 'BSC03'),
+(142, 'INT-ATTENDANCE', 2, '23USC001', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(143, 'INT-ATTENDANCE', 2, '23USC002', 'I', 'I', '23USC1C01', 5, '5', 'BSC03'),
+(144, 'INT-ATTENDANCE', 2, '23USC003', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(145, 'INT-ATTENDANCE', 2, '23USC004', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(146, 'INT-ATTENDANCE', 2, '23USC005', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(147, 'INT-ATTENDANCE', 2, '23USC006', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(148, 'INT-ATTENDANCE', 2, '23USC007', 'I', 'I', '23USC1C01', 0, '0', 'BSC03'),
+(149, 'INT-ATTENDANCE', 2, '23USC008', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(150, 'INT-ATTENDANCE', 2, '23USC009', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(151, 'INT-ATTENDANCE', 2, '23USC010', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(152, 'INT-ATTENDANCE', 2, '23USC011', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(153, 'INT-ATTENDANCE', 2, '23USC012', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(154, 'INT-ATTENDANCE', 2, '23USC013', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(155, 'INT-ATTENDANCE', 2, '23USC014', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(156, 'INT-ATTENDANCE', 2, '23USC015', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(157, 'INT-ATTENDANCE', 2, '23USC016', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(158, 'INT-ATTENDANCE', 2, '23USC017', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(159, 'INT-ATTENDANCE', 2, '23USC018', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(160, 'INT-ATTENDANCE', 2, '23USC019', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(161, 'INT-ATTENDANCE', 2, '23USC020', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(162, 'INT-ATTENDANCE', 2, '23USC021', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(163, 'INT-ATTENDANCE', 2, '23USC022', 'I', 'I', '23USC1C01', 1, '1', 'BSC03'),
+(164, 'INT-ATTENDANCE', 2, '23USC023', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(165, 'INT-ATTENDANCE', 2, '23USC024', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(166, 'INT-ATTENDANCE', 2, '23USC025', 'I', 'I', '23USC1C01', 1, '1', 'BSC03'),
+(167, 'INT-ATTENDANCE', 2, '23USC026', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(168, 'INT-ATTENDANCE', 2, '23USC027', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(169, 'INT-ATTENDANCE', 2, '23USC028', 'I', 'I', '23USC1C01', 1, '1', 'BSC03'),
+(170, 'INT-ATTENDANCE', 2, '23USC029', 'I', 'I', '23USC1C01', 1, '1', 'BSC03'),
+(171, 'INT-ATTENDANCE', 2, '23USC030', 'I', 'I', '23USC1C01', 1, '1', 'BSC03'),
+(172, 'INT-ATTENDANCE', 2, '23USC031', 'I', 'I', '23USC1C01', 1, '1', 'BSC03'),
+(173, 'INT-ATTENDANCE', 2, '23USC032', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(174, 'INT-ATTENDANCE', 2, '23USC033', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(175, 'INT-ATTENDANCE', 2, '23USC034', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(176, 'INT-ATTENDANCE', 2, '23USC035', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(177, 'INT-ATTENDANCE', 2, '23USC036', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(178, 'INT-ATTENDANCE', 2, '23USC037', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(179, 'INT-ATTENDANCE', 2, '23USC038', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(180, 'INT-ATTENDANCE', 2, '23USC039', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(181, 'INT-ATTENDANCE', 2, '23USC040', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(182, 'INT-ATTENDANCE', 2, '23USC041', 'I', 'I', '23USC1C01', 2, '2', 'BSC03'),
+(183, 'INT-ATTENDANCE', 2, '23USC042', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(184, 'INT-ATTENDANCE', 2, '23USC043', 'I', 'I', '23USC1C01', 3, '3', 'BSC03'),
+(185, 'INT-ATTENDANCE', 2, '23USC044', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(186, 'INT-ATTENDANCE', 2, '23USC045', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(187, 'INT-ATTENDANCE', 2, '23USC046', 'I', 'I', '23USC1C01', 4, '4', 'BSC03'),
+(188, 'INT-ATTENDANCE', 2, '23USC047', 'I', 'I', '23USC1C01', 3, '3', 'BSC03');
 
 -- --------------------------------------------------------
 
@@ -148,7 +559,7 @@ CREATE TABLE `tbllateattendance` (
   `semester` varchar(5) NOT NULL,
   `year` varchar(5) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -160,7 +571,7 @@ CREATE TABLE `tblroles` (
   `Id` mediumint(3) NOT NULL,
   `Description` varchar(250) NOT NULL,
   `is_Active` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblroles`
@@ -206,7 +617,7 @@ CREATE TABLE `tblstudent` (
   `pincode` varchar(10) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `nationality` varchar(255) NOT NULL DEFAULT 'India'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblstudent`
@@ -1403,7 +1814,7 @@ CREATE TABLE `tbltimetable` (
   `SubjectCore` varchar(150) NOT NULL,
   `DayOrder` mediumint(2) NOT NULL,
   `SubjectHour` mediumint(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -1426,14 +1837,16 @@ CREATE TABLE `tblusers` (
   `dor` date NOT NULL,
   `roleId` mediumint(3) NOT NULL,
   `deptid` mediumint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblusers`
 --
 
 INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullname`, `phone`, `gender`, `dob`, `age`, `doj`, `dor`, `roleId`, `deptid`) VALUES
-(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'Administrator', '0000000000', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4);
+(1, 'DEV_01', 'admin', 'MTIzNDU2Nzg=', 'admin@rmv.ac.in', 'Administrator', '0000000000', 'male', '1990-03-17', 33, '2023-06-01', '0000-00-00', 1, 4),
+(8, 'MCA01', 'chandran', 'Y2hhbmRyYW4=', 'onchandran@gmail.com', 'Dr.M.Chandran', '9894326150', 'male', '1980-05-15', 43, '2006-12-05', '0000-00-00', 2, 4),
+(9, 'BSC03', 'soundarraj', 'OTc4OTEzNTMzMg==', 'soundarraj28@gmail.com', 'Dr.K.Soundarraj', '9789135332', 'male', '1987-04-28', 36, '2010-07-07', '0000-00-00', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -1444,26 +1857,28 @@ INSERT INTO `tblusers` (`Id`, `EmpId`, `username`, `password`, `email`, `fullnam
 CREATE TABLE `tblusersrights` (
   `Id` mediumint(3) NOT NULL,
   `EmpId` varchar(50) NOT NULL,
-  `permission` tinyint(1) NOT NULL DEFAULT '0',
-  `addstudent` tinyint(1) NOT NULL DEFAULT '0',
+  `permission` tinyint(1) NOT NULL DEFAULT 0,
+  `addstudent` tinyint(1) NOT NULL DEFAULT 0,
   `updatestudent` tinyint(1) NOT NULL,
-  `addcourse` tinyint(1) NOT NULL DEFAULT '0',
-  `updatecourse` tinyint(1) NOT NULL DEFAULT '0',
-  `addtimetable` tinyint(1) NOT NULL DEFAULT '0',
-  `updatetimetable` tinyint(1) NOT NULL DEFAULT '0',
-  `bulkattendance` tinyint(1) NOT NULL DEFAULT '0',
-  `attendancereport` tinyint(1) NOT NULL DEFAULT '0',
-  `lateAttendance` int(1) NOT NULL DEFAULT '0',
+  `addcourse` tinyint(1) NOT NULL DEFAULT 0,
+  `updatecourse` tinyint(1) NOT NULL DEFAULT 0,
+  `addtimetable` tinyint(1) NOT NULL DEFAULT 0,
+  `updatetimetable` tinyint(1) NOT NULL DEFAULT 0,
+  `bulkattendance` tinyint(1) NOT NULL DEFAULT 0,
+  `attendancereport` tinyint(1) NOT NULL DEFAULT 0,
+  `lateAttendance` int(1) NOT NULL DEFAULT 0,
   `CreatedBy` varchar(50) NOT NULL,
   `ModifyBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblusersrights`
 --
 
 INSERT INTO `tblusersrights` (`Id`, `EmpId`, `permission`, `addstudent`, `updatestudent`, `addcourse`, `updatecourse`, `addtimetable`, `updatetimetable`, `bulkattendance`, `attendancereport`, `lateAttendance`, `CreatedBy`, `ModifyBy`) VALUES
-(1, 'DEV_01', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'DEV_01', 'DEV_01');
+(1, 'DEV_01', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'DEV_01', 'DEV_01'),
+(4, 'MCA01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'DEV_01', 'DEV_01'),
+(5, 'BSC03', 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 'BSC03', '');
 
 --
 -- Indexes for dumped tables
@@ -1568,13 +1983,13 @@ ALTER TABLE `tblusersrights`
 -- AUTO_INCREMENT for table `tblattendance`
 --
 ALTER TABLE `tblattendance`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbldayattendance`
@@ -1592,7 +2007,7 @@ ALTER TABLE `tbldepartment`
 -- AUTO_INCREMENT for table `tblinternalmarks`
 --
 ALTER TABLE `tblinternalmarks`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `tbllateattendance`
@@ -1622,13 +2037,13 @@ ALTER TABLE `tbltimetable`
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tblusersrights`
 --
 ALTER TABLE `tblusersrights`
-  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` mediumint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
