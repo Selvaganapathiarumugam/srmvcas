@@ -70,7 +70,19 @@
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="padding-base">
-                        <div class="card" id="mycard" style="display:none;">
+                        <div class="card" id="mycard">
+                            <div class="card-body">
+                                <center><img src="../images/exam.png" width="60px" height="61px"/><center>
+                                <div class="margin-top-base">
+                                    <a href="./inernalfinalug.php" class="btn btn-primary btn-sm"><i class="fa-solid fa-forward " style="color: #fff;margin-right:4px;"></i>Internal Final UG</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="padding-base">
+                        <div class="card" id="mycard">
                             <div class="card-body">
                                 <center><img src="../images/exam.png" width="60px" height="61px"/><center>
                                 <div class="margin-top-base">

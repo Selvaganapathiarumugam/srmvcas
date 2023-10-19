@@ -10,9 +10,10 @@
     $ie_year =  trim($_POST['ie_year']);
     $ie_mmark =  trim($_POST['ie_mmark']);
     $ie_cmark =  trim($_POST['ie_cmark']);
+    $ie_order =  trim($_POST['ie_Order']);
     $Author=$_SESSION['EmpId'];
-    $SQL="insert into tblinternalexam (code,Name,Type,Maxmark,Convertmark,year,CreatedBy) 
-    values('".$ie_code."','". $ie_name ."','". $ie_type ."',$ie_mmark ,$ie_cmark,'".$ie_year."','".$Author."');";
+    $SQL="insert into tblinternalexam (code,Name,Type,Maxmark,Convertmark,year,CreatedBy,RowOrder) 
+    values('".$ie_code."','". $ie_name ."','". $ie_type ."',$ie_mmark ,$ie_cmark,'".$ie_year."','".$Author."',$ie_order);";
    // echo $SQL;Die();
  
     if (mysqli_query($conn, $SQL)) {

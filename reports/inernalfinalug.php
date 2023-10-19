@@ -1,7 +1,11 @@
 <?php
+    ob_start();
+    session_start();
+   // error_reporting(0); 
     include('../connect.php');
 
-    $all_query = mysqli_query($conn,"SELECT * from tbldepartment ORDER BY id asc");
+    $all_query = mysqli_query($conn,"SELECT * from tbldepartment 
+    where Type ='UG' ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
     {
@@ -21,25 +25,32 @@
         "II" => "II",
         "III" => "III"
     );
-    $all_query = mysqli_query($conn,"SELECT courseCode from tblcourse ORDER BY id asc");
+    $EmpId=$_SESSION["EmpId"];
+    $sql="SELECT courseCode,courseName from tblcourse where StaffId='".$EmpId."' ORDER BY id asc";
+    $all_query = mysqli_query($conn,$sql);
+
+   
     $lstCourse=array();
     while ($row = mysqli_fetch_array($all_query)) 
     {
         $lstCourse[] = $row;
     }
+    $opDept="";
+    $opSem="";
+    $opYear="";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <?php include('../links.php'); ?>
-    <title>Internal Marks</title>
+    <title>Internal Marks UG</title>
 </head>
-<body>
+<body class="ovflow-y">
     <div  id="header">
         <div class="row">
             <div class="col-md-3">
-                <p id="headerUser">Internal Mark Report</p>
+                <p id="headerUser">Internal Mark UG</p>
             </div>
             <div class="col-md-6">
                 <center><h3 id="clgname">Sri Ramakirshna Mission Vidyalaya College Of Arts And Science - Coimbatore 641020</h3></center>
@@ -51,7 +62,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="margin-top-base" >
-                            <a href="../index.php" class="btn btn-primary btn-sm" style="color: #fff;">
+                            <a href="./index.php" class="btn btn-primary btn-sm" style="color: #fff;">
                                 <i class="fa-solid fa-backward"></i> 
                                 <b>BACK</b>
                             </a>
@@ -91,7 +102,7 @@
                             foreach ($lstCourse as $value => $label) 
                             {
                                 $selected = ($opDept == $label['courseCode']) ? "selected" : "";
-                                echo "<option value=\"{$label['courseCode']}\" $selected>{$label['courseCode']}</option>";
+                                echo "<option value=\"{$label['courseCode']}\" $selected>{$label['courseName']}</option>";
                             }
                         ?>
                     </select>
@@ -99,24 +110,6 @@
                         $(document).ready(function() {
                             var selectedValue = "<?php echo $opDept; ?>";
                             $("#ri_course").val(selectedValue);
-                        });
-                    </script>
-                </div>
-                <div class="col-md-2">
-                    <label for="input1" class="form-label">Semester </label>
-                    <select class="form-select" name="ri_semester" id="ri_semester"
-                            placeholder="Select the Semester" required  autocomplete="off">
-                        <?php
-                            foreach ($lstSemester as $value => $label) {
-                            $selected = ($opSem == $value) ? "selected" : "";
-                            echo "<option value=\"$value\" $selected>$label</option>";
-                            }
-                        ?>
-                    </select>
-                    <script>
-                        $(document).ready(function() {
-                            var selectedValue = "<?php echo $opSem; ?>";
-                           $("#ri_semester").val(selectedValue);
                         });
                     </script>
                 </div>
@@ -138,6 +131,25 @@
                         });
                     </script>
                 </div>
+                <div class="col-md-2">
+                    <label for="input1" class="form-label">Semester </label>
+                    <select class="form-select" name="ri_semester" id="ri_semester"
+                            placeholder="Select the Semester" required  autocomplete="off">
+                        <?php
+                            foreach ($lstSemester as $value => $label) {
+                            $selected = ($opSem == $value) ? "selected" : "";
+                            echo "<option value=\"$value\" $selected>$label</option>";
+                            }
+                        ?>
+                    </select>
+                    <script>
+                        $(document).ready(function() {
+                            var selectedValue = "<?php echo $opSem; ?>";
+                           $("#ri_semester").val(selectedValue);
+                        });
+                    </script>
+                </div>
+               
                 <div class="col-md-2 col-lg-2">
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-sm"  tabindex="5"  id="btnGet" value="Get Report" 
@@ -155,10 +167,10 @@
                         </div>
                     </div>
                     <div id="printAre">
-                        <div class="row" >
+                        <div class="row"style="margin-top:10px;" >
                             <div class="col-md-5"></div>
                             <div class="col-md-1">
-                                <img src="../images/favicon/192x192.png" width="60px" height="60px" alt="logo" />
+                                <img src="../images/favicon/192x192.png"   width="60px" height="60px" alt="logo" />
                             </div>
                             <div class="col-md-5"></div>
                         </div>
@@ -220,13 +232,14 @@
                                 <table id="tblMark" class="table table-bordered " style="font-size:9px;font-weight:600;">
                                     <thead>
                                         <tr>
-                                            <td rowspan='2'>S.NO</td>
+                                            <td STYLE='text-align:center;' rowspan='2'>S.NO</td>
                                             <td rowspan='2'>Register Number</td>
-                                            <td colspan="2">CIA</td>
-                                            <td colspan="2">Model </td>
-                                            <td>Assignment</td>
-                                            <td>Attendance</td>
-                                            <td rowspan='2'>Marks For 50 </td>
+                                            <td STYLE='text-align:center;' colspan="2">CIA</td>
+                                            <td STYLE='text-align:center;' colspan="2">Model </td>
+                                            <td STYLE='text-align:center;' >Assignment</td>
+                                            <td STYLE='text-align:center;'>Attendance</td>
+                                            <td STYLE='text-align:center;' rowspan='2'>Marks For 50 </td>
+                                            <td STYLE='text-align:center;' id="UG1" rowspan='2'>Marks For 25 </td>
                                         </tr>
                                         <tr>
                                             <td>45</td>
@@ -265,6 +278,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#rpInternal').hide();
+        $('#UG1').hide();
         $('#btnGet').click(function(e) {
             $('#rpInternal').show();
             e.preventDefault(); 
@@ -273,7 +287,7 @@
             var year = $('#ri_year').val();
             var course = $('#ri_course').val();
             $.ajax({
-                url: './data/internal_PG.php',
+                url: './data/internal_UG.php',
                 method: 'POST',
                 data: { 
                     departmentId: departmentId,
@@ -282,22 +296,42 @@
                     course:course
                 },
                 success: function(data) {
+                    //console.log(data);
                     $('#lblDepartment').text(data.data[0].dname);
-                    $('#lblCourseName').text(data.data[0].courseName);
+                    $('#lblCourseName').text(data.data[0].coursename);
                     $('#lblYear').text(data.data[0].Year);
                     $('#lblSemester').text(data.data[0].Semester);
                     $('#lblCourseCode').text(data.data[0].CourseCode);
                     var content="";
+                    
                     for(var i=0;i<data.totalrecords;i++)
                         {
-                            var CIA = data.data[i].EX01==null?0:data.data[i].C;
-                            var CIAT = data.data[i].EX01==null?0:data.data[i].T;
-                            var MODEL = data.data[i].EX03==null?0:data.data[i].C;
-                            var MODELT = data.data[i].EX03==null?0:data.data[i].T;
-                            var Assignment=data.data[i].EX04==null?0:data.data[i].C;
-                            var attendance=data.data[i].EX05==null?0:data.data[i].T;
+                            var CIA = data.data[i].Code1==null?0:data.data[i].Code1;
+                            var CIAT = data.data[i].Total1==null?0:data.data[i].Total1;
+                            var MODEL = data.data[i].Code2==null?0:data.data[i].Code2;
+                            var MODELT = data.data[i].Total2==null?0:data.data[i].Total2;
+                            var Assignment=data.data[i].Code3==null?0:data.data[i].Code3;
+                            var attendance=data.data[i].Code4==null?0:data.data[i].Code4;
                             var total=parseInt(CIAT, 10)+parseInt(MODELT, 10)+parseInt(Assignment, 10)+parseInt(attendance, 10);
-                            contentM="<tr>"+
+                            var newregNo = parseInt(data.data[i].RegNo.substr(0, 2), 10); 
+                            var newTot=parseInt(total, 10)/2;
+                            if (newregNo >= 23) {
+                                $('#UG1').show();
+                                contentM="<tr>"+
+                                        "<td STYLE='text-align:center;'>"+ (i+1) +"</td>"+
+                                        "<td>"+ data.data[i].RegNo +"</td>"+
+                                        "<td STYLE='text-align:center;'>"+ CIA +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ CIAT +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ MODEL +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ MODELT +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ Assignment +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ attendance +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ total +"</td>"+
+                                        "<td STYLE='text-align:center;' >"+ newTot +"</td>"+
+                                        "</tr>";
+                            } 
+                            else{
+                                contentM="<tr>"+
                                         "<td>"+ (i+1) +"</td>"+
                                         "<td>"+ data.data[i].RegNo +"</td>"+
                                         "<td>"+ CIA +"</td>"+
@@ -308,6 +342,8 @@
                                         "<td>"+ attendance +"</td>"+
                                         "<td>"+ total +"</td>"+
                                         "</tr>";
+                            }
+                            
                            content=content+contentM;
                            
                         }
@@ -330,7 +366,7 @@
             </head>
             <body onload='window.print();'><div class='container'>${printContent}</div></body></html>`;
 
-            console.log(htmlContent);
+           // console.log(htmlContent);
             var tableWindow = window.open("", "Table Print");
             tableWindow.document.write(htmlContent);
             tableWindow.document.close();

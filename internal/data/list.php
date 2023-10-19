@@ -3,7 +3,7 @@
     
     $SQL="SELECT ie.*,u.fullname from tblinternalexam ie
           inner join tblusers u on u.EmpId = ie.CreatedBy 
-          ORDER BY ie.Code asc ";
+          ORDER BY ie.Type,ie.Year,ie.RowOrder asc ";
     $result = mysqli_query($conn,$SQL);
     $array = array();
     while($row = mysqli_fetch_array($result)) 

@@ -1,7 +1,7 @@
 <?php
     ob_start();
     session_start();
-    error_reporting(0); 
+    //error_reporting(0); 
     include('../connect.php');
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
@@ -11,11 +11,27 @@
         "II" => "II",
         "III" => "III"
     );
+    $ie_code = "";
+    $ie_name = "";
+    $Type ="";
+    //echo $Type;die();
+    $typeug = "";
+    $typepg = "";
+    //echo $typepg;die();
+
+    $ie_mmark = "";
+
+    $opYear ="";
+    $ie_cmark = '';
+    $ie_Order="";
+    $isActive = "";
+    $ie_isActive="";
+    $id="";
    //--------------------------------Update-------------------------------
    if(isset($_REQUEST["id"]))
    {
        $id=$_REQUEST['id'];
-       $SQL="SELECT Code,Name,Type,Maxmark,Year,Convertmark from tblinternalexam
+       $SQL="SELECT Code,Name,Type,Maxmark,Year,Convertmark,RowOrder,isActive from tblinternalexam
                WHERE Code='".$_REQUEST["id"]."'";
        $result = mysqli_query($conn,$SQL);
        while($row = mysqli_fetch_array($result)) 
@@ -32,10 +48,13 @@
 
            $opYear = $row['Year'];
            $ie_cmark = $row['Convertmark'];
-        
+           $ie_Order=$row['RowOrder'];
+           $isActive = $row['isActive'];
+           $ie_isActive=$isActive == 1 ? 'checked' : " ";
            $id=$row['Code'];
        }
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +138,10 @@
                                                 <input type="radio" name="ie_type" tabindex="3" value="PG" <?php echo $typepg; ?>  />
                                                 <label>PG</label><br>
                                             </div>
-                                            <div class="col-md-6"></div>
+                                            <div class="col-md-6">
+                                                <input type="radio" name="ie_isActive" tabindex="4" value="0" <?php echo $ie_isActive; ?>  />
+                                                <label>isActive</label><br>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -131,8 +153,8 @@
                                     <div class="col-md-4 col-lg-4">
                                         <label for="input1" class=" form-label">Year</label>
                                     </div> 
-                                    <div class="col-md-8 col-lg-8">
-                                        <select class="form-select" tabindex="4" name="ie_year" id="ie_year"
+                                    <div class="col-md-4 col-lg-4">
+                                        <select class="form-select" tabindex="5" name="ie_year" id="ie_year"
                                             placeholder="Select the Year" required  autocomplete="off" >
                                             <?php
                                                 foreach ($lstYear as $value => $label) {
@@ -157,9 +179,9 @@
                                     <div class="col-md-4 col-lg-4">
                                         <label for="input1" class=" form-label"> Max Mark</label>
                                     </div> 
-                                    <div class="col-md-8 col-lg-8">
+                                    <div class="col-md-4 col-lg-4">
                                         <input type="number" id="ie_mmark" name="ie_mmark" class="form-control" required
-                                        tabindex="5" value="<?php echo $ie_mmark; ?>" autocomplete="off" />
+                                        tabindex="6" value="<?php echo $ie_mmark; ?>" autocomplete="off" />
                                     </div>
                                 </div>
                             </div>
@@ -170,13 +192,18 @@
                                     <div class="col-md-4 col-lg-4">
                                         <label for="input1" class=" form-label"> Convert Mark</label>
                                     </div> 
-                                    <div class="col-md-8 col-lg-8">
+                                    <div class="col-md-4 col-lg-4">
                                         <input type="number" id="ie_cmark" name="ie_cmark" class="form-control" required
-                                        tabindex="6" value="<?php echo $ie_cmark; ?>" autocomplete="off" />
+                                        tabindex="7" value="<?php echo $ie_cmark; ?>" autocomplete="off" />
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <input type="text" readonly id="ie_Order" name="ie_Order" class="form-control" required
+                                        tabindex="8" value="<?php echo $ie_Order; ?>" autocomplete="off" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
                             <div class="margin-top-base">
                                 <div class="row">
@@ -203,6 +230,29 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#ie_year').on('change', function() {
+                var selectedOption = $(this).val();
+                var type = $("input[name='ie_type']:checked").val();
+                $.ajax({
+                    type: "POST",
+                    url: "./data/findOrder.php",
+                    data: { 
+                        type: type,
+                        year: selectedOption
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.error) 
+                        {
+                            swal(response,{ icon: "warning",});
+                        } 
+                        else
+                        {
+                            $('#ie_Order').val(response);              
+                        }
+                    }
+                });
+            });
             $('#frmIE').submit(function(e) {
                 e.preventDefault(); 
                 var formData = $(this).serialize();
@@ -280,6 +330,10 @@
                 }
             });
         });
+        // $('#ie_Year').on('change', function() {
+        //     
+        //     alert(type);
+        // });
     </script>
 </body>
 </html>
