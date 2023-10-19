@@ -6,7 +6,6 @@
     if(!isset($_SESSION['Username'])) {
         header("Location:../login.php");
     }
-
     $all_query = mysqli_query($conn,"SELECT * from tbldepartment ORDER BY id asc");
     $lstDepartment=array();
     while ($row = mysqli_fetch_array($all_query)) 
@@ -40,6 +39,9 @@
     {
         $lstCourse[] = $row;
     }
+    $opDept="";
+    $opSem="";
+    $opYear="";
     $opDept="";
     $opSem="";
     $opYear="";
